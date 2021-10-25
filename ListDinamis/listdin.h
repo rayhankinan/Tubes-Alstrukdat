@@ -157,7 +157,7 @@ void insertLast(ListDin *l, ElType val);
 /* ********** MENGHAPUS ELEMEN ********** */
 void deleteLast(ListDin *l, ElType *val);
 /* Proses : Menghapus elemen terakhir list */
-/* I.S. List lidak kosong */
+/* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
 /*      Banyaknya elemen list berkurang satu */
 /*      List l mungkin menjadi kosong */
