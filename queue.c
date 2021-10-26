@@ -1,10 +1,4 @@
-/*
-NIM                 : 13520065
-Nama                : Rayhan Kinan Muhannad
-Tanggal             : 3 Oktober 2021
-Topik Praktikum     : ADT Queue
-Deskripsi           : Definisi fungsi dan prosedur ADT Queue
-*/
+/* ADT Queue*/
 
 #include <stdio.h>
 #include "queue.h"
@@ -20,46 +14,46 @@ void CreateQueue(Queue *q)
     /* KAMUS */
 
     /* ALGORITMA */
-    IDX_HEAD(*q) = IDX_UNDEF;
-    IDX_TAIL(*q) = IDX_UNDEF;
+    IDX_HEAD_QUEUE(*q) = IDX_UNDEF_QUEUE;
+    IDX_TAIL_QUEUE(*q) = IDX_UNDEF_QUEUE;
 }
 
 /* ********* Prototype ********* */
-boolean isEmpty(Queue q)
+boolean isEmptyQueue(Queue q)
 /* Mengirim true jika q kosong: lihat definisi di atas */
 {
     /* KAMUS */
 
     /* ALGORITMA */
-    return ((IDX_HEAD(q) == IDX_UNDEF) && (IDX_TAIL(q) == IDX_UNDEF));
+    return ((IDX_HEAD_QUEUE(q) == IDX_UNDEF_QUEUE) && (IDX_TAIL_QUEUE(q) == IDX_UNDEF_QUEUE));
 }
-boolean isFull(Queue q)
+boolean isFullQueue(Queue q)
 /* Mengirim true jika tabel penampung elemen q sudah penuh */
 /* yaitu jika index head bernilai 0 dan index tail bernilai CAPACITY-1 */
 {
     /* KAMUS */
 
     /* ALGORITMA */
-    return ((IDX_HEAD(q) == 0) && (IDX_TAIL(q) == CAPACITY - 1));
+    return ((IDX_HEAD_QUEUE(q) == 0) && (IDX_TAIL_QUEUE(q) == CAPACITY_QUEUE - 1));
 }
-int length(Queue q)
+int lengthQueue(Queue q)
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
 {
     /* KAMUS */
     int N;
 
     /* ALGORITMA */
-    if (isEmpty(q)) {
+    if (isEmptyQueue(q)) {
         N = 0;
     } else {
-        N = IDX_TAIL(q) - IDX_HEAD(q) + 1;
+        N = IDX_TAIL_QUEUE(q) - IDX_HEAD_QUEUE(q) + 1;
     }
 
     return N;
 }
 
 /* *** Primitif Add/Delete *** */
-void enqueue(Queue *q, ElType val)
+void enqueue(Queue *q, ElTypeQueue val)
 /* Proses: Menambahkan val pada q dengan aturan FIFO */
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur".
@@ -70,23 +64,23 @@ void enqueue(Queue *q, ElType val)
     int i;
 
     /* ALGORITMA */
-    if (isEmpty(*q)) {
-        IDX_HEAD(*q) = 0;
-        IDX_TAIL(*q) = 0;
+    if (isEmptyQueue(*q)) {
+        IDX_HEAD_QUEUE(*q) = 0;
+        IDX_TAIL_QUEUE(*q) = 0;
     } else {
-        if ((IDX_TAIL(*q) == CAPACITY - 1)) {
-            for (i = IDX_HEAD(*q); i <= IDX_TAIL(*q); i++) {
-                q->buffer[i - IDX_HEAD(*q)] = q->buffer[i];
+        if ((IDX_TAIL_QUEUE(*q) == CAPACITY_QUEUE - 1)) {
+            for (i = IDX_HEAD_QUEUE(*q); i <= IDX_TAIL_QUEUE(*q); i++) {
+                q->buffer[i - IDX_HEAD_QUEUE(*q)] = q->buffer[i];
             }
-            IDX_TAIL(*q) -= IDX_HEAD(*q);
-            IDX_HEAD(*q) = 0;
+            IDX_TAIL_QUEUE(*q) -= IDX_HEAD_QUEUE(*q);
+            IDX_HEAD_QUEUE(*q) = 0;
         }
-        IDX_TAIL(*q)++;
+        IDX_TAIL_QUEUE(*q)++;
     }
-    TAIL(*q) = val;
+    TAIL_QUEUE(*q) = val;
 }
 
-void dequeue(Queue *q, ElType *val)
+void dequeue(Queue *q, ElTypeQueue *val)
 /* Proses: Menghapus val pada q dengan aturan FIFO */
 /* I.S. q tidak mungkin kosong */
 /* F.S. val = nilai elemen HEAD pd I.S., HEAD dan IDX_HEAD "mundur"; 
@@ -95,13 +89,13 @@ void dequeue(Queue *q, ElType *val)
     /* KAMUS */
 
     /* ALGORITMA */
-    *val = HEAD(*q);
+    *val = HEAD_QUEUE(*q);
 
-    if (IDX_HEAD(*q) == IDX_TAIL(*q)) {
-        IDX_HEAD(*q) = IDX_UNDEF;
-        IDX_TAIL(*q) = IDX_UNDEF;
+    if (IDX_HEAD_QUEUE(*q) == IDX_TAIL_QUEUE(*q)) {
+        IDX_HEAD_QUEUE(*q) = IDX_UNDEF_QUEUE;
+        IDX_TAIL_QUEUE(*q) = IDX_UNDEF_QUEUE;
     } else {
-        IDX_HEAD(*q)++;
+        IDX_HEAD_QUEUE(*q)++;
     }
 }
 
@@ -116,13 +110,13 @@ void displayQueue(Queue q)
 /* Jika Queue kosong : menulis [] */
 {
     /* KAMUS */
-    ElType val;
+    ElTypeQueue val;
 
     /* ALGORITMA */
     printf("[");
-    while (!isEmpty(q)) {
+    while (!isEmptyQueue(q)) {
         dequeue(&q, &val);
-        if (length(q) != 0) {
+        if (lengthQueue(q) != 0) {
             printf("%d,", val);
         } else {
             printf("%d", val);

@@ -1,10 +1,4 @@
-/*
-NIM                 : 13520065
-Nama                : Rayhan Kinan Muhannad
-Tanggal             : <Tanggal>
-Topik Praktikum     : <Topik>
-Deskripsi           : Definisi fungsi dan prosedur ADT <nama ADT>
-*/
+/* ADT Stack*/
 
 #include "stack.h"
 
@@ -18,29 +12,29 @@ void CreateStack(Stack *s)
     /* KAMUS */
 
     /* ALGORITMA */
-    IDX_TOP(*s) = IDX_UNDEF;
+    IDX_TOP_STACK(*s) = IDX_UNDEF_STACK;
 }
 
 /* ************ Prototype ************ */
-boolean isEmpty(Stack s)
+boolean isEmptyStack(Stack s)
 /* Mengirim true jika s kosong: lihat definisi di atas */
 {
     /* KAMUS */
 
     /* ALGORITMA */
-    return (IDX_TOP(s) == IDX_UNDEF);
+    return (IDX_TOP_STACK(s) == IDX_UNDEF_STACK);
 }
-boolean isFull(Stack s)
+boolean isFullStack(Stack s)
 /* Mengirim true jika tabel penampung nilai s stack penuh */
 {
     /* KAMUS */
 
     /* ALGORITMA */
-    return (IDX_TOP(s) == CAPACITY - 1);
+    return (IDX_TOP_STACK(s) == CAPACITY_STACK - 1);
 }
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void push(Stack *s, ElType val)
+void pushStack(Stack *s, ElTypeStack val)
 /* Menambahkan val sebagai elemen Stack s */
 /* I.S. s mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. val menjadi TOP yang baru,IDX_TOP bertambah 1 */
@@ -49,17 +43,17 @@ void push(Stack *s, ElType val)
 
     /* ALGORITMA */
 
-    if (isEmpty(*s)) {
-        IDX_TOP(*s) = 0;
-        TOP(*s) = val;
+    if (isEmptyStack(*s)) {
+        IDX_TOP_STACK(*s) = 0;
+        TOP_STACK(*s) = val;
     } else {
-        IDX_TOP(*s)++;
-        TOP(*s) = val;
+        IDX_TOP_STACK(*s)++;
+        TOP_STACK(*s) = val;
     }
 }
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void pop(Stack *s, ElType *val)
+void popStack(Stack *s, ElTypeStack *val)
 /* Menghapus val dari Stack s */
 /* I.S. s tidak mungkin kosong */
 /* F.S. val adalah nilai elemen TOP yang lama, IDX_TOP berkurang 1 */
@@ -67,6 +61,6 @@ void pop(Stack *s, ElType *val)
     /* KAMUS */
 
     /* ALGORITMA */
-    *val = TOP(*s);
-    IDX_TOP(*s)--;
+    *val = TOP_STACK(*s);
+    IDX_TOP_STACK(*s)--;
 }

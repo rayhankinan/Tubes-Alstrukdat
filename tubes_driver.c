@@ -7,6 +7,9 @@
 #include "listdin.h"
 #include "matrix.h"
 #include "wordmachine.h"
+#include "stack.h"
+#include "queue.h"
+#include "list_linked.h"
 
 int main() {
     /* KAMUS */

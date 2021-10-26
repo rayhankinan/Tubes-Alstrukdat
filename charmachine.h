@@ -6,7 +6,7 @@
 
 #include "boolean.h"
 
-#define MARK_CHARMACHINE '\n'
+#define MARK_CHARMACHINE '.'
 /* Char Engine State */
 extern char currentChar;
 extern boolean eot;

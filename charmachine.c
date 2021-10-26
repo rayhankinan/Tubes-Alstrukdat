@@ -1,5 +1,4 @@
-/* File: charmachine.c */
-/* Implementasi Character Engine */
+/* ADT Mesin Karakter*/
 
 #include "charmachine.h"
 #include <stdio.h>

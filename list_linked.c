@@ -6,24 +6,24 @@
 
 /* PROTOTYPE */
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateList(List* l)
+void CreateListLinked(ListLinked* l)
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 {
   /* ALGORITMA */
-  FIRST(*l) = NULL;
+  FIRST_LIST_LINKED(*l) = NULL;
 }
 
 /****************** TEST LIST KOSONG ******************/
-boolean isEmpty(List l)
+boolean isEmptyListLinked(ListLinked l)
 /* Mengirim true jika list kosong */
 {
   /* ALGORITMA */
-  return FIRST(l) == NULL;
+  return FIRST_LIST_LINKED(l) == NULL;
 }
 
 /****************** GETTER SETTER ******************/
-ElType getElmt(List l, int idx)
+ElTypeNode getElmtListLinked(ListLinked l, int idx)
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengembalikan nilai elemen l pada indeks idx */
 {
@@ -33,15 +33,15 @@ ElType getElmt(List l, int idx)
 
   /* ALGORITMA */
   ctr = 0;
-  p = FIRST(l);
+  p = FIRST_LIST_LINKED(l);
   while (ctr < idx) {
     ctr++;
-    p = NEXT(p);
+    p = NEXT_NODE(p);
   }
-  return INFO(p);
+  return INFO_NODE(p);
 }
 
-void setElmt(List* l, int idx, ElType val)
+void setElmtListLinked(ListLinked* l, int idx, ElTypeNode val)
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 {
@@ -54,12 +54,12 @@ void setElmt(List* l, int idx, ElType val)
   p = *l;
   while (ctr < idx) {
     ctr++;
-    p = NEXT(p);
+    p = NEXT_NODE(p);
   }
-  INFO(p) = val;
+  INFO_NODE(p) = val;
 }
 
-int indexOf(List l, ElType val)
+int indexOfListLinked(ListLinked l, ElTypeNode val)
 /* I.S. l, val terdefinisi */
 /* F.S. Mencari apakah ada elemen list l yang bernilai val */
 /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
@@ -75,25 +75,25 @@ int indexOf(List l, ElType val)
   found = false;
   idx = 0;
   while (p != NULL && !found) {
-    if (INFO(p) == val) {
+    if (INFO_NODE(p) == val) {
       found = true;
     }
     else {
       idx++;
-      p = NEXT(p);
+      p = NEXT_NODE(p);
     }
   }
   if (found) {
     return idx;
   }
   else {
-    return IDX_UNDEF;
+    return IDX_UNDEF_LIST_LINKED;
   }
 }
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void insertFirst(List* l, ElType val)
+void insertFirstListLinked(ListLinked* l, ElTypeNode val)
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai val jika alokasi berhasil. */
@@ -104,11 +104,11 @@ void insertFirst(List* l, ElType val)
 
   /* ALGORITMA */
   p = newNode(val);
-  NEXT(p) = FIRST(*l);
+  NEXT_NODE(p) = FIRST_LIST_LINKED(*l);
   *l = p;
 }
 
-void insertLast(List* l, ElType val)
+void insertLastListLinked(ListLinked* l, ElTypeNode val)
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
@@ -119,23 +119,23 @@ void insertLast(List* l, ElType val)
   Address last;
 
   /* ALGORITMA */
-  if (isEmpty(*l)) {
-    insertFirst(l, val);
+  if (isEmptyListLinked(*l)) {
+    insertFirstListLinked(l, val);
   }
   else
   {
     p = newNode(val);
     if (p != NULL) {
       last = *l;
-      while (NEXT(last) != NULL) {
-        last = NEXT(last);
+      while (NEXT_NODE(last) != NULL) {
+        last = NEXT_NODE(last);
       }
     }
-    NEXT(last) = p;
+    NEXT_NODE(last) = p;
   }
 }
 
-void insertAt(List* l, ElType val, int idx)
+void insertAtListLinked(ListLinked* l, ElTypeNode val, int idx)
 /* I.S. l tidak mungkin kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menyisipkan elemen dalam list pada indeks ke-idx (bukan menimpa elemen di i) */
@@ -148,25 +148,25 @@ void insertAt(List* l, ElType val, int idx)
 
   /* ALGORITMA */
   if (idx == 0) {
-    insertFirst(l, val);
+    insertFirstListLinked(l, val);
   }
   else {
     p = newNode(val);
     if (p != NULL) {
       ctr = 0;
-      loc = FIRST(*l);
+      loc = FIRST_LIST_LINKED(*l);
       while (ctr < idx - 1) {
         ctr++;
-        loc = NEXT(loc);
+        loc = NEXT_NODE(loc);
       }
-      NEXT(p) = NEXT(loc);
-      NEXT(loc) = p;
+      NEXT_NODE(p) = NEXT_NODE(loc);
+      NEXT_NODE(loc) = p;
     }
   }
 }
 
 /*** PENGHAPUSAN ELEMEN ***/
-void deleteFirst(List* l, ElType* val)
+void deleteFirstListLinked(ListLinked* l, ElTypeNode* val)
 /* I.S. List l tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen pertama di-dealokasi */
@@ -175,13 +175,13 @@ void deleteFirst(List* l, ElType* val)
   Address p;
 
   /* ALGORITMA */
-  p = FIRST(*l);
-  *val = INFO(p);
-  FIRST(*l) = NEXT(p);
+  p = FIRST_LIST_LINKED(*l);
+  *val = INFO_NODE(p);
+  FIRST_LIST_LINKED(*l) = NEXT_NODE(p);
   free(p);
 }
 
-void deleteLast(List* l, ElType* val)
+void deleteLastListLinked(ListLinked* l, ElTypeNode* val)
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen terakhir di-dealokasi */
@@ -191,23 +191,23 @@ void deleteLast(List* l, ElType* val)
   Address p;
 
   /* ALGORITMA */
-  p = FIRST(*l);
+  p = FIRST_LIST_LINKED(*l);
   loc = NULL;
-  while (NEXT(p) != NULL) {
+  while (NEXT_NODE(p) != NULL) {
     loc = p;
-    p = NEXT(p);
+    p = NEXT_NODE(p);
   }
   if (loc == NULL) {
-    FIRST(*l) = NULL;
+    FIRST_LIST_LINKED(*l) = NULL;
   }
   else {
-    NEXT(loc) = NULL;
+    NEXT_NODE(loc) = NULL;
   }
-  *val = INFO(p);
+  *val = INFO_NODE(p);
   free(p);
 }
 
-void deleteAt(List* l, int idx, ElType* val)
+void deleteAtListLinked(ListLinked* l, int idx, ElTypeNode* val)
 /* I.S. list tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */
@@ -219,24 +219,24 @@ void deleteAt(List* l, int idx, ElType* val)
 
   /* ALGORITMA */
   if (idx == 0) {
-    deleteFirst(l, val);
+    deleteFirstListLinked(l, val);
   }
   else {
     ctr = 0;
-    loc = FIRST(*l);
+    loc = FIRST_LIST_LINKED(*l);
     while (ctr < idx - 1) {
       ctr++;
-      loc = NEXT(loc);
+      loc = NEXT_NODE(loc);
     }
-    p = NEXT(loc);
-    *val = INFO(p);
-    NEXT(loc) = NEXT(p);
+    p = NEXT_NODE(loc);
+    *val = INFO_NODE(p);
+    NEXT_NODE(loc) = NEXT_NODE(p);
     free(p);
   }
 }
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void displayList(List l)
+void displayListLinked(ListLinked l)
 // void printInfo(List l);
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
@@ -249,20 +249,20 @@ void displayList(List l)
 
   /* ALGORITMA */
   printf("[");
-  if (!isEmpty(l)) {
+  if (!isEmptyListLinked(l)) {
     p = l;
     while (p != NULL) {
-      printf("%d", INFO(p));
-      if (NEXT(p) != NULL) {
+      printf("%d", INFO_NODE(p));
+      if (NEXT_NODE(p) != NULL) {
         printf(",");
       }
-      p = NEXT(p);
+      p = NEXT_NODE(p);
     }
   }
   printf("]");
 }
 
-int length(List l)
+int lengthListLinked(ListLinked l)
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 {
   /* KAMUS LOKAL */
@@ -270,17 +270,17 @@ int length(List l)
   int ctr;
 
   /* ALGORITMA */
-  p = FIRST(l);
+  p = FIRST_LIST_LINKED(l);
   ctr = 0;
   while (p != NULL) {
     ctr++;
-    p = NEXT(p);
+    p = NEXT_NODE(p);
   }
   return ctr;
 }
 
 /****************** PROSES TERHADAP LIST ******************/
-List concat(List l1, List l2)
+ListLinked concatListLinked(ListLinked l1, ListLinked l2)
 /* I.S. l1 dan l2 sembarang */
 /* F.S. l1 dan l2 kosong, l3 adalah hasil konkatenasi l1 & l2 */
 /* Konkatenasi dua buah list : l1 dan l2    */
@@ -289,20 +289,20 @@ List concat(List l1, List l2)
 {
   /* KAMUS LOKAL */
   Address p;
-  List l3;
+  ListLinked l3;
 
   /* ALGORITMA */
-  CreateList(&l3);
+  CreateListLinked(&l3);
   p = l1;
   while (p != NULL) {
-    insertLast(&l3, INFO(p));
-    p = NEXT(p);
+    insertLastListLinked(&l3, INFO_NODE(p));
+    p = NEXT_NODE(p);
   }
 
   p = l2;
   while (p != NULL) {
-    insertLast(&l3, INFO(p));
-    p = NEXT(p);
+    insertLastListLinked(&l3, INFO_NODE(p));
+    p = NEXT_NODE(p);
   }
   return l3;
 }

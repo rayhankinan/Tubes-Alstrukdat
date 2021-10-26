@@ -4,11 +4,11 @@
 #include "node.h"
 #include <stdlib.h>
 
-Address newNode(ElType val) {
+Address newNode(ElTypeNode val) {
   Address p = (Address)malloc(sizeof(Node));
   if (p != NULL) {
-    INFO(p) = val;
-    NEXT(p) = NULL;
+    INFO_NODE(p) = val;
+    NEXT_NODE(p) = NULL;
   }
   return p;
 }
