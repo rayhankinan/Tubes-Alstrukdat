@@ -5,6 +5,8 @@
 #include "point.h"
 #include "listpos.h"
 #include "listdin.h"
+#include "matrix.h"
+#include "wordmachine.h"
 
 int main() {
     /* KAMUS */
