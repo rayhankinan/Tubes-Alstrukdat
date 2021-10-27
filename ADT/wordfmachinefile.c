@@ -1,6 +1,6 @@
 /* ADT Mesin Kata untuk File */
 
-#include "wordfilemachine.h"
+#include "wordmachinefile.h"
 
 boolean endWordFile;
 WordFile currentWordFile;
@@ -54,7 +54,6 @@ void advWordFile()
         endWordFile = true;
     } else {
         copyWordFile();
-        ignoreBlankWordFile();
     }
 }
 

@@ -32,7 +32,8 @@ void advChar() {
 	/* Algoritma */
 	retval = fscanf(tape,"%c",&currentChar);
 	eot = (currentChar == MARK_CHARMACHINE);
+   printf("%c\n", currentChar);
 	if (eot) {
-              fclose(tape);
+      fclose(tape);
  	}
 }

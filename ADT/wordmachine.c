@@ -54,7 +54,6 @@ void advWord()
         endWord = true;
     } else {
         copyWord();
-        ignoreBlankWord();
     }
 }
 
