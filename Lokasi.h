@@ -7,8 +7,12 @@
 
 typedef struct
 {
-  char karakter;   /* karakter lokasi */
+  char nama;       /* nama karakter lokasi */
   POINT koordinat; /* koordinat lokasi */
 } Lokasi;
+
+/* SELEKTOR */
+#define NAMA(x) (x).nama
+#define KOORDINAT(x) (x).koordinat
 
 #endif
