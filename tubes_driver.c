@@ -10,6 +10,7 @@
 #include "stack.h"
 #include "queue.h"
 #include "list_linked.h"
+#include "wordfilemachine.h"
 
 int main() {
     /* KAMUS */

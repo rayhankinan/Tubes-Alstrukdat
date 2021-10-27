@@ -1,11 +1,11 @@
-/* ADT Mesin Kata */
+/* ADT Mesin Kata untuk File */
 
-#include "wordmachine.h"
+#include "wordfilemachine.h"
 
-boolean endWord;
-Word currentWord;
+boolean endWordFile;
+WordFile currentWordFile;
 
-void ignoreBlankWord()
+void ignoreBlankWordFile()
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang 
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
@@ -13,12 +13,12 @@ void ignoreBlankWord()
     /* KAMUS */
 
     /* ALGORITMA */
-    while (currentChar == BLANK_WORDMACHINE && currentChar != MARK_CHARMACHINE) {
-        advChar();
+    while (currentCharFile == BLANK_WORDMACHINEFILE && currentCharFile != MARK_CHARMACHINEFILE) {
+        advCharFile();
     }
 }
 
-void startWord()
+void startWordFile(char namaFile[])
 /* I.S. : currentChar sembarang 
    F.S. : endWord = true, dan currentChar = MARK; 
           atau endWord = false, currentWord adalah kata yang sudah diakuisisi,
@@ -27,18 +27,18 @@ void startWord()
     /* KAMUS */
 
     /* ALGORITMA */
-    startChar();
-    ignoreBlankWord();
+    startCharFile(namaFile);
+    ignoreBlankWordFile();
 
-    if (currentChar == MARK_CHARMACHINE) {
-        endWord = true;
+    if (currentCharFile == MARK_CHARMACHINEFILE) {
+        endWordFile = true;
     } else {
-        endWord = false;
-        copyWord();
+        endWordFile = false;
+        copyWordFile();
     }
 }
 
-void advWord()
+void advWordFile()
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi 
    F.S. : currentWord adalah kata terakhir yang sudah diakuisisi, 
           currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
@@ -48,17 +48,17 @@ void advWord()
     /* KAMUS */
 
     /* ALGORITMA */
-    ignoreBlankWord();
+    ignoreBlankWordFile();
     
-    if (currentChar == MARK_CHARMACHINE) {
-        endWord = true;
+    if (currentCharFile == MARK_CHARMACHINEFILE) {
+        endWordFile = true;
     } else {
-        copyWord();
-        ignoreBlankWord();
+        copyWordFile();
+        ignoreBlankWordFile();
     }
 }
 
-void copyWord()
+void copyWordFile()
 /* Mengakuisisi kata, menyimpan dalam currentWord
    I.S. : currentChar adalah karakter pertama dari kata
    F.S. : currentWord berisi kata yang sudah diakuisisi; 
@@ -72,17 +72,17 @@ void copyWord()
     /* ALGORITMA */
     i = 0;
 
-    while (currentChar != MARK_CHARMACHINE && currentChar != BLANK_WORDMACHINE) {
-        if (i < CAPACITY_WORDMACHINE) {
-            currentWord.contents[i] = currentChar;
+    while (currentCharFile != MARK_CHARMACHINEFILE && currentCharFile != BLANK_WORDMACHINEFILE) {
+        if (i < CAPACITY_WORDMACHINEFILE) {
+            currentWordFile.contents[i] = currentCharFile;
         }
-        advChar();
+        advCharFile();
         i++;
     }
 
-    if (i < CAPACITY_WORDMACHINE) {
-        currentWord.length = i;
+    if (i < CAPACITY_WORDMACHINEFILE) {
+        currentWordFile.length = i;
     } else {
-        currentWord.length = CAPACITY_WORDMACHINE;
+        currentWordFile.length = CAPACITY_WORDMACHINEFILE;
     }
 }
