@@ -3,7 +3,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "lokasi.h"
+#include "../Lokasi/lokasi.h"
 
 typedef struct
 {

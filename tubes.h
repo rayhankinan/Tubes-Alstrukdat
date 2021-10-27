@@ -3,15 +3,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "ADT/point.h"
-#include "ADT/listpos.h"
-#include "ADT/listdin.h"
-#include "ADT/matrix.h"
-#include "ADT/wordmachine.h"
-#include "ADT/stack.h"
-#include "ADT/queue.h"
-#include "ADT/list_linked.h"
-#include "ADT/wordmachinefile.h"
+#include "ADT/Point/point.h"
+#include "ADT/ListStatis/listpos.h"
+#include "ADT/ListDinamis/listdin.h"
+#include "ADT/Matrix/matrix.h"
+#include "ADT/Mesin/wordmachine.h"
+#include "ADT/Stack/stack.h"
+#include "ADT/Queue/queue.h"
+#include "ADT/LinkedList/list_linked.h"
+#include "ADT/Mesin/wordmachinefile.h"
 
 /* Konstanta pada main program */
 #define CAPACITY_INPUT 50
