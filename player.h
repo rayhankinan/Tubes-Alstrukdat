@@ -1,15 +1,15 @@
-/* ADT Lokasi */
+/* ADT Player */
 
-#ifndef LOKASI_H
-#define LOKASI_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
-#include "point.h"
+#include "lokasi.h"
 
 typedef struct
 {
   char nama;       /* nama karakter lokasi */
   POINT koordinat; /* koordinat lokasi */
-} Lokasi;
+} Lo;
 
 /* SELEKTOR */
 #define NAMA(x) (x).nama
