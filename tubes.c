@@ -31,6 +31,4 @@ void mainMenu()
     /* ALGORITMA */
     readQuery(input);
     readQuery(input);
-    readQuery(input);
-    readQuery(input);
 }
