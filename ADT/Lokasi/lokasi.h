@@ -3,7 +3,7 @@
 #ifndef LOKASI_H
 #define LOKASI_H
 
-#include "point.h"
+#include "../Point/point.h"
 
 typedef struct
 {
@@ -14,5 +14,9 @@ typedef struct
 /* SELEKTOR */
 #define NAMA(x) (x).nama
 #define KOORDINAT(x) (x).koordinat
+
+/* KONSTRUKTOR */
+Lokasi CreateLokasi(char nama, POINT koordinat)
+/* Membentuk lokasi */
 
 #endif
