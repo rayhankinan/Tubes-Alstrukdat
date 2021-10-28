@@ -5,8 +5,8 @@ int main() {
     /* KAMUS */
     int NMax, NExtra;
     ListDin l1, l2, sortedL1, sortedL2;
-    ElType maxL1, minL1, maxL2, minL2, temp;
-    IdxType i;
+    ElTypeListDin maxL1, minL1, maxL2, minL2, temp;
+    IdxTypeListDin i;
 
     /* ALGORITMA */
     printf("Masukkan jumlah maksimal elemen ListDin: ");
