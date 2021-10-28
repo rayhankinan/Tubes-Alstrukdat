@@ -1,6 +1,6 @@
 //Driver Linked list
 
-#include"list_linked.h"
+#include"../ADT/LinkedList/list_linked.h"
 #include<stdio.h>
 
 int main(){

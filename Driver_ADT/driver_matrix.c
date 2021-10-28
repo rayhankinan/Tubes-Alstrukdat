@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "matrix.h"
+#include "../ADT/Matrix/matrix.h"
 
 int main() {
     /* KAMUS */
@@ -15,64 +15,64 @@ int main() {
     readMatrix(&m2, m, n);
     printf("\n");
 
-    if (isEqual(m1, m2)) {
+    if (isEqualMatrix(m1, m2)) {
         printf("M1 = M2\n");
         printf("\n");
     }
 
-    if (isIdentity(m1)) {
+    if (isIdentityMatrix(m1)) {
         printf("M1 adalah matriks identitas\n");
         printf("\n");
     }
 
-    if (isIdentity(m2)) {
+    if (isIdentityMatrix(m2)) {
         printf("M2 adalah matriks identitas\n");
         printf("\n");
     }
 
-    if (isSparse(m1)) {
+    if (isSparseMatrix(m1)) {
         printf("M1 adalah matriks sparse\n");
         printf("\n");
     }
 
-    if (isSparse(m2)) {
+    if (isSparseMatrix(m2)) {
         printf("M2 adalah matriks sparse\n");
         printf("\n");
     }
 
-    if (isSymmetric(m1)) {
+    if (isSymmetricMatrix(m1)) {
         printf("M1 adalah matriks simetrik\n");
         printf("\n");
     }
 
-    if (isSymmetric(m2)) {
+    if (isSymmetricMatrix(m2)) {
         printf("M2 adalah matriks simetrik\n");
         printf("\n");
     }
 
-    if (isSquare(m1)) {
+    if (isSquareMatrix(m1)) {
         printf("Transpose M1 =\n");
         copyMatrix(m1, &temp);
-        transpose(&temp);
+        transposeMatrix(&temp);
         displayMatrix(temp);
         printf("\n\n");
 
-        printf("Determinan M1 = %.2f\n", determinant(m1));
+        printf("Determinan M1 = %.2f\n", determinantMatrix(m1));
         printf("\n");
     }
 
-    if (isSquare(m2)) {
+    if (isSquareMatrix(m2)) {
         printf("Transpose M2 =\n");
         copyMatrix(m2, &temp);
-        transpose(&temp);
+        transposeMatrix(&temp);
         displayMatrix(temp);
         printf("\n\n");
 
-        printf("Determinan M2 = %.2f\n", determinant(m2));
+        printf("Determinan M2 = %.2f\n", determinantMatrix(m2));
         printf("\n");
     }
 
-    if (isSizeEqual(m1, m2)) {
+    if (isEqualMatrix(m1, m2)) {
         printf("M1 + M2 =\n");
         displayMatrix(addMatrix(m1, m2));
         printf("\n\n");
@@ -82,7 +82,7 @@ int main() {
         printf("\n\n");
     }
 
-    if (COLS(m1) == ROWS(m2)) {
+    if (COLS_MATRIX(m1) == ROWS_MATRIX(m2)) {
         printf("M1 x M2 =\n");
         displayMatrix(multiplyMatrix(m1, m2));
         printf("\n\n");

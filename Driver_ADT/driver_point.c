@@ -8,7 +8,8 @@ Deskripsi           : Driver ADT POINT untuk mengecek semua fungsi dan prosedur
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "point.h"
+#include "../ADT/Point/point.h"
+
 
 int main() {
     /* KAMUS */
@@ -31,14 +32,14 @@ int main() {
         pointElmt = *(arrOfPoint + i);
         TulisPOINT(pointElmt);
 
-        if (IsOrigin(pointElmt)) {
+        if ( IsOriginPOINT(pointElmt)) {
             printf(" berada pada titik asal.");
-        } else if (IsOnSbX(pointElmt)) {
+        } else if (IsOnSbXPOINT(pointElmt)) {
             printf(" berada pada sumbu X.");
-        } else if (IsOnSbY(pointElmt)) {
+        } else if (IsOnSbYPOINT(pointElmt)) {
             printf(" berada pada sumbu Y.");
         } else {
-            printf(" berada pada kuadran %d", Kuadran(pointElmt));
+            printf(" berada pada kuadran %d", KuadranPOINT(pointElmt));
         }
 
         printf("\n");
@@ -48,7 +49,7 @@ int main() {
 
     for (i = 1; i < N; i++) {
         for (j = 0; j < i; j++) {
-            if (EQ(*(arrOfPoint + i), *(arrOfPoint + j))) break;
+            if (EQPOINT(*(arrOfPoint + i), *(arrOfPoint + j))) break;
         }
         if (i == j) NBeda++;
     }
@@ -87,13 +88,13 @@ int main() {
                     printf("Masukkan index array: ");
                     scanf("%d", &indexInput);
                 } while(indexInput < 1 || indexInput > N);
-                TulisPOINT(NextX(*(arrOfPoint + indexInput - 1)));
+                TulisPOINT(NextXPOINT(*(arrOfPoint + indexInput - 1)));
             } else if (query == 'Y') {
                 do {
                     printf("Masukkan index array: ");
                     scanf("%d", &indexInput);
                 } while(indexInput < 1 || indexInput > N);
-                TulisPOINT(NextY(*(arrOfPoint + indexInput - 1)));
+                TulisPOINT(NextYPOINT(*(arrOfPoint + indexInput - 1)));
             } else if (query == 'P') {
                 do {
                     printf("Masukkan index array: ");
@@ -101,7 +102,7 @@ int main() {
                 } while(indexInput < 1 || indexInput > N);
                 printf("Masukkan delta X dan delta Y (dipisah dengan spasi): ");
                 scanf("%f %f", &deltaX, &deltaY);
-                TulisPOINT(PlusDelta(*(arrOfPoint + indexInput - 1), deltaX, deltaY));
+                TulisPOINT(PlusDeltaPOINT(*(arrOfPoint + indexInput - 1), deltaX, deltaY));
             } else if (query == 'M') {
                 do {
                     printf("Masukkan index array: ");
@@ -112,13 +113,13 @@ int main() {
                     scanf(" %c", &sumbu);
                 } while(sumbu != 'X' && sumbu != 'Y');
                 SbX = sumbu == 'X';
-                TulisPOINT(MirrorOf(*(arrOfPoint + indexInput - 1), SbX));
+                TulisPOINT(MirrorOfPOINT(*(arrOfPoint + indexInput - 1), SbX));
             } else if (query == 'J') {
                 do {
                     printf("Masukkan index array: ");
                     scanf("%d", &indexInput);
                 } while(indexInput < 1 || indexInput > N);
-                printf("%f", Jarak0(*(arrOfPoint + indexInput - 1)));
+                printf("%f", Jarak0POINT(*(arrOfPoint + indexInput - 1)));
             } else {
                 do {
                     printf("Masukkan index array (1/2): ");
@@ -128,7 +129,7 @@ int main() {
                     printf("Masukkan index array (2/2): ");
                     scanf("%d", &indexInput2);
                 } while(indexInput2 < 1 || indexInput2 > N);
-                printf("%f", Panjang(*(arrOfPoint + indexInput - 1), *(arrOfPoint + indexInput2 - 1)));
+                printf("%f", PanjangPOINT(*(arrOfPoint + indexInput - 1), *(arrOfPoint + indexInput2 - 1)));
             }
             
         } else {
@@ -151,21 +152,21 @@ int main() {
                 } while(indexInput < 1 || indexInput > N);
                 printf("Masukkan delta X dan delta Y (dipisah dengan spasi): ");
                 scanf("%f %f", &deltaX, &deltaY);
-                Geser(arrOfPoint + indexInput - 1, deltaX, deltaY);
+                GeserPOINT(arrOfPoint + indexInput - 1, deltaX, deltaY);
                 TulisPOINT(*(arrOfPoint + indexInput - 1));
             } else if (query == 'X') {
                 do {
                     printf("Masukkan index array: ");
                     scanf("%d", &indexInput);
                 } while(indexInput < 1 || indexInput > N);
-                GeserKeSbX(arrOfPoint + indexInput - 1);
+                GeserKeSbXPOINT(arrOfPoint + indexInput - 1);
                 TulisPOINT(*(arrOfPoint + indexInput - 1));
             } else if (query == 'Y') {
                 do {
                     printf("Masukkan index array: ");
                     scanf("%d", &indexInput);
                 } while(indexInput < 1 || indexInput > N);
-                GeserKeSbY(arrOfPoint + indexInput - 1);
+                GeserKeSbYPOINT(arrOfPoint + indexInput - 1);
                 TulisPOINT(*(arrOfPoint + indexInput - 1));
             } else if (query == 'M') {
                 do {
@@ -177,7 +178,7 @@ int main() {
                     scanf(" %c", &sumbu);
                 } while(sumbu != 'X' && sumbu != 'Y');
                 SbX = sumbu == 'X';
-                Mirror(arrOfPoint + indexInput - 1, SbX);
+                MirrorPOINT(arrOfPoint + indexInput - 1, SbX);
                 TulisPOINT(*(arrOfPoint + indexInput - 1));
             } else {
                 do {
@@ -186,7 +187,7 @@ int main() {
                 } while(indexInput < 1 || indexInput > N);
                 printf("Masukkan sudut (dalam derajat): ");
                 scanf("%f", &sudut);
-                Putar(arrOfPoint + indexInput - 1, sudut);
+                PutarPOINT(arrOfPoint + indexInput - 1, sudut);
                 TulisPOINT(*(arrOfPoint + indexInput - 1));
             }
         }

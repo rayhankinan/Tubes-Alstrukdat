@@ -1,4 +1,4 @@
-#include "wordmachine.h"
+#include "../ADT/Mesin/wordmachine.h"
 #include <stdio.h>
 
 int main() {

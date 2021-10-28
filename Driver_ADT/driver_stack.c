@@ -1,7 +1,7 @@
 // driver ADT stack
 
 #include<stdio.h>
-#include"stack.h"
+#include"../ADT/Stack/stack.h"
 
 int main(){
     /* KAMUS */
