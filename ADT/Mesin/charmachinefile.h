@@ -6,7 +6,7 @@
 
 #include "boolean.h"
 
-#define MARK_CHARMACHINEFILE '.'
+#define MARK_CHARMACHINEFILE '\n'
 /* Char Engine State*/
 extern char currentCharFile;
 extern boolean eotFile;
@@ -25,5 +25,10 @@ void advCharFile();
    F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama, 
           currentChar mungkin = MARK
           Jika  currentChar = MARK maka EOP akan menyala (true) */
+
+void endCharFile();
+/* Memberhentikan pembacaan Mesin Karakter. Pita tidak bisa lagi dibaca
+   I.S. : Mesin Karakter sedang dijalankan
+   F.S. : Mesin Karakter berhenti */
 
 #endif

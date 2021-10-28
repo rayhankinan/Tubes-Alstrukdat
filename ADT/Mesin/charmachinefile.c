@@ -36,7 +36,15 @@ void advCharFile()
     /* ALGORITMA */
     retvalFile = fscanf(tapeFile, "%c", &currentCharFile);
     eotFile = (currentCharFile == MARK_CHARMACHINEFILE);
-    if (eotFile) {
-        fclose(tapeFile);
-    }
+}
+
+void endCharFile()
+/* Memberhentikan pembacaan Mesin Karakter. Pita tidak bisa lagi dibaca
+   I.S. : Mesin Karakter sedang dijalankan
+   F.S. : Mesin Karakter berhenti */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    fclose(tapeFile);
 }

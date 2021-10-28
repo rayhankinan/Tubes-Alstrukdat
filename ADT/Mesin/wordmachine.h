@@ -45,4 +45,9 @@ void copyWord();
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi CAPACITY, maka sisa kata terpotong */
 
+void stopWord();
+/* Memberhentikan pembacaan Mesin Kata. Pita tidak bisa lagi dibaca
+   I.S. : Mesin Kata sedang dijalankan
+   F.S. : Mesin Kata berhenti */
+
 #endif

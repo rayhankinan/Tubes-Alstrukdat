@@ -16,10 +16,18 @@
 /* Konstanta pada main program */
 #define CAPACITY_INPUT 50
 
-void readQuery(char query[]);
+void readQuery(Word *ptrQuery);
 /* Membaca input string dari user */
 /* I.S. query bebas */
 /* F.S. query berisi string input user */
+
+void writeQuery(Word *ptrQuery, char input[], int length);
+/* Menuliskan string input ke dalam query */
+/* I.S. : query bebas */
+/* F.S. : query.contents berisi string input dengan query.length berisi integer length */
+
+boolean compareQuery(Word query, Word value);
+/* Mencari tahu apakah dua Word bernilai sama */
 
 void mainMenu();
 /* Menampilkan Main Menu pada main program */

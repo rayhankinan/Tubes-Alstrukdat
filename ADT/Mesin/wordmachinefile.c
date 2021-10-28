@@ -85,3 +85,14 @@ void copyWordFile()
         currentWordFile.length = CAPACITY_WORDMACHINEFILE;
     }
 }
+
+void stopWordFile()
+/* Memberhentikan pembacaan Mesin Kata. Pita tidak bisa lagi dibaca
+   I.S. : Mesin Kata sedang dijalankan
+   F.S. : Mesin Kata berhenti */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    endCharFile();
+}

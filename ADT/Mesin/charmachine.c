@@ -32,7 +32,13 @@ void advChar() {
 	/* Algoritma */
 	retval = fscanf(tape,"%c",&currentChar);
 	eot = (currentChar == MARK_CHARMACHINE);
-	if (eot) {
-      fclose(tape);
- 	}
+}
+
+void endChar() {
+/* Memberhentikan pembacaan Mesin Karakter. Pita tidak bisa lagi dibaca
+   I.S. : Mesin Karakter sedang dijalankan
+   F.S. : Mesin Karakter berhenti */
+
+   /* Algoritma */
+   fclose(tape);
 }

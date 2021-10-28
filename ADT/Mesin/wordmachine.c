@@ -85,3 +85,14 @@ void copyWord()
         currentWord.length = CAPACITY_WORDMACHINE;
     }
 }
+
+void stopWord()
+/* Memberhentikan pembacaan Mesin Kata. Pita tidak bisa lagi dibaca
+   I.S. : Mesin Kata sedang dijalankan
+   F.S. : Mesin Kata berhenti */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    endChar();
+}
