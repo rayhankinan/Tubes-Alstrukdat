@@ -8,13 +8,15 @@
 #define LISTDIN_H
 
 #include "boolean.h"
+#include "../Lokasi/lokasi.h"
+#include "../Mesin/wordmachinefile.h"
 
 /*  Kamus Umum */
 #define IDX_UNDEF_LISTDIN -1
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef int ElTypeListDin; /* type elemen list */
+typedef Lokasi ElTypeListDin; /* type elemen list */
 typedef int IdxTypeListDin;
 typedef struct
 {
@@ -99,18 +101,6 @@ void displayListDin(ListDin l);
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika list kosong : menulis [] */
 
-/* ********** OPERATOR ARITMATIKA ********** */
-/* *** Aritmatika list : Penjumlahan, pengurangan, perkalian, ... *** */
-ListDin plusMinusListDin(ListDin l1, ListDin l2, boolean plus);
-/* Prekondisi : l1 dan l2 memiliki Neff sama dan tidak kosong */
-/* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada indeks yang sama dijumlahkan */
-/* Jika plus = false, mengirimkan l1-l2, yaitu setiap elemen l1 dikurangi elemen l2 pada indeks yang sama */
-
-/* ********** OPERATOR RELASIONAL ********** */
-/* *** Operasi pembandingan list : < =, > *** */
-boolean isListDinEqual(ListDin l1, ListDin l2);
-/* Mengirimkan true jika l1 sama dengan l2 yaitu jika nEff l1 = l2 dan semua elemennya sama */
-
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */
 IdxTypeListDin indexOfListDin(ListDin l, ElTypeListDin val);
@@ -119,34 +109,6 @@ IdxTypeListDin indexOfListDin(ListDin l, ElTypeListDin val);
 /* Jika tidak ada, mengirimkan IDX_UNDEF */
 /* Menghasilkan indeks tak terdefinisi (IDX_UNDEF) jika List l kosong */
 /* Skema Searching yang digunakan bebas */
-
-/* ********** NILAI EKSTREM ********** */
-void extremesListDin(ListDin l, ElTypeListDin *max, ElTypeListDin *min);
-/* I.S. List l tidak kosong */
-/* F.S. max berisi nilai maksimum l;
-        min berisi nilai minimum l */
-
-/* ********** OPERASI LAIN ********** */
-void copyListDin(ListDin lIn, ListDin *lOut);
-/* I.S. lIn terdefinisi tidak kosong, lOut sembarang */
-/* F.S. lOut berisi salinan dari lIn (identik, nEff dan capacity sama) */
-/* Proses : Menyalin isi lIn ke lOut */
-ElTypeListDin sumListDin(ListDin l);
-/* Menghasilkan hasil penjumlahan semua elemen l */
-/* Jika l kosong menghasilkan 0 */
-int countValListDin(ListDin l, ElTypeListDin val);
-/* Menghasilkan berapa banyak kemunculan val di l */
-/* Jika l kosong menghasilkan 0 */
-boolean isAllEvenListDin(ListDin l);
-/* Menghailkan true jika semua elemen l genap. l boleh kosong */
-
-/* ********** SORTING ********** */
-void sortListDin(ListDin *l, boolean asc);
-/* I.S. l boleh kosong */
-/* F.S. Jika asc = true, l terurut membesar */
-/*      Jika asc = false, l terurut mengecil */
-/* Proses : Mengurutkan l dengan salah satu algoritma sorting,
-   algoritma bebas */
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */

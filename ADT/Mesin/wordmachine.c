@@ -96,3 +96,47 @@ void stopWord()
     /* ALGORITMA */
     endChar();
 }
+
+int wordToInt(Word query)
+/* Mengubah Word query menjadi integer */
+{
+    /* KAMUS */
+    int i, hasil;
+
+    /* ALGORITMA */
+    hasil = 0;
+
+    for (i = 0; i < query.length; i++) {
+        hasil = 10 * hasil + (query.contents[i] - '0');
+    }
+
+    return hasil;
+}
+
+Word intToWord(int N)
+/* Mengubah integer N menjadi Word */
+{
+    /* KAMUS */
+    Word hasil;
+    int divisor;
+
+    /* ALGORITMA */
+    hasil.length = 0;
+
+    divisor = 1;
+    while (N >= divisor) {
+        divisor = divisor * 10;
+    }
+    divisor = divisor / 10;
+
+    while (divisor > 0) {
+        hasil.contents[hasil.length] = (N / divisor) + '0';
+        
+        N = N % divisor;
+        divisor = divisor / 10;
+        hasil.length++;
+    }
+    hasil.contents[hasil.length] = '\0';
+
+    return hasil;
+}

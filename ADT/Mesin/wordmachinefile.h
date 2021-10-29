@@ -6,24 +6,17 @@
 
 #include "boolean.h"
 #include "charmachinefile.h"
-
-#define CAPACITY_WORDMACHINEFILE 50
-#define BLANK_WORDMACHINEFILE ' '
-
-typedef struct {
-    char contents[CAPACITY_WORDMACHINEFILE];
-    int length;
-} WordFile;
+#include "wordmachine.h"
 
 extern boolean endWordFile;
-extern WordFile currentWordFile;
+extern Word currentWordFile;
 
 void ignoreBlankWordFile();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang 
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
 
-void startWordFile();
+void startWordFile(char namaFile[]);
 /* I.S. : currentChar sembarang 
    F.S. : endWord = true, dan currentChar = MARK; 
           atau endWord = false, currentWord adalah kata yang sudah diakuisisi,

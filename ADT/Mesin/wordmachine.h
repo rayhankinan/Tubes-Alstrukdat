@@ -50,4 +50,10 @@ void stopWord();
    I.S. : Mesin Kata sedang dijalankan
    F.S. : Mesin Kata berhenti */
 
+int wordToInt(Word query);
+/* Mengubah Word query menjadi integer */
+
+Word intToWord(int N);
+/* Mengubah integer N menjadi Word */
+
 #endif

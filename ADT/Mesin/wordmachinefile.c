@@ -3,7 +3,7 @@
 #include "wordmachinefile.h"
 
 boolean endWordFile;
-WordFile currentWordFile;
+Word currentWordFile;
 
 void ignoreBlankWordFile()
 /* Mengabaikan satu atau beberapa BLANK
@@ -13,7 +13,7 @@ void ignoreBlankWordFile()
     /* KAMUS */
 
     /* ALGORITMA */
-    while (currentCharFile == BLANK_WORDMACHINEFILE && currentCharFile != MARK_CHARMACHINEFILE) {
+    while (currentCharFile == BLANK_WORDMACHINE && currentCharFile != MARK_CHARMACHINE) {
         advCharFile();
     }
 }
@@ -30,7 +30,7 @@ void startWordFile(char namaFile[])
     startCharFile(namaFile);
     ignoreBlankWordFile();
 
-    if (currentCharFile == MARK_CHARMACHINEFILE) {
+    if (currentCharFile == MARK_CHARMACHINE) {
         endWordFile = true;
     } else {
         endWordFile = false;
@@ -50,7 +50,7 @@ void advWordFile()
     /* ALGORITMA */
     ignoreBlankWordFile();
     
-    if (currentCharFile == MARK_CHARMACHINEFILE) {
+    if (currentCharFile == MARK_CHARMACHINE) {
         endWordFile = true;
     } else {
         copyWordFile();
@@ -71,18 +71,18 @@ void copyWordFile()
     /* ALGORITMA */
     i = 0;
 
-    while (currentCharFile != MARK_CHARMACHINEFILE && currentCharFile != BLANK_WORDMACHINEFILE) {
-        if (i < CAPACITY_WORDMACHINEFILE) {
+    while (currentCharFile != MARK_CHARMACHINE && currentCharFile != BLANK_WORDMACHINE) {
+        if (i < CAPACITY_WORDMACHINE) {
             currentWordFile.contents[i] = currentCharFile;
         }
         advCharFile();
         i++;
     }
 
-    if (i < CAPACITY_WORDMACHINEFILE) {
+    if (i < CAPACITY_WORDMACHINE) {
         currentWordFile.length = i;
     } else {
-        currentWordFile.length = CAPACITY_WORDMACHINEFILE;
+        currentWordFile.length = CAPACITY_WORDMACHINE;
     }
 }
 

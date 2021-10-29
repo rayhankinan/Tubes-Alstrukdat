@@ -35,7 +35,7 @@ void advCharFile()
 
     /* ALGORITMA */
     retvalFile = fscanf(tapeFile, "%c", &currentCharFile);
-    eotFile = (currentCharFile == MARK_CHARMACHINEFILE);
+    eotFile = (currentCharFile == MARK_CHARMACHINE);
 }
 
 void endCharFile()
