@@ -101,7 +101,6 @@ void readListDin(ListDin *l)
   advWordFile();
   L = wordToInt(currentWordFile);
   advCharFile(); /* Membaca baris berikutnya */
-  printf("%d\n", L); /* TEST */
 
   CreateListDin(l, 1);
   for (i = 0; i < L; i++) {

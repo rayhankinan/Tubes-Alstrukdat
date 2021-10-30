@@ -62,10 +62,5 @@ void displayMatrix(Matrix m);
 /* F.S. Nilai m(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
    dipisahkan sebuah spasi */
 /* Proses: Menulis nilai setiap elemen m ke layar dengan traversal per baris dan per kolom */
-/* Contoh: Menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
-1 2 3
-4 5 6
-8 9 10
-*/
 
 #endif

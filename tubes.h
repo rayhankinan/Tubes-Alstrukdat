@@ -24,6 +24,7 @@ extern Lokasi HQ;
 extern ListDin daftarBangunan;
 extern Matrix adjacencyMatrix;
 extern Queue daftarPesanan;
+extern boolean hasWon;
 
 void readQuery(Word *ptrQuery);
 /* Membaca input string dari user */

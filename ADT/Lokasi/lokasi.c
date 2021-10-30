@@ -30,7 +30,6 @@ void BacaLokasi(Lokasi *L)
   /* ALGORITMA */
   advWordFile();
   NAMA_LOKASI(*L) = currentWordFile.contents[0];
-  printf("%c ", NAMA_LOKASI(*L)); /* TEST */
   BacaPOINT(&KOORDINAT_LOKASI(*L));
 }
 void TulisLokasi(Lokasi L)

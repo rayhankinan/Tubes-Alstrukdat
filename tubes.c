@@ -106,17 +106,17 @@ void mainMenu()
         readQuery(&input);
         if (compareQuery(input, newGame)) {
             readNewGame();
-            // gameMenu();
+            gameMenu();
         } else if (compareQuery(input, quit)) {
             printf("Quiting the game . . .");
             stopWord();
         } else if (compareQuery(input, loadGame)) {
             readLoadGame();
-            // gameMenu();
+            gameMenu();
         } else {
             printf("Try Again!\n");
         }
-    } while (!compareQuery(input, quit));
+    } while (!compareQuery(input, newGame) || !compareQuery(input, quit) || !compareQuery(input, loadGame));
 }
 
 void readFileConfig(char namaFile[])
@@ -135,7 +135,6 @@ void readFileConfig(char namaFile[])
     advWordFile();
     M = wordToInt(currentWordFile);
     advCharFile(); /* Membaca baris berikutnya */
-    printf("%d %d\n", N, M); /* TEST */
 
     NAMA_LOKASI(HQ) = '8';
     BacaPOINT(&KOORDINAT_LOKASI(HQ));
@@ -181,7 +180,14 @@ void readLoadGame()
     readFileConfig(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
 }
 
-void gameMenu();
+void gameMenu()
 /* Menampikan game menu pada main program */
 /* I.S. : Main menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
 /* F.S. : Output game menu pada layar */
+{
+    /* KAMUS */
+    Word input, move, pickUp, dropOff, map, toDO, inProgress, buy, inventory, help, saveGame, returnItem;
+
+    /* ALGORITMA */
+    hasWon = false;
+}

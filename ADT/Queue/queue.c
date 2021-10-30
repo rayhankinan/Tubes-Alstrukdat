@@ -128,7 +128,6 @@ void readQueue(Queue *q)
     advWordFile();
     P = wordToInt(currentWordFile);
     advCharFile(); /* Membaca baris berikutnya */
-    printf("%d\n", P); /* TEST */
 
     for (i = 0; i < P; i++) {
         BacaItem(&tempItem);

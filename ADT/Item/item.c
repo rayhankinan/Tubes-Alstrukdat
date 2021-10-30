@@ -41,11 +41,9 @@ void BacaItem(Item *I)
 
     if (eotFile) {
         WAKTU_HANGUS_ITEM(*I) = UNDEF_WAKTU;
-        printf("%d %c %c %c\n", WAKTU_PICK_UP_ITEM(*I), JENIS_ITEM(*I), PICK_UP_ITEM(*I), DROP_OFF_ITEM(*I)); /* TEST */
     } else {
         advWordFile();
         WAKTU_HANGUS_ITEM(*I) = wordToInt(currentWordFile);
-        printf("%d %c %c %c %d\n", WAKTU_PICK_UP_ITEM(*I), JENIS_ITEM(*I), PICK_UP_ITEM(*I), DROP_OFF_ITEM(*I), WAKTU_HANGUS_ITEM(*I)); /* TEST */
     }
 
     advCharFile(); /* Membaca baris berikutnya */

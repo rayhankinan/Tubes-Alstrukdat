@@ -36,7 +36,6 @@ void BacaPOINT (POINT *P)
     advWordFile();
     Ordinat_POINT(*P) = wordToInt(currentWordFile);
     advCharFile(); /* Membaca baris berikutnya */
-    printf("%d %d\n", Absis_POINT(*P), Ordinat_POINT(*P)); /* TEST */
 }                                    
 void TulisPOINT (POINT P)
 /* Nilai P ditulis ke layar dengan format "(X,Y)" 
