@@ -62,6 +62,7 @@ void enqueue(Queue *q, ElTypeQueue val)
 {
     /* KAMUS */
     int i;
+    ElTypeQueue temp;
 
     /* ALGORITMA */
     if (isEmptyQueue(*q)) {
@@ -78,6 +79,14 @@ void enqueue(Queue *q, ElTypeQueue val)
         IDX_TAIL_QUEUE(*q)++;
     }
     TAIL_QUEUE(*q) = val;
+
+    i = IDX_TAIL_QUEUE(*q);
+    while ((i > 0) && (q->buffer[i - 1].waktu_pick_up > q->buffer[i].waktu_pick_up)) {
+        temp = q->buffer[i - 1];
+        q->buffer[i - 1] = q->buffer[i];
+        q->buffer[i] = temp;
+        i--;
+    }
 }
 
 void dequeue(Queue *q, ElTypeQueue *val)
@@ -99,7 +108,33 @@ void dequeue(Queue *q, ElTypeQueue *val)
     }
 }
 
-/* *** Display Queue *** */
+/* *** I/O Queue *** */
+void readQueue(Queue *q)
+/* I.S. q sembarang dan sudah dialokasikan sebelumnya */
+/* F.S. Queue q terdefinisi */
+/* Proses : membaca banyaknya elemen q dan mengisi nilainya */
+/* 1. Baca banyaknya elemen diakhiri enter, misalnya N */
+/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= CAPACITY(l) */
+/*    Jika N tidak valid, tidak diberikan pesan kesalahan */
+/* 2. Jika 0 < N <= CAPACITY(l); Lakukan N kali: Baca elemen mulai dari indeks
+      0 satu per satu diakhiri enter */
+/*    Jika N = 0; hanya terbentuk l kosong */
+{
+    /* KAMUS */
+    int i, P;
+    ElTypeQueue tempItem;
+
+    /* ALGORITMA */
+    advWordFile();
+    P = wordToInt(currentWordFile);
+    advCharFile(); /* Membaca baris berikutnya */
+    printf("%d\n", P); /* TEST */
+
+    for (i = 0; i < P; i++) {
+        BacaItem(&tempItem);
+        enqueue(q, tempItem);
+    }
+}
 void displayQueue(Queue q)
 /* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung 
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
@@ -113,14 +148,9 @@ void displayQueue(Queue q)
     ElTypeQueue val;
 
     /* ALGORITMA */
-    printf("[");
     while (!isEmptyQueue(q)) {
         dequeue(&q, &val);
-        if (lengthQueue(q) != 0) {
-            printf("%d,", val);
-        } else {
-            printf("%d", val);
-        }
+        TulisItem(val);
+        printf("\n");
     }
-    printf("]");
 }

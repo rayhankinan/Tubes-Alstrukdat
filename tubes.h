@@ -13,6 +13,7 @@
 #include "ADT/LinkedList/list_linked.h"
 #include "ADT/Mesin/wordmachinefile.h"
 #include "ADT/Lokasi/lokasi.h"
+#include "ADT/Item/item.h"
 
 /* Konstanta pada main program */
 #define CAPACITY_INPUT 50
@@ -22,6 +23,7 @@ extern int N, M, L;
 extern Lokasi HQ;
 extern ListDin daftarBangunan;
 extern Matrix adjacencyMatrix;
+extern Queue daftarPesanan;
 
 void readQuery(Word *ptrQuery);
 /* Membaca input string dari user */

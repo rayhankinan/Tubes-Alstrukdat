@@ -5,12 +5,14 @@
 #define QUEUE_H
 
 #include "boolean.h"
+#include "../Item/item.h"
+#include "../Mesin/wordmachinefile.h"
 
 #define IDX_UNDEF_QUEUE -1
 #define CAPACITY_QUEUE 100
 
 /* Definisi elemen dan address */
-typedef int ElTypeQueue;
+typedef Item ElTypeQueue;
 typedef struct {
 	ElTypeQueue buffer[CAPACITY_QUEUE]; 
 	int idxHead;
@@ -56,7 +58,17 @@ void dequeue(Queue *q, ElTypeQueue *val);
 /* F.S. val = nilai elemen HEAD pd I.S., HEAD dan IDX_HEAD "mundur"; 
         q mungkin kosong */
 
-/* *** Display Queue *** */
+/* *** I/O Queue *** */
+void readQueue(Queue *q);
+/* I.S. q sembarang dan sudah dialokasikan sebelumnya */
+/* F.S. Queue q terdefinisi */
+/* Proses : membaca banyaknya elemen q dan mengisi nilainya */
+/* 1. Baca banyaknya elemen diakhiri enter, misalnya N */
+/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= CAPACITY(l) */
+/*    Jika N tidak valid, tidak diberikan pesan kesalahan */
+/* 2. Jika 0 < N <= CAPACITY(l); Lakukan N kali: Baca elemen mulai dari indeks
+      0 satu per satu diakhiri enter */
+/*    Jika N = 0; hanya terbentuk l kosong */
 void displayQueue(Queue q);
 /* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung 
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 

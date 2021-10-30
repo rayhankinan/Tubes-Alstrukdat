@@ -129,6 +129,7 @@ void displayListDin(ListDin l)
   /* ALGORITMA */
   for (i = 0; i < (IdxTypeListDin) lengthListDin(l); i++) {
     TulisLokasi(ELMT_LISTDIN(l, i));
+    printf("\n");
   }
 }
 

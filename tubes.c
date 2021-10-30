@@ -8,6 +8,7 @@ int N, M, L;
 Lokasi HQ;
 ListDin daftarBangunan;
 Matrix adjacencyMatrix;
+Queue daftarPesanan;
 
 void readQuery(Word *ptrQuery)
 /* Membaca input string dari user */
@@ -142,6 +143,8 @@ void readFileConfig(char namaFile[])
     readListDin(&daftarBangunan);
 
     readMatrix(&adjacencyMatrix, lengthListDin(daftarBangunan) + 1, lengthListDin(daftarBangunan) + 1);
+
+    readQueue(&daftarPesanan);
     
     stopWordFile();
 }
