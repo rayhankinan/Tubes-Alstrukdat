@@ -3,7 +3,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "boolean.h"
+#include "../Boolean/boolean.h"
 #include "../Mesin/wordmachinefile.h"
 
 #define UNDEF_WAKTU -1

@@ -4,7 +4,7 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "boolean.h"
+#include "../Boolean/boolean.h"
 #include "../Item/item.h"
 #include "../Mesin/wordmachinefile.h"
 
@@ -14,9 +14,9 @@
 /* Definisi elemen dan address */
 typedef Item ElTypeQueue;
 typedef struct {
-	ElTypeQueue buffer[CAPACITY_QUEUE]; 
-	int idxHead;
-	int idxTail;
+        ElTypeQueue buffer[CAPACITY_QUEUE];
+        int idxHead;
+        int idxTail;
 } Queue;
 
 
@@ -28,7 +28,7 @@ typedef struct {
 #define     TAIL_QUEUE(q) (q).buffer[(q).idxTail]
 
 /* *** Kreator *** */
-void CreateQueue(Queue *q);
+void CreateQueue(Queue* q);
 /* I.S. sembarang */
 /* F.S. Sebuah q kosong terbentuk dengan kondisi sbb: */
 /* - Index head bernilai IDX_UNDEF */
@@ -45,21 +45,21 @@ int lengthQueue(Queue q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
 
 /* *** Primitif Add/Delete *** */
-void enqueue(Queue *q, ElTypeQueue val);
+void enqueue(Queue* q, ElTypeQueue val);
 /* Proses: Menambahkan val pada q dengan aturan FIFO */
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur".
         Jika q penuh semu, maka perlu dilakukan aksi penggeseran "maju" elemen-elemen q
         menjadi rata kiri untuk membuat ruang kosong bagi TAIL baru  */
 
-void dequeue(Queue *q, ElTypeQueue *val);
+void dequeue(Queue* q, ElTypeQueue* val);
 /* Proses: Menghapus val pada q dengan aturan FIFO */
 /* I.S. q tidak mungkin kosong */
-/* F.S. val = nilai elemen HEAD pd I.S., HEAD dan IDX_HEAD "mundur"; 
+/* F.S. val = nilai elemen HEAD pd I.S., HEAD dan IDX_HEAD "mundur";
         q mungkin kosong */
 
-/* *** I/O Queue *** */
-void readQueue(Queue *q);
+        /* *** I/O Queue *** */
+void readQueue(Queue* q);
 /* I.S. q sembarang dan sudah dialokasikan sebelumnya */
 /* F.S. Queue q terdefinisi */
 /* Proses : membaca banyaknya elemen q dan mengisi nilainya */
@@ -68,15 +68,15 @@ void readQueue(Queue *q);
 /*    Jika N tidak valid, tidak diberikan pesan kesalahan */
 /* 2. Jika 0 < N <= CAPACITY(l); Lakukan N kali: Baca elemen mulai dari indeks
       0 satu per satu diakhiri enter */
-/*    Jika N = 0; hanya terbentuk l kosong */
+      /*    Jika N = 0; hanya terbentuk l kosong */
 void displayQueue(Queue q);
-/* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung 
-   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
+/* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung
+   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. q boleh kosong */
-/* F.S. Jika q tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika Queue kosong : menulis [] */
+   /* I.S. q boleh kosong */
+   /* F.S. Jika q tidak kosong: [e1,e2,...,en] */
+   /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
+   /* Jika Queue kosong : menulis [] */
 
 
 #endif

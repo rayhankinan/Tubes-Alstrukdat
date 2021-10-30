@@ -4,6 +4,7 @@
 #define PLAYER_H
 
 #include "../Lokasi/lokasi.h"
+#include "../Boolean/boolean.h"
 
 typedef struct
 {
@@ -22,10 +23,10 @@ typedef struct
 #define WAKTU(x) (x).waktu
 
 /* KONSTRUKTOR */
-void CreatePlayer(Player *p, int uang, int berat, int effect, int waktu);
+void CreatePlayer(Player* p, int uang, int berat, int effect, int waktu);
 /* Menghasilkan data player yang terdefinisi */
 
-void movePlayer(Player *p, Lokasi l);
+void movePlayer(Player* p, Lokasi l);
 /* Mengubah koordinat lokasi Player sesuai input lokasi */
 
 #endif

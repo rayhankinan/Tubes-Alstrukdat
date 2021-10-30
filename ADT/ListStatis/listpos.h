@@ -1,13 +1,13 @@
 /* MODUL LIST INTEGER DENGAN ELEMEN POSITIF */
-/* Berisi definisi dan semua primitif pemrosesan list integer dengan elemen 
+/* Berisi definisi dan semua primitif pemrosesan list integer dengan elemen
    positif */
-/* Penempatan elemen selalu rapat kiri */
-/* Banyaknya elemen didefinisikan secara implisit, memori array statik */
+   /* Penempatan elemen selalu rapat kiri */
+   /* Banyaknya elemen didefinisikan secara implisit, memori array statik */
 
 #ifndef LISTPOS_H
 #define LISTPOS_H
 
-#include "boolean.h"
+#include "../Boolean/boolean.h"
 
 /*  Kamus Umum */
 #define CAPACITY_LISTPOS 100
@@ -25,18 +25,18 @@ typedef struct {
 /* Indeks yang digunakan [0..CAPACITY-1] */
 /* Jika l adalah ListPos, cara deklarasi dan akses: */
 /* Deklarasi : l : ListPos */
-/* Maka cara akses: 
+/* Maka cara akses:
    ELMT(l,i) untuk mengakses elemen ke-i */
-/* Definisi : 
-   List kosong: semua elemen bernilai VAL_UNDEF
-   Definisi elemen pertama: ELMT(l,i) dengan i=0 */
+   /* Definisi :
+      List kosong: semua elemen bernilai VAL_UNDEF
+      Definisi elemen pertama: ELMT(l,i) dengan i=0 */
 
-/* ********** SELEKTOR ********** */
+      /* ********** SELEKTOR ********** */
 #define ELMT_LISTPOS(l, i) (l).contents[(i)]
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
-void CreateListPos(ListPos *l);
+void CreateListPos(ListPos* l);
 /* I.S. l sembarang */
 /* F.S. Terbentuk List l kosong dengan kapasitas CAPACITY */
 /* Proses: Inisialisasi semua elemen List l dengan VAL_UNDEF */
@@ -65,42 +65,42 @@ boolean isFullListPos(ListPos l);
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi List dari pembacaan *** */
-void readListPos(ListPos *l);
+void readListPos(ListPos* l);
 /* I.S. l sembarang */
 /* F.S. List l terdefinisi */
 /* Proses: membaca banyaknya elemen l dan mengisi nilainya */
 /* 1. Baca banyaknya elemen diakhiri enter, misalnya n */
 /*    Pembacaan diulangi sampai didapat n yang benar yaitu 0 <= n <= CAPACITY */
 /*    Jika n tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < n <= CAPACITY; Lakukan n kali: 
+/* 2. Jika 0 < n <= CAPACITY; Lakukan n kali:
           Baca elemen mulai dari indeks 0 satu per satu diakhiri enter */
-/*    Jika n = 0; hanya terbentuk List kosong */
+          /*    Jika n = 0; hanya terbentuk List kosong */
 void displayListPos(ListPos l);
-/* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung 
-   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
+/* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung
+   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. l boleh kosong */
-/* F.S. Jika l tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika List kosong : menulis [] */
+   /* I.S. l boleh kosong */
+   /* F.S. Jika l tidak kosong: [e1,e2,...,en] */
+   /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
+   /* Jika List kosong : menulis [] */
 
-/* ********** OPERATOR ARITMATIKA ********** */
-/* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
+   /* ********** OPERATOR ARITMATIKA ********** */
+   /* *** Aritmatika List : Penjumlahan, pengurangan, perkalian, ... *** */
 ListPos plusMinusTabListPos(ListPos l1, ListPos l2, boolean plus);
 /* Prekondisi : l1 dan l2 berukuran sama dan tidak kosong */
-/* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada 
+/* Jika plus = true, mengirimkan  l1+l2, yaitu setiap elemen l1 dan l2 pada
        indeks yang sama dijumlahkan */
-/* Jika plus = false, mengirimkan l1-l2, yaitu setiap elemen l1 dikurangi 
-       elemen l2 pada indeks yang sama */
+       /* Jika plus = false, mengirimkan l1-l2, yaitu setiap elemen l1 dikurangi
+              elemen l2 pada indeks yang sama */
 
-/* ********** OPERATOR RELASIONAL ********** */
-/* *** Operasi pembandingan List: *** */
+              /* ********** OPERATOR RELASIONAL ********** */
+              /* *** Operasi pembandingan List: *** */
 boolean isListPosEqual(ListPos l1, ListPos l2);
-/* Mengirimkan true jika l1 sama dengan l2 yaitu jika ukuran l1 = l2 dan semua 
+/* Mengirimkan true jika l1 sama dengan l2 yaitu jika ukuran l1 = l2 dan semua
    elemennya sama */
 
-/* ********** SEARCHING ********** */
-/* ***  Perhatian : List boleh kosong!! *** */
+   /* ********** SEARCHING ********** */
+   /* ***  Perhatian : List boleh kosong!! *** */
 int indexOfListPos(ListPos l, ElTypeListPos val);
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
@@ -108,31 +108,31 @@ int indexOfListPos(ListPos l, ElTypeListPos val);
 /* Skema Searching yang digunakan bebas */
 
 /* ********** NILAI EKSTREM ********** */
-void extremesListPos(ListPos l, ElTypeListPos *max, ElTypeListPos *min);
+void extremesListPos(ListPos l, ElTypeListPos* max, ElTypeListPos* min);
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
 
-/* ********** OPERASI LAIN ********** */
+        /* ********** OPERASI LAIN ********** */
 boolean isAllEvenListPos(ListPos l);
 /* Menghailkan true jika semua elemen l genap */
 
 /* ********** SORTING ********** */
-void sortListPos(ListPos *l, boolean asc);
+void sortListPos(ListPos* l, boolean asc);
 /* I.S. l boleh kosong */
 /* F.S. Jika asc = true, l terurut membesar */
 /*      Jika asc = false, l terurut mengecil */
 /* Proses : Mengurutkan l dengan salah satu algoritma sorting,
    algoritma bebas */
 
-/* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
-/* *** Menambahkan elemen terakhir *** */
-void insertLastListPos(ListPos *l, ElTypeListPos val);
+   /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
+   /* *** Menambahkan elemen terakhir *** */
+void insertLastListPos(ListPos* l, ElTypeListPos val);
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLastListPos(ListPos *l, ElTypeListPos *val);
+void deleteLastListPos(ListPos* l, ElTypeListPos* val);
 /* Proses : Menghapus elemen terakhir List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */

@@ -4,14 +4,14 @@
 #ifndef CHAR_ENGINE_FILE_H
 #define CHAR_ENGINE_FILE_H
 
-#include "boolean.h"
+#include "../Boolean/boolean.h"
 #include "charmachine.h"
 
 /* Char Engine State*/
 extern char currentCharFile;
 extern boolean eotFile;
 
-void startCharFile(char *namaFile);
+void startCharFile(char* namaFile);
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.
    I.S. : sembarang
@@ -20,9 +20,9 @@ void startCharFile(char *namaFile);
           Jika currentChar = MARK maka EOP akan menyala (true) */
 
 void advCharFile();
-/* Pita dimajukan satu karakter. 
+/* Pita dimajukan satu karakter.
    I.S. : Karakter pada jendela = currentChar, currentChar != MARK
-   F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama, 
+   F.S. : currentChar adalah karakter berikutnya dari currentChar yang lama,
           currentChar mungkin = MARK
           Jika  currentChar = MARK maka EOP akan menyala (true) */
 
