@@ -3,12 +3,16 @@
 
 #include "tubes.h"
 
-/* State pada main program */
+/* State awal pada main program (sudah terdefinisi dari pembacaan file) */
 int N, M, L;
 Lokasi HQ;
 ListDin daftarBangunan;
 Matrix adjacencyMatrix;
 Queue daftarPesanan;
+
+/* State berjalan pada main program (didefinisikan seiring berjalannya program) */
+boolean hasWon;
+Player Mobita;
 
 void readQuery(Word *ptrQuery)
 /* Membaca input string dari user */
@@ -104,6 +108,7 @@ void mainMenu()
     do {
         printf("ENTER COMMAND: ");
         readQuery(&input);
+
         if (compareQuery(input, newGame)) {
             readNewGame();
             gameMenu();
@@ -119,8 +124,8 @@ void mainMenu()
     } while (!compareQuery(input, newGame) || !compareQuery(input, quit) || !compareQuery(input, loadGame));
 }
 
-void readFileConfig(char namaFile[])
-/* Membaca file configuration */
+void readFileConfigNewGame(char namaFile[])
+/* Membaca file configuration new game */
 /* I.S. : State pada main program bebas dan namaFile terdefinisi */
 /* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
 {
@@ -148,6 +153,16 @@ void readFileConfig(char namaFile[])
     stopWordFile();
 }
 
+void readFileConfigLoadGame(char namaFile[])
+/* Membaca file configuration load game */
+/* I.S. : State pada main program bebas dan namaFile terdefinisi */
+/* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+}
+
 void readNewGame()
 /* Membaca file configuration untuk NEW GAME */
 /* I.S. : State pada main program terdefinisi */
@@ -161,7 +176,7 @@ void readNewGame()
     printf("ENTER FILE NAME: ");
     readQuery(&input);
     
-    readFileConfig(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
+    readFileConfigNewGame(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
 }
 
 void readLoadGame()
@@ -177,7 +192,7 @@ void readLoadGame()
     printf("ENTER FILE NAME: ");
     readQuery(&input);
 
-    readFileConfig(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
+    readFileConfigLoadGame(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
 }
 
 void gameMenu()
@@ -186,8 +201,54 @@ void gameMenu()
 /* F.S. : Output game menu pada layar */
 {
     /* KAMUS */
-    Word input, move, pickUp, dropOff, map, toDO, inProgress, buy, inventory, help, saveGame, returnItem;
+    Word input, move, pickUp, dropOff, mapLokasi, toDoList, inProgress, buyGadget, inventoryGadget, helpCommand, saveGame, returnItem;
 
     /* ALGORITMA */
     hasWon = false;
+
+    CreatePlayer(&Mobita, HQ);
+
+    writeQuery(&move, "MOVE", 4);
+    writeQuery(&pickUp, "PICK_UP", 7);
+    writeQuery(&dropOff, "DROP_OFF", 8);
+    writeQuery(&mapLokasi, "MAP", 3);
+    writeQuery(&toDoList, "TO_DO", 5);
+    writeQuery(&inProgress, "IN_PROGRESS", 11);
+    writeQuery(&buyGadget, "BUY", 3);
+    writeQuery(&inventoryGadget, "INVENTORY", 9);
+    writeQuery(&helpCommand, "HELP", 4);
+    writeQuery(&saveGame, "SAVE_GAME", 9);
+    writeQuery(&returnItem, "RETURN", 6);
+
+    do {
+        printf("ENTER COMMAND: ");
+        readQuery(&input);
+
+        if (compareQuery(input, move)) {
+
+        } else if (compareQuery(input, pickUp)) {
+
+        } else if (compareQuery(input, dropOff)) {
+
+        } else if (compareQuery(input, mapLokasi)) {
+
+        } else if (compareQuery(input, toDoList)) {
+
+        } else if (compareQuery(input, inProgress)) {
+
+        } else if (compareQuery(input, buyGadget)) {
+
+        } else if (compareQuery(input, inventoryGadget)) {
+
+        } else if (compareQuery(input, helpCommand)) {
+
+        } else if (compareQuery(input, saveGame)) {
+
+            stopWord();
+        } else if (compareQuery(input, returnItem)) {
+
+        } else {
+            printf("Try Again!\n");
+        }
+    } while (!hasWon || !compareQuery(input, saveGame));
 }

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "ADT/Boolean/boolean.h"
 #include "ADT/Point/point.h"
 #include "ADT/ListStatis/listpos.h"
 #include "ADT/ListDinamis/listdin.h"
@@ -14,17 +15,21 @@
 #include "ADT/Mesin/wordmachinefile.h"
 #include "ADT/Lokasi/lokasi.h"
 #include "ADT/Item/item.h"
+#include "ADT/Player/player.h"
 
 /* Konstanta pada main program */
 #define CAPACITY_INPUT 50
 
-/* State pada main program */
+/* State awal pada main program (sudah terdefinisi dari pembacaan file) */
 extern int N, M, L;
 extern Lokasi HQ;
 extern ListDin daftarBangunan;
 extern Matrix adjacencyMatrix;
 extern Queue daftarPesanan;
+
+/* State berjalan pada main program (didefinisikan seiring berjalannya program) */
 extern boolean hasWon;
+extern Player Mobita;
 
 void readQuery(Word *ptrQuery);
 /* Membaca input string dari user */
@@ -47,8 +52,13 @@ void mainMenu();
 /* I.S. Keadaan awal main program bebas */
 /* F.S. Output main menu pada layar */
 
-void readFileConfig(char namaFile[]);
-/* Membaca file configuration */
+void readFileConfigNewGame(char namaFile[]);
+/* Membaca file configuration  new game*/
+/* I.S. : State pada main program bebas dan namaFile terdefinisi */
+/* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
+
+void readFileConfigLoadGame(char namaFile[]);
+/* Membaca file configuration load game */
 /* I.S. : State pada main program bebas dan namaFile terdefinisi */
 /* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
 

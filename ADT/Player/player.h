@@ -11,22 +11,28 @@ typedef struct
   Lokasi loc; /* lokasi player */
   int uang;   /* uang player */
   int berat;  /* berat efek heavy item */
-  int effect; /* effect item yang berlangsung */
+  boolean isSpeedBoost; /* apakah Player mendapat ability speed boost */
+  int jumlahReturn; /* jumlah effect return item yang dimiliki */
   int waktu;  /* waktu berlalu setelah Player terdefinisi */
 } Player;
 
 /* SELEKTOR */
 #define LOKASI_PLAYER(x) (x).loc
-#define UANG(x) (x).uang
-#define BERAT(x) (x).berat
-#define EFFECT(x) (x).effect
-#define WAKTU(x) (x).waktu
+#define UANG_PLAYER(x) (x).uang
+#define BERAT_PLAYER(x) (x).berat
+#define SPEED_BOOST_PLAYER(x) (x).isSpeedBoost
+#define JUMLAH_RETURN_PLAYER(x) (x).jumlahReturn
+#define WAKTU_PLAYER(x) (x).waktu
 
 /* KONSTRUKTOR */
-void CreatePlayer(Player* p, int uang, int berat, int effect, int waktu);
+void CreatePlayer(Player* p, Lokasi lAwal);
 /* Menghasilkan data player yang terdefinisi */
+/* I.S. : p sembarang dan lAwal terdefinisi */
+/* F.S. : p terdefinisi */
 
 void movePlayer(Player* p, Lokasi l);
 /* Mengubah koordinat lokasi Player sesuai input lokasi */
+/* I.S. : p dan l terdefinisi */
+/* F.S. : lokasi p berubah menjadi l */
 
 #endif
