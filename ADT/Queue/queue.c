@@ -81,7 +81,7 @@ void enqueue(Queue *q, ElTypeQueue val)
     TAIL_QUEUE(*q) = val;
 
     i = IDX_TAIL_QUEUE(*q);
-    while ((i > 0) && (q->buffer[i - 1].waktu_pick_up > q->buffer[i].waktu_pick_up)) {
+    while ((i > 0) && (WAKTU_PICK_UP_ITEM(q->buffer[i - 1]) > WAKTU_PICK_UP_ITEM(q->buffer[i]))) {
         temp = q->buffer[i - 1];
         q->buffer[i - 1] = q->buffer[i];
         q->buffer[i] = temp;
@@ -125,6 +125,8 @@ void readQueue(Queue *q)
     ElTypeQueue tempItem;
 
     /* ALGORITMA */
+    CreateQueue(q);
+
     advWordFile();
     P = wordToInt(currentWordFile);
     advCharFile(); /* Membaca baris berikutnya */

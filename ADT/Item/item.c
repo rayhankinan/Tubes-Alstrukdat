@@ -33,11 +33,11 @@ void BacaItem(Item *I)
     advWordFile();
     WAKTU_PICK_UP_ITEM(*I) = wordToInt(currentWordFile);
     advWordFile();
-    JENIS_ITEM(*I) = currentWordFile.contents[0];
-    advWordFile();
     PICK_UP_ITEM(*I) = currentWordFile.contents[0];
     advWordFile();
     DROP_OFF_ITEM(*I) = currentWordFile.contents[0];
+    advWordFile();
+    JENIS_ITEM(*I) = currentWordFile.contents[0];
 
     if (eotFile) {
         WAKTU_HANGUS_ITEM(*I) = UNDEF_WAKTU;

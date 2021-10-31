@@ -145,10 +145,13 @@ void readFileConfigNewGame(char namaFile[])
     BacaPOINT(&KOORDINAT_LOKASI(HQ));
 
     readListDin(&daftarBangunan);
+    displayListDin(daftarBangunan);
 
     readMatrix(&adjacencyMatrix, lengthListDin(daftarBangunan) + 1, lengthListDin(daftarBangunan) + 1);
+    displayMatrix(adjacencyMatrix);
 
     readQueue(&daftarPesanan);
+    displayQueue(daftarPesanan);
     
     stopWordFile();
 }
@@ -201,14 +204,20 @@ void gameMenu()
 /* F.S. : Output game menu pada layar */
 {
     /* KAMUS */
-    Word input, move, pickUp, dropOff, mapLokasi, toDoList, inProgress, buyGadget, inventoryGadget, helpCommand, saveGame, returnItem;
+    Word input, moveFromLoc, pickUp, dropOff, mapLokasi, toDoList, inProgress, buyGadget, inventoryGadget, helpCommand, saveGame, returnItem;
 
     /* ALGORITMA */
     hasWon = false;
 
     CreatePlayer(&Mobita, HQ);
 
-    writeQuery(&move, "MOVE", 4);
+    printf("\nMobita berada di posisi ");
+    TulisLokasi(LOKASI_PLAYER(Mobita));
+    printf("\n");
+    printf("Waktu: %d\n", WAKTU_PLAYER(Mobita));
+    printf("Uang yang dimiliki: %d Yen\n\n", UANG_PLAYER(Mobita));
+
+    writeQuery(&moveFromLoc, "MOVE", 4);
     writeQuery(&pickUp, "PICK_UP", 7);
     writeQuery(&dropOff, "DROP_OFF", 8);
     writeQuery(&mapLokasi, "MAP", 3);
@@ -224,8 +233,8 @@ void gameMenu()
         printf("ENTER COMMAND: ");
         readQuery(&input);
 
-        if (compareQuery(input, move)) {
-
+        if (compareQuery(input, moveFromLoc)) {
+            move();
         } else if (compareQuery(input, pickUp)) {
 
         } else if (compareQuery(input, dropOff)) {
@@ -251,4 +260,27 @@ void gameMenu()
             printf("Try Again!\n");
         }
     } while (!hasWon || !compareQuery(input, saveGame));
+}
+
+void move()
+/* Meminta lokasi tujuan player yang bisa diakses dari lokasi player, kemudian menggerakannya */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Lokasi player berubah sesuai input pengguna */
+{
+    /* KAMUS */
+    int i, j, count;
+
+    /* ALGORITMA */
+
+    count = 0;
+    i = indexOfListDin(daftarBangunan, LOKASI_PLAYER(Mobita));
+
+    for (j = 0; j < lengthListDin(daftarBangunan); j++) {
+        if (ELMT_MATRIX(adjacencyMatrix, i, j)) {
+            printf("%d. ", count + 1);
+            TulisLokasi(ELMT_LISTDIN(daftarBangunan, j));
+            printf("\n");
+            count++;
+        }
+    }
 }

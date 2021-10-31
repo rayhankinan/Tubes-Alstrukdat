@@ -75,7 +75,7 @@ int indexOfListLinked(ListLinked l, ElTypeNode val)
   found = false;
   idx = 0;
   while (p != NULL && !found) {
-    if (INFO_NODE(p) == val) {
+    if (EQItem(INFO_NODE(p), val)) {
       found = true;
     }
     else {
@@ -248,18 +248,12 @@ void displayListLinked(ListLinked l)
   Address p;
 
   /* ALGORITMA */
-  printf("[");
-  if (!isEmptyListLinked(l)) {
-    p = l;
-    while (p != NULL) {
-      printf("%d", INFO_NODE(p));
-      if (NEXT_NODE(p) != NULL) {
-        printf(",");
-      }
-      p = NEXT_NODE(p);
-    }
+  p = FIRST_LIST_LINKED(l);
+  while (p != NULL) {
+    TulisItem(INFO_NODE(p));
+    printf("\n");
+    p = NEXT_NODE(p);
   }
-  printf("]");
 }
 
 int lengthListLinked(ListLinked l)

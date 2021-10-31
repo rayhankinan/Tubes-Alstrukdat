@@ -2,8 +2,9 @@
 #define NODE_H
 
 #include <stdlib.h>
+#include "../Item/item.h"
 
-typedef int ElTypeNode;
+typedef Item ElTypeNode;
 typedef struct node* Address;
 typedef struct node {
     ElTypeNode info;

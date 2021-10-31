@@ -76,3 +76,8 @@ void gameMenu();
 /* Menampikan game menu pada main program */
 /* I.S. : Main menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
 /* F.S. : Output game menu pada layar */
+
+void move();
+/* Meminta lokasi tujuan player yang bisa diakses dari lokasi player, kemudian menggerakannya */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Lokasi player berubah sesuai input pengguna */
