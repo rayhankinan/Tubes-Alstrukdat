@@ -14,18 +14,19 @@ Queue daftarPesanan;
 boolean hasWon;
 Player Mobita;
 ListPos inventory;
+ListPos hargaGadget;
 
 void printWord(Word kata)
 /* Menuliskan string ke dalam main program */
 /* I.S. kata terdefinisi */
 /* F.S. kata ditulis ke dalam main program */
 {
-  /* KAMUS LOKAL */
-  int i;
-  /* ALGORITMA */
-  for (i = 0; i < kata.length; i++) {
-    printf("%c", kata.contents[i]);
-  }
+    /* KAMUS LOKAL */
+    int i;
+    /* ALGORITMA */
+    for (i = 0; i < kata.length; i++) {
+        printf("%c", kata.contents[i]);
+    }
 }
 
 void readQuery(Word *ptrQuery)
@@ -33,21 +34,21 @@ void readQuery(Word *ptrQuery)
 /* I.S. Query bebas */
 /* F.S. Query berisi string input user */
 {
-  /* KAMUS */
-  int i;
+    /* KAMUS */
+    int i;
 
-  /* ALGORITMA */
+    /* ALGORITMA */
 
-  startWord();
+    startWord();
 
-  if (eot) {
-    writeQuery(ptrQuery, currentWord.contents, currentWord.length);
-  } else {
-    writeQuery(ptrQuery, "", 0);
-    while (!eot) {
-      advWord();
+    if (eot) {
+        writeQuery(ptrQuery, currentWord.contents, currentWord.length);
+    } else {
+        writeQuery(ptrQuery, "", 0);
+        while (!eot) {
+            advWord();
+        }
     }
-  }
 }
 
 void writeQuery(Word *ptrQuery, char input[], int length)
@@ -55,55 +56,54 @@ void writeQuery(Word *ptrQuery, char input[], int length)
 /* I.S. : Query bebas */
 /* F.S. : Query.contents berisi string input dengan query.length berisi integer length */
 {
-  /* KAMUS */
-  int i;
+    /* KAMUS */
+    int i;
 
-  /* ALGORITMA */
-  for (i = 0; i < length; i++) {
-    ptrQuery->contents[i] = input[i];
-  }
-  ptrQuery->contents[length] = '\0';
-  ptrQuery->length = length;
+    /* ALGORITMA */
+    for (i = 0; i < length; i++) {
+        ptrQuery->contents[i] = input[i];
+    }
+    ptrQuery->contents[length] = '\0';
+    ptrQuery->length = length;
 }
 
 boolean compareQuery(Word query, Word value)
 /* Mencari tahu apakah dua Word bernilai sama */
 {
-  /* KAMUS */
-  boolean hasil;
-  int i;
+    /* KAMUS */
+    boolean hasil;
+    int i;
 
-  /* ALGORITMA */
-  hasil = query.length == value.length;
+    /* ALGORITMA */
+    hasil = query.length == value.length;
 
-  i = 0;
-  while (i < query.length && hasil) {
-    hasil = query.contents[i] == value.contents[i];
-    i++;
-  }
+    i = 0;
+    while (i < query.length && hasil) {
+        hasil = query.contents[i] == value.contents[i];
+        i++;
+    }
 
-  return hasil;
+    return hasil;
 }
 
 Word concatQuery(Word query1, Word query2)
 /* Menggabungkan dua Word */
 {
-  /* KAMUS */
-  Word queryHasil;
-  int i;
+    /* KAMUS */
+    Word queryHasil;
+    int i;
 
-  /* ALGORITMA */
+    /* ALGORITMA */
+    for (i = 0; i < query1.length; i++) {
+        queryHasil.contents[i] = query1.contents[i];
+    }
+    for (i = 0; i < query2.length; i++) {
+        queryHasil.contents[query1.length + i] = query2.contents[i];
+    }
+    queryHasil.contents[query1.length + query2.length] = '\0';
+    queryHasil.length = query1.length + query2.length;
 
-  for (i = 0; i < query1.length; i++) {
-    queryHasil.contents[i] = query1.contents[i];
-  }
-  for (i = 0; i < query2.length; i++) {
-    queryHasil.contents[query1.length + i] = query2.contents[i];
-  }
-  queryHasil.contents[query1.length + query2.length] = '\0';
-  queryHasil.length = query1.length + query2.length;
-
-  return queryHasil;
+    return queryHasil;
 }
 
 void gadgetName(int id)
@@ -111,17 +111,17 @@ void gadgetName(int id)
 /* I.S. : id gadget terdefinisi */
 /* I.F. : nama gadget tertulis ke dalam main program */
 {
-  switch (id) {
-  case 1:
-    printf("Kain Pembungkus Waktu");
-    break;
-  case 2:
-    printf("Senter Pembesar");
-  case 3:
-    printf("Pintu Kemana Saja");
-  case 4:
-    printf("Mesin Waktu");
-  }
+    switch (id) {
+    case 1:
+        printf("Kain Pembungkus Waktu");
+        break;
+    case 2:
+        printf("Senter Pembesar");
+    case 3:
+        printf("Pintu Kemana Saja");
+    case 4:
+        printf("Mesin Waktu");
+    }
 }
 
 void gadgetShop()
@@ -129,55 +129,46 @@ void gadgetShop()
 /* I.S. : Gadget pada toko ditampilkan pada main program */
 /* F.S. : Output player berhasil atau gagal membeli gadget dari toko dan    menyimpan gadget pada inventory */
 {
-  /* KAMUS LOKAL */
-  Word input;
-  int N, total;
-  ListPos hargaGadget;
+    /* KAMUS LOKAL */
+    Word input;
+    int N, total;
 
-  /* ALGORITMA */
-  CreateListPos(&hargaGadget);
-  ELMT_LISTPOS(hargaGadget, 0) = 800;
-  ELMT_LISTPOS(hargaGadget, 1) = 1200;
-  ELMT_LISTPOS(hargaGadget, 2) = 1500;
-  ELMT_LISTPOS(hargaGadget, 3) = 3000;
-  //UANG_PLAYER(Mobita) = 5000;
+    /* ALGORITMA */
+    UANG_PLAYER(Mobita) = 5000;
 
-  if (isFullListPos(inventory)) {
-    printf("Maaf, inventory Anda sudah full.");
-  } else {
-    printf("\nUang Anda sekarang: %d Yen\n", UANG_PLAYER(Mobita));
-    printf("Gadget yang tersedia:\n");
-    printf("1. Kain Pembungkus Waktu (800 Yen)\n");
-    printf("2. Senter Pembesar (1200 Yen)\n");
-    printf("3. Pintu Kemana Saja (1500 Yen)\n");
-    printf("4. Mesin Waktu (3000 Yen)\n");
-    printf("Gadget mana yang ingin kau beli? (ketik 0 jika ingin kembali)\n");
-
-    do {
-      printf("\nSHOP COMMAND: ");
-      readQuery(&input);
-      N = wordToInt(input);
-      if (N < 0 || N > 4) {
-        printf("Try Again!");
-      }
-    } while (N < 0 || N > 4);
-
-    if (N == 0) {
-      gameMenu();
+    if (isFullListPos(inventory)) {
+        printf("Maaf, inventory Anda sudah full.\n");
     } else {
-      total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, N - 1);
-      if (total < 0) {
-        printf("Uang tidak cukup untuk membeli gadget!\n");
-      } else {
-        gadgetName(N);
-        printf(" berhasil dibeli!\n");
-        printf("Uang anda sekarang: %d Yen\n", total);
-        UANG_PLAYER(Mobita) = total;
-        insertFreeSlot(&inventory, N);
-      }
-      displayListPos(inventory);
+        printf("\nUang Anda sekarang: %d Yen\n", UANG_PLAYER(Mobita));
+        printf("Gadget yang tersedia:\n");
+        printf("1. Kain Pembungkus Waktu (800 Yen)\n");
+        printf("2. Senter Pembesar (1200 Yen)\n");
+        printf("3. Pintu Kemana Saja (1500 Yen)\n");
+        printf("4. Mesin Waktu (3000 Yen)\n");
+        printf("Gadget mana yang ingin kau beli? (ketik 0 jika ingin kembali)\n");
+
+        do {
+            printf("\nSHOP COMMAND: ");
+            readQuery(&input);
+            N = wordToInt(input);
+            if (N < 0 || N > 4) {
+                printf("Try Again!");
+            }
+        } while (N < 0 || N > 4);
+
+        if (N != 0) {
+            total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, N - 1);
+            if (total < 0) {
+                printf("Uang tidak cukup untuk membeli gadget!\n");
+            } else {
+                gadgetName(N);
+                printf(" berhasil dibeli!\n");
+                printf("Uang anda sekarang: %d Yen\n", total);
+                UANG_PLAYER(Mobita) = total;
+                insertFreeSlot(&inventory, N);
+            }
+        }
     }
-  }
 }
 
 void mainMenu()
@@ -185,31 +176,31 @@ void mainMenu()
 /* I.S. Keadaan awal main program bebas */
 /* F.S. Output main menu pada layar */
 {
-  /* KAMUS */
-  Word input, quit, newGame, loadGame;
+    /* KAMUS */
+    Word input, quit, newGame, loadGame;
 
-  /* ALGORITMA */
-  writeQuery(&newGame, "NEW_GAME", 8);
-  writeQuery(&quit, "QUIT", 4);
-  writeQuery(&loadGame, "LOAD_GAME", 9);
+    /* ALGORITMA */
+    writeQuery(&newGame, "NEW_GAME", 8);
+    writeQuery(&quit, "QUIT", 4);
+    writeQuery(&loadGame, "LOAD_GAME", 9);
 
-  do {
-    printf("ENTER COMMAND: ");
-    readQuery(&input);
+    do {
+        printf("ENTER COMMAND: ");
+        readQuery(&input);
 
-    if (compareQuery(input, newGame)) {
-      readNewGame();
-      gameMenu();
-    } else if (compareQuery(input, quit)) {
-      printf("Quiting the game . . .");
-      stopWord();
-    } else if (compareQuery(input, loadGame)) {
-      readLoadGame();
-      gameMenu();
-    } else {
-      printf("Try Again!\n");
-    }
-  } while (!compareQuery(input, newGame) || !compareQuery(input, quit) || !compareQuery(input, loadGame));
+        if (compareQuery(input, newGame)) {
+            readNewGame();
+            gameMenu();
+        } else if (compareQuery(input, quit)) {
+            printf("Quiting the game . . .");
+            stopWord();
+        } else if (compareQuery(input, loadGame)) {
+            readLoadGame();
+            gameMenu();
+        } else {
+            printf("Try Again!\n");
+        }
+    } while (!compareQuery(input, newGame) || !compareQuery(input, quit) || !compareQuery(input, loadGame));
 }
 
 void readFileConfigNewGame(char namaFile[])
@@ -217,27 +208,27 @@ void readFileConfigNewGame(char namaFile[])
 /* I.S. : State pada main program bebas dan namaFile terdefinisi */
 /* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
 {
-  /* KAMUS */
-  int i, j;
-  Lokasi tempLoc;
+    /* KAMUS */
+    int i, j;
+    Lokasi tempLoc;
 
-  /* ALGORITMA */
-  startWordFile(namaFile);
-  N = wordToInt(currentWordFile);
-  advWordFile();
-  M = wordToInt(currentWordFile);
-  advCharFile(); /* Membaca baris berikutnya */
+    /* ALGORITMA */
+    startWordFile(namaFile);
+    N = wordToInt(currentWordFile);
+    advWordFile();
+    M = wordToInt(currentWordFile);
+    advCharFile(); /* Membaca baris berikutnya */
 
-  NAMA_LOKASI(HQ) = '8';
-  BacaPOINT(&KOORDINAT_LOKASI(HQ));
+    NAMA_LOKASI(HQ) = '8';
+    BacaPOINT(&KOORDINAT_LOKASI(HQ));
 
-  readListDin(&daftarBangunan);
+    readListDin(&daftarBangunan);
 
-  readMatrix(&adjacencyMatrix, lengthListDin(daftarBangunan) + 1, lengthListDin(daftarBangunan) + 1);
+    readMatrix(&adjacencyMatrix, lengthListDin(daftarBangunan) + 1, lengthListDin(daftarBangunan) + 1);
 
-  readQueue(&daftarPesanan);
+    readQueue(&daftarPesanan);
 
-  stopWordFile();
+    stopWordFile();
 }
 
 void readFileConfigLoadGame(char namaFile[])
@@ -245,9 +236,9 @@ void readFileConfigLoadGame(char namaFile[])
 /* I.S. : State pada main program bebas dan namaFile terdefinisi */
 /* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
 {
-  /* KAMUS */
+    /* KAMUS */
 
-  /* ALGORITMA */
+    /* ALGORITMA */
 }
 
 void readNewGame()
@@ -255,17 +246,17 @@ void readNewGame()
 /* I.S. : State pada main program terdefinisi */
 /* F.S. : Meminta nama file pada ConfigNewGame kemudian melakukan pembacaan file */
 {
-  /* KAMUS */
-  Word dirFile, input;
+    /* KAMUS */
+    Word dirFile, input;
 
-  /* ALGORITMA */
-  writeQuery(&dirFile, "ConfigNewGame/", 14);
-  printf("ENTER FILE NAME: ");
-  readQuery(&input);
+    /* ALGORITMA */
+    writeQuery(&dirFile, "ConfigNewGame/", 14);
+    printf("ENTER FILE NAME: ");
+    readQuery(&input);
 
-  readFileConfigNewGame(concatQuery(dirFile, input).contents);
+    readFileConfigNewGame(concatQuery(dirFile, input).contents);
 
-  /* Janlup buat handling kalau nama filenya tidak ada di directory */
+    /* Janlup buat handling kalau nama filenya tidak ada di directory */
 }
 
 void readLoadGame()
@@ -273,15 +264,15 @@ void readLoadGame()
 /* I.S. : State pada main program terdefinisi */
 /* F.S. : Meminta nama file pada ConfidLoadGame kemudian melakukan pembacaan file */
 {
-  /* KAMUS */
-  Word dirFile, input;
+    /* KAMUS */
+    Word dirFile, input;
 
-  /* ALGORITMA */
-  writeQuery(&dirFile, "ConfigLoadGame/", 15);
-  printf("ENTER FILE NAME: ");
-  readQuery(&input);
+    /* ALGORITMA */
+    writeQuery(&dirFile, "ConfigLoadGame/", 15);
+    printf("ENTER FILE NAME: ");
+    readQuery(&input);
 
-  readFileConfigLoadGame(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
+    readFileConfigLoadGame(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
 }
 
 void gameMenu()
@@ -289,55 +280,62 @@ void gameMenu()
 /* I.S. : Main menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
 /* F.S. : Output game menu pada layar */
 {
-  /* KAMUS */
-  Word input, move, pickUp, dropOff, mapLokasi, toDoList, inProgress, buyGadget, inventoryGadget, helpCommand, saveGame, returnItem;
+    /* KAMUS */
+    Word input, move, pickUp, dropOff, mapLokasi, toDoList, inProgress, buyGadget, inventoryGadget, helpCommand, saveGame, returnItem;
 
-  /* ALGORITMA */
-  hasWon = false;
+    /* ALGORITMA */
+    hasWon = false;
 
-  CreatePlayer(&Mobita, HQ);
+    CreatePlayer(&Mobita, HQ);
+    CreateListPos(&inventory);
 
-  writeQuery(&move, "MOVE", 4);
-  writeQuery(&pickUp, "PICK_UP", 7);
-  writeQuery(&dropOff, "DROP_OFF", 8);
-  writeQuery(&mapLokasi, "MAP", 3);
-  writeQuery(&toDoList, "TO_DO", 5);
-  writeQuery(&inProgress, "IN_PROGRESS", 11);
-  writeQuery(&buyGadget, "BUY", 3);
-  writeQuery(&inventoryGadget, "INVENTORY", 9);
-  writeQuery(&helpCommand, "HELP", 4);
-  writeQuery(&saveGame, "SAVE_GAME", 9);
-  writeQuery(&returnItem, "RETURN", 6);
+    CreateListPos(&hargaGadget);
+    ELMT_LISTPOS(hargaGadget, 0) = 800;
+    ELMT_LISTPOS(hargaGadget, 1) = 1200;
+    ELMT_LISTPOS(hargaGadget, 2) = 1500;
+    ELMT_LISTPOS(hargaGadget, 3) = 3000;
 
-  do {
-    printf("ENTER COMMAND: ");
-    readQuery(&input);
+    writeQuery(&move, "MOVE", 4);
+    writeQuery(&pickUp, "PICK_UP", 7);
+    writeQuery(&dropOff, "DROP_OFF", 8);
+    writeQuery(&mapLokasi, "MAP", 3);
+    writeQuery(&toDoList, "TO_DO", 5);
+    writeQuery(&inProgress, "IN_PROGRESS", 11);
+    writeQuery(&buyGadget, "BUY", 3);
+    writeQuery(&inventoryGadget, "INVENTORY", 9);
+    writeQuery(&helpCommand, "HELP", 4);
+    writeQuery(&saveGame, "SAVE_GAME", 9);
+    writeQuery(&returnItem, "RETURN", 6);
 
-    if (compareQuery(input, move)) {
+    do {
+        printf("ENTER COMMAND: ");
+        readQuery(&input);
 
-    } else if (compareQuery(input, pickUp)) {
+        if (compareQuery(input, move)) {
 
-    } else if (compareQuery(input, dropOff)) {
+        } else if (compareQuery(input, pickUp)) {
 
-    } else if (compareQuery(input, mapLokasi)) {
+        } else if (compareQuery(input, dropOff)) {
 
-    } else if (compareQuery(input, toDoList)) {
+        } else if (compareQuery(input, mapLokasi)) {
 
-    } else if (compareQuery(input, inProgress)) {
+        } else if (compareQuery(input, toDoList)) {
 
-    } else if (compareQuery(input, buyGadget)) {
-      gadgetShop();
-    } else if (compareQuery(input, inventoryGadget)) {
+        } else if (compareQuery(input, inProgress)) {
 
-    } else if (compareQuery(input, helpCommand)) {
+        } else if (compareQuery(input, buyGadget)) {
+            gadgetShop();
+        } else if (compareQuery(input, inventoryGadget)) {
 
-    } else if (compareQuery(input, saveGame)) {
+        } else if (compareQuery(input, helpCommand)) {
 
-      stopWord();
-    } else if (compareQuery(input, returnItem)) {
+        } else if (compareQuery(input, saveGame)) {
 
-    } else {
-      printf("Try Again!\n");
-    }
-  } while (!hasWon || !compareQuery(input, saveGame));
+            stopWord();
+        } else if (compareQuery(input, returnItem)) {
+
+        } else {
+            printf("Try Again!\n");
+        }
+    } while (!hasWon || !compareQuery(input, saveGame));
 }
