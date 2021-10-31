@@ -149,6 +149,28 @@ int indexOfListPos(ListPos l, ElTypeListPos val)
 }
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
+/* *** Menambahkan elemen pada slot kosong *** */
+void insertFreeSlot(ListPos *l, ElTypeListPos val)
+/* Proses: Menambahkan val pada elemen yang kosong */
+/* I.S. List l boleh kosong, tetapi tidak penuh */
+/* F.S. val adalah elemen pada slot kosong l yang baru */
+{
+  /* KAMUS LOKAL */
+  boolean found;
+  int i;
+  /* ALGORITMA */
+  i = 0;
+  found = false;
+  while (!found) {
+    if (ELMT_LISTPOS(*l, i) == VAL_UNDEF_LISTPOS) {
+      ELMT_LISTPOS(*l, i) = val;
+      found = true;
+    } else {
+      i++;
+    }
+  }
+}
+
 /* *** Menambahkan elemen terakhir *** */
 void insertLastListPos(ListPos *l, ElTypeListPos val)
 /* Proses: Menambahkan val sebagai elemen terakhir List */

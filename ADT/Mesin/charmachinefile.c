@@ -6,7 +6,7 @@
 char currentCharFile;
 boolean eotFile;
 
-static FILE * tapeFile;
+static FILE *tapeFile;
 static int retvalFile;
 
 void startCharFile(char namaFile[])
@@ -17,11 +17,11 @@ void startCharFile(char namaFile[])
           Jika currentChar != MARK maka EOP akan padam (false)
           Jika currentChar = MARK maka EOP akan menyala (true) */
 {
-    /* KAMUS */
+  /* KAMUS */
 
-    /* ALGORITMA */
-    tapeFile = fopen(namaFile, "r");
-    advCharFile();
+  /* ALGORITMA */
+  tapeFile = fopen(namaFile, "r");
+  advCharFile();
 }
 
 void advCharFile()
@@ -31,11 +31,11 @@ void advCharFile()
           currentChar mungkin = MARK
           Jika  currentChar = MARK maka EOP akan menyala (true) */
 {
-    /* KAMUS */
+  /* KAMUS */
 
-    /* ALGORITMA */
-    retvalFile = fscanf(tapeFile, "%c", &currentCharFile);
-    eotFile = (currentCharFile == MARK_CHARMACHINE);
+  /* ALGORITMA */
+  retvalFile = fscanf(tapeFile, "%c", &currentCharFile);
+  eotFile = (currentCharFile == MARK_CHARMACHINE);
 }
 
 void endCharFile()
@@ -43,8 +43,8 @@ void endCharFile()
    I.S. : Mesin Karakter sedang dijalankan
    F.S. : Mesin Karakter berhenti */
 {
-    /* KAMUS */
+  /* KAMUS */
 
-    /* ALGORITMA */
-    fclose(tapeFile);
+  /* ALGORITMA */
+  fclose(tapeFile);
 }
