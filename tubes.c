@@ -106,8 +106,8 @@ Word concatQuery(Word query1, Word query2)
     return queryHasil;
 }
 
-void gadgetName(int id)
-/* menampilkan nama gadget sesuai dengan id gadget */
+void printGadgetName(int id)
+/* Menampilkan nama gadget sesuai dengan id gadget */
 /* I.S. : id gadget terdefinisi */
 /* I.F. : nama gadget tertulis ke dalam main program */
 {
@@ -117,17 +117,19 @@ void gadgetName(int id)
         break;
     case 2:
         printf("Senter Pembesar");
+        break;
     case 3:
         printf("Pintu Kemana Saja");
+        break;
     case 4:
         printf("Mesin Waktu");
     }
 }
 
-void gadgetShop()
-/* menampilkan gadget yang dapat dibeli lalu Player membelinya */
-/* I.S. : Gadget pada toko ditampilkan pada main program */
-/* F.S. : Output player berhasil atau gagal membeli gadget dari toko dan    menyimpan gadget pada inventory */
+void shopMenu()
+/* Menampilkan gadget yang dapat dibeli pada main program lalu Player membelinya */
+/* I.S. : Keadaan awal main program bebas */
+/* F.S. : Output player berhasil atau gagal membeli gadget dari toko dan    menyimpan gadget pada list inventory */
 {
     /* KAMUS LOKAL */
     Word input;
@@ -139,7 +141,7 @@ void gadgetShop()
     if (isFullListPos(inventory)) {
         printf("Maaf, inventory Anda sudah full.\n");
     } else {
-        printf("\nUang Anda sekarang: %d Yen\n", UANG_PLAYER(Mobita));
+        printf("Uang Anda sekarang: %d Yen\n", UANG_PLAYER(Mobita));
         printf("Gadget yang tersedia:\n");
         printf("1. Kain Pembungkus Waktu (800 Yen)\n");
         printf("2. Senter Pembesar (1200 Yen)\n");
@@ -161,12 +163,60 @@ void gadgetShop()
             if (total < 0) {
                 printf("Uang tidak cukup untuk membeli gadget!\n");
             } else {
-                gadgetName(N);
+                printGadgetName(N);
                 printf(" berhasil dibeli!\n");
                 printf("Uang anda sekarang: %d Yen\n", total);
                 UANG_PLAYER(Mobita) = total;
                 insertFreeSlot(&inventory, N);
             }
+        }
+    }
+}
+
+void activateEffect(int id)
+/* Mengaktifkan effek gadget */
+{
+    printf("[Placeholder]\n");
+}
+
+void inventoryMenu()
+/* Menampilkan isi list inventory pada main program 
+lalu player menggunakan gadget yang diinginkan */
+/* I.S. Keadaan awal main program bebas */
+/* F.S. Output gadget berhasil atau gagal untuk digunakan lalu menghasilkan
+efek gadget tersebut */
+{
+    /* KAMUS LOKAL */
+    Word input;
+    int id_gadget;
+    int i;
+    /* ALGORITMA */
+    for (i = 0; i < 5; i++) {
+        printf("%d. ", i + 1);
+        if (ELMT_LISTPOS(inventory, i) == VAL_UNDEF_LISTPOS) {
+            printf("-\n");
+        } else {
+            printGadgetName(ELMT_LISTPOS(inventory, i));
+            printf("\n");
+        }
+    }
+    printf("Gadget mana yang ingin digunakan? (ketik 0 jika ingin kembali)\n");
+    do {
+        printf("\nINVENTORY COMMAND: ");
+        readQuery(&input);
+        N = wordToInt(input);
+        if (N < 0 || N > 5) {
+            printf("Try Again!");
+        }
+    } while (N < 0 || N > 5);
+    if (N != 0) {
+        if (ELMT_LISTPOS(inventory, N - 1) == VAL_UNDEF_LISTPOS) {
+            printf("Tidak ada Gadget yang dapat digunakan!\n");
+        } else {
+            activateEffect(ELMT_LISTPOS(inventory, N - 1));
+            printGadgetName(ELMT_LISTPOS(inventory, N - 1));
+            printf(" berhasil digunakan!\n");
+            ELMT_LISTPOS(inventory, N - 1) = VAL_UNDEF_LISTPOS;
         }
     }
 }
@@ -324,9 +374,9 @@ void gameMenu()
         } else if (compareQuery(input, inProgress)) {
 
         } else if (compareQuery(input, buyGadget)) {
-            gadgetShop();
+            shopMenu();
         } else if (compareQuery(input, inventoryGadget)) {
-
+            inventoryMenu();
         } else if (compareQuery(input, helpCommand)) {
 
         } else if (compareQuery(input, saveGame)) {
