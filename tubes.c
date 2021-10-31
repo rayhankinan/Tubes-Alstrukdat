@@ -136,7 +136,7 @@ void shopMenu()
     int N, total;
 
     /* ALGORITMA */
-    UANG_PLAYER(Mobita) = 5000;
+    //UANG_PLAYER(Mobita) = 5000; (TEST)
 
     if (isFullListPos(inventory)) {
         printf("Maaf, inventory Anda sudah full.\n");
