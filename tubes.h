@@ -1,21 +1,21 @@
 /* File: tubes.h */
 /* Definisi fungsi dan prosedur pada main program */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "ADT/Boolean/boolean.h"
-#include "ADT/Point/point.h"
-#include "ADT/ListStatis/listpos.h"
+#include "ADT/Item/item.h"
+#include "ADT/LinkedList/list_linked.h"
 #include "ADT/ListDinamis/listdin.h"
+#include "ADT/ListStatis/listpos.h"
+#include "ADT/Lokasi/lokasi.h"
 #include "ADT/Matrix/matrix.h"
 #include "ADT/Mesin/wordmachine.h"
-#include "ADT/Stack/stack.h"
-#include "ADT/Queue/queue.h"
-#include "ADT/LinkedList/list_linked.h"
 #include "ADT/Mesin/wordmachinefile.h"
-#include "ADT/Lokasi/lokasi.h"
-#include "ADT/Item/item.h"
 #include "ADT/Player/player.h"
+#include "ADT/Point/point.h"
+#include "ADT/Queue/queue.h"
+#include "ADT/Stack/stack.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /* Konstanta pada main program */
 #define CAPACITY_INPUT 50
@@ -46,6 +46,26 @@ boolean compareQuery(Word query, Word value);
 
 Word concatQuery(Word query1, Word query2);
 /* Menggabungkan dua Word */
+
+void printGadgetName(int id);
+/* Menampilkan nama gadget sesuai dengan id gadget */
+/* I.S. : id gadget terdefinisi */
+/* I.F. : nama gadget tertulis ke dalam main program */
+
+void shopMenu();
+/* Menampilkan gadget yang dapat dibeli pada main program lalu Player membelinya */
+/* I.S. : Keadaan awal main program bebas */
+/* F.S. : Output player berhasil atau gagal membeli gadget dari toko dan    menyimpan gadget pada list inventory */
+
+void activateEffect(int id);
+/* Mengaktifkan effek gadget */
+
+void inventoryMenu();
+/* Menampilkan isi list inventory pada main program 
+lalu player menggunakan gadget yang diinginkan */
+/* I.S. Keadaan awal main program bebas */
+/* F.S. Output gadget berhasil atau gagal untuk digunakan lalu menghasilkan
+efek gadget tersebut */
 
 void mainMenu();
 /* Menampilkan main menu pada main program */

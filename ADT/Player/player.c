@@ -1,8 +1,8 @@
-#include <stdio.h>
 #include "player.h"
+#include <stdio.h>
 
 /* KONSTRUKTOR */
-void CreatePlayer(Player* p, Lokasi lAwal)
+void CreatePlayer(Player *p, Lokasi lAwal)
 /* Menghasilkan data player yang terdefinisi */
 /* I.S. : p sembarang dan lAwal terdefinisi */
 /* F.S. : p terdefinisi */

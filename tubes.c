@@ -13,6 +13,21 @@ Queue daftarPesanan;
 /* State berjalan pada main program (didefinisikan seiring berjalannya program) */
 boolean hasWon;
 Player Mobita;
+ListPos inventory;
+ListPos hargaGadget;
+
+void printWord(Word kata)
+/* Menuliskan string ke dalam main program */
+/* I.S. kata terdefinisi */
+/* F.S. kata ditulis ke dalam main program */
+{
+    /* KAMUS LOKAL */
+    int i;
+    /* ALGORITMA */
+    for (i = 0; i < kata.length; i++) {
+        printf("%c", kata.contents[i]);
+    }
+}
 
 void readQuery(Word *ptrQuery)
 /* Membaca input string dari user */
@@ -79,7 +94,6 @@ Word concatQuery(Word query1, Word query2)
     int i;
 
     /* ALGORITMA */
-
     for (i = 0; i < query1.length; i++) {
         queryHasil.contents[i] = query1.contents[i];
     }
@@ -90,6 +104,121 @@ Word concatQuery(Word query1, Word query2)
     queryHasil.length = query1.length + query2.length;
 
     return queryHasil;
+}
+
+void printGadgetName(int id)
+/* Menampilkan nama gadget sesuai dengan id gadget */
+/* I.S. : id gadget terdefinisi */
+/* I.F. : nama gadget tertulis ke dalam main program */
+{
+    switch (id) {
+    case 1:
+        printf("Kain Pembungkus Waktu");
+        break;
+    case 2:
+        printf("Senter Pembesar");
+        break;
+    case 3:
+        printf("Pintu Kemana Saja");
+        break;
+    case 4:
+        printf("Mesin Waktu");
+    }
+}
+
+void shopMenu()
+/* Menampilkan gadget yang dapat dibeli pada main program lalu Player membelinya */
+/* I.S. : Keadaan awal main program bebas */
+/* F.S. : Output player berhasil atau gagal membeli gadget dari toko dan    menyimpan gadget pada list inventory */
+{
+    /* KAMUS LOKAL */
+    Word input;
+    int N, total;
+
+    /* ALGORITMA */
+    //UANG_PLAYER(Mobita) = 5000; (TEST)
+
+    if (isFullListPos(inventory)) {
+        printf("Maaf, inventory Anda sudah full.\n");
+    } else {
+        printf("Uang Anda sekarang: %d Yen\n", UANG_PLAYER(Mobita));
+        printf("Gadget yang tersedia:\n");
+        printf("1. Kain Pembungkus Waktu (800 Yen)\n");
+        printf("2. Senter Pembesar (1200 Yen)\n");
+        printf("3. Pintu Kemana Saja (1500 Yen)\n");
+        printf("4. Mesin Waktu (3000 Yen)\n");
+        printf("Gadget mana yang ingin kau beli? (ketik 0 jika ingin kembali)\n");
+
+        do {
+            printf("\nSHOP COMMAND: ");
+            readQuery(&input);
+            N = wordToInt(input);
+            if (N < 0 || N > 4) {
+                printf("Try Again!");
+            }
+        } while (N < 0 || N > 4);
+
+        if (N != 0) {
+            total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, N - 1);
+            if (total < 0) {
+                printf("Uang tidak cukup untuk membeli gadget!\n");
+            } else {
+                printGadgetName(N);
+                printf(" berhasil dibeli!\n");
+                printf("Uang anda sekarang: %d Yen\n", total);
+                UANG_PLAYER(Mobita) = total;
+                insertFreeSlot(&inventory, N);
+            }
+        }
+    }
+}
+
+void activateEffect(int id)
+/* Mengaktifkan effek gadget */
+{
+    printf("[Placeholder]\n");
+}
+
+void inventoryMenu()
+/* Menampilkan isi list inventory pada main program 
+lalu player menggunakan gadget yang diinginkan */
+/* I.S. Keadaan awal main program bebas */
+/* F.S. Output gadget berhasil atau gagal untuk digunakan lalu menghasilkan
+efek gadget tersebut */
+{
+    /* KAMUS LOKAL */
+    Word input;
+    int id_gadget;
+    int i;
+    /* ALGORITMA */
+    for (i = 0; i < 5; i++) {
+        printf("%d. ", i + 1);
+        if (ELMT_LISTPOS(inventory, i) == VAL_UNDEF_LISTPOS) {
+            printf("-\n");
+        } else {
+            printGadgetName(ELMT_LISTPOS(inventory, i));
+            printf("\n");
+        }
+    }
+    printf("Gadget mana yang ingin digunakan? (ketik 0 jika ingin kembali)\n");
+    do {
+        printf("\nINVENTORY COMMAND: ");
+        readQuery(&input);
+        N = wordToInt(input);
+        if (N < 0 || N > 5) {
+            printf("Try Again!");
+        }
+    } while (N < 0 || N > 5);
+    if (N != 0) {
+        if (ELMT_LISTPOS(inventory, N - 1) == VAL_UNDEF_LISTPOS) {
+            printf("Tidak ada Gadget yang dapat digunakan!\n");
+        } else {
+            activateEffect(ELMT_LISTPOS(inventory, N - 1));
+            printGadgetName(ELMT_LISTPOS(inventory, N - 1));
+            printf(" berhasil digunakan!\n");
+            ELMT_LISTPOS(inventory, N - 1) = VAL_UNDEF_LISTPOS;
+        }
+    }
 }
 
 void mainMenu()
@@ -134,7 +263,6 @@ void readFileConfigNewGame(char namaFile[])
     Lokasi tempLoc;
 
     /* ALGORITMA */
-    
     startWordFile(namaFile);
     N = wordToInt(currentWordFile);
     advWordFile();
@@ -151,8 +279,6 @@ void readFileConfigNewGame(char namaFile[])
     displayMatrix(adjacencyMatrix);
 
     readQueue(&daftarPesanan);
-    displayQueue(daftarPesanan);
-    
     stopWordFile();
 }
 
@@ -178,8 +304,10 @@ void readNewGame()
     writeQuery(&dirFile, "ConfigNewGame/", 14);
     printf("ENTER FILE NAME: ");
     readQuery(&input);
-    
-    readFileConfigNewGame(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
+
+    readFileConfigNewGame(concatQuery(dirFile, input).contents);
+
+    /* Janlup buat handling kalau nama filenya tidak ada di directory */
 }
 
 void readLoadGame()
@@ -210,6 +338,13 @@ void gameMenu()
     hasWon = false;
 
     CreatePlayer(&Mobita, HQ);
+    CreateListPos(&inventory);
+
+    CreateListPos(&hargaGadget);
+    ELMT_LISTPOS(hargaGadget, 0) = 800;
+    ELMT_LISTPOS(hargaGadget, 1) = 1200;
+    ELMT_LISTPOS(hargaGadget, 2) = 1500;
+    ELMT_LISTPOS(hargaGadget, 3) = 3000;
 
     printf("\nMobita berada di posisi ");
     TulisLokasi(LOKASI_PLAYER(Mobita));
@@ -246,9 +381,9 @@ void gameMenu()
         } else if (compareQuery(input, inProgress)) {
 
         } else if (compareQuery(input, buyGadget)) {
-
+            shopMenu();
         } else if (compareQuery(input, inventoryGadget)) {
-
+            inventoryMenu();
         } else if (compareQuery(input, helpCommand)) {
 
         } else if (compareQuery(input, saveGame)) {
