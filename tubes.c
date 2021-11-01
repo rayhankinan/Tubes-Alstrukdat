@@ -271,14 +271,16 @@ void moveMenu()
         }
     } while (index < 0 || index > count);
 
-    if (SPEED_BOOST_PLAYER(Mobita)) {
+    if (SPEED_BOOST_PLAYER(Mobita) && index != 0) {
         speedMove++;
         if (speedMove % 2 == 0) {
             WAKTU_PLAYER(Mobita)++;
         }
-    } else {
+    } else if (index != 0) {
         speedMove = 0;
         WAKTU_PLAYER(Mobita)++;
+    } else {
+        printf("Returning to main menu.\n");
     }
 }
 
