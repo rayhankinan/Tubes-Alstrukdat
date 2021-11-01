@@ -58,7 +58,7 @@ void shopMenu();
 /* F.S. : Output player berhasil atau gagal membeli gadget dari toko dan    menyimpan gadget pada list inventory */
 
 void activateEffect(int id);
-/* Mengaktifkan effek gadget */
+/* Mengaktifkan efek gadget */
 
 void inventoryMenu();
 /* Menampilkan isi list inventory pada main program 
@@ -66,6 +66,11 @@ lalu player menggunakan gadget yang diinginkan */
 /* I.S. Keadaan awal main program bebas */
 /* F.S. Output gadget berhasil atau gagal untuk digunakan lalu menghasilkan
 efek gadget tersebut */
+
+void moveMenu();
+/* Meminta lokasi tujuan player yang bisa diakses dari lokasi player, kemudian menggerakannya */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Lokasi player berubah sesuai input pengguna */
 
 void mainMenu();
 /* Menampilkan main menu pada main program */
@@ -96,8 +101,3 @@ void gameMenu();
 /* Menampikan game menu pada main program */
 /* I.S. : Main menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
 /* F.S. : Output game menu pada layar */
-
-void move();
-/* Meminta lokasi tujuan player yang bisa diakses dari lokasi player, kemudian menggerakannya */
-/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
-/* F.S. : Lokasi player berubah sesuai input pengguna */
