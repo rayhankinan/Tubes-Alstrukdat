@@ -168,6 +168,9 @@ void shopMenu()
                 UANG_PLAYER(Mobita) = total;
                 insertFreeSlot(&inventory, N);
             }
+        } else {
+            printf("Exiting INVENTORY . . .\n");
+            printf("Returning to main menu.\n");
         }
     }
 }
@@ -205,9 +208,10 @@ efek gadget tersebut */
         readQuery(&input);
         N = wordToInt(input);
         if (N < 0 || N > 5) {
-            printf("Try Again!");
+            printf("Try Again!\n");
         }
     } while (N < 0 || N > 5);
+
     if (N != 0) {
         if (ELMT_LISTPOS(inventory, N - 1) == VAL_UNDEF_LISTPOS) {
             printf("Tidak ada Gadget yang dapat digunakan!\n");
@@ -217,6 +221,9 @@ efek gadget tersebut */
             printf(" berhasil digunakan!\n");
             ELMT_LISTPOS(inventory, N - 1) = VAL_UNDEF_LISTPOS;
         }
+    } else {
+        printf("Exiting INVENTORY . . .\n");
+        printf("Returning to main menu.\n");
     }
 }
 
@@ -435,15 +442,15 @@ void gameMenu()
         if (compareQuery(input, moveFromLoc)) {
             moveMenu();
         } else if (compareQuery(input, pickUp)) {
-
+            pickUpMenu();
         } else if (compareQuery(input, dropOff)) {
-
+            dropOffMenu();
         } else if (compareQuery(input, mapLokasi)) {
 
         } else if (compareQuery(input, toDoList)) {
-
+            toDoListMenu();
         } else if (compareQuery(input, inProgress)) {
-
+            inProgressMenu();
         } else if (compareQuery(input, buyGadget)) {
             shopMenu();
         } else if (compareQuery(input, inventoryGadget)) {
