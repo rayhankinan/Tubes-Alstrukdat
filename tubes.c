@@ -15,6 +15,7 @@ boolean hasWon;
 Player Mobita;
 ListPos inventory;
 ListPos hargaGadget;
+FILE *tempFile;
 
 void printWord(Word kata)
 /* Menuliskan string ke dalam main program */
@@ -298,16 +299,22 @@ void readNewGame()
 /* F.S. : Meminta nama file pada ConfigNewGame kemudian melakukan pembacaan file */
 {
     /* KAMUS */
-    Word dirFile, input;
+    Word dirFile, input, namaFile;
 
     /* ALGORITMA */
     writeQuery(&dirFile, "ConfigNewGame/", 14);
     printf("ENTER FILE NAME: ");
     readQuery(&input);
-
-    readFileConfigNewGame(concatQuery(dirFile, input).contents);
+    namaFile = concatQuery(dirFile, input);
 
     /* Janlup buat handling kalau nama filenya tidak ada di directory */
+    tempFile = fopen(namaFile.contents, "r");
+    if (tempFile == NULL) {
+        printf("Name file tidak ada.\n");
+        mainMenu();
+    } else {
+        readFileConfigNewGame(namaFile.contents);
+    }
 }
 
 void readLoadGame()
