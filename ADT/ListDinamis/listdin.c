@@ -102,7 +102,6 @@ void readListDin(ListDin *l)
   L = wordToInt(currentWordFile);
   advCharFile(); /* Membaca baris berikutnya */
 
-  CreateListDin(l, 1);
   for (i = 0; i < L; i++) {
       if (isFullListDin(*l)) {
           growListDin(l, lengthListDin(*l));
