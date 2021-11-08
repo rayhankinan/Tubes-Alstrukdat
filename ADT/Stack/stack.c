@@ -62,6 +62,7 @@ void pushStack(Stack *s, ElTypeStack val)
                 temp = s->buffer[i - 1];
                 s->buffer[i - 1] = s->buffer[i];
                 s->buffer[i] = temp;
+                i--;
             }
         }
     }
@@ -94,6 +95,7 @@ void deleteAtStack(Stack* s, int idx, ElTypeStack* val)
     i = idx;
     while (i < IDX_TOP_STACK(*s)) {
         s->buffer[i] = s->buffer[i + 1];
+        i++;
     }
     IDX_TOP_STACK(*s)--;
 }
