@@ -55,10 +55,15 @@ void printGadgetName(int id);
 /* I.S. : id gadget terdefinisi */
 /* I.F. : nama gadget tertulis ke dalam main program */
 
-void insertPesanan();
+void updatePesanan();
 /* Memasukkan pesanan dari daftar pesanan ke dalam to do list sesuai dengan waktu pesanan */
 /* I.S. : State pada main program sudah diisi */
 /* F.S. : Pesanan masuk dari daftar pesanan ke dalam to do list */
+
+void updateTas();
+/* Mengurangi waktu Perishable Item pada Stack tas */
+/* I.S. : State pada main program sudah diisi */
+/* F.S. : Waktu Perishable Item pada Stack Tas berkurang */
 
 void shopMenu();
 /* Menampilkan gadget yang dapat dibeli pada main program lalu Player membelinya */

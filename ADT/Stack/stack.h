@@ -43,11 +43,16 @@ void pushStack(Stack* s, ElTypeStack val);
 /* I.S. s mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. val menjadi TOP yang baru,IDX_TOP bertambah 1 */
 
-/* ************ Menghapus sebuah elemen Stack ************ */
+/* ************ Menghapus elemen top Stack ************ */
 void popStack(Stack* s, ElTypeStack* val);
 /* Menghapus val dari Stack s */
 /* I.S. s tidak mungkin kosong */
 /* F.S. val adalah nilai elemen TOP yang lama, IDX_TOP berkurang 1 */
+
+/* ************ Menghapus elemen ke idx dari Stack ************ */
+void deleteAtStack(Stack* s, int idx, ElTypeStack* val);
+/* I.S. s tidak mungkin kosong dan idx terdefinisi */
+/* F.S. val adalah nilai elemen ke idx yang lama */
 
 /* ************ Menambah kapasitas sebuah Stack ************ */
 void growStack(Stack *s);

@@ -217,7 +217,7 @@ void readLoadGame()
     }
 }
 
-void insertPesanan()
+void updatePesanan()
 /* Memasukkan pesanan dari daftar pesanan ke dalam to do list sesuai dengan waktu pesanan */
 /* I.S. : State pada main program sudah diisi */
 /* F.S. : Pesanan masuk dari daftar pesanan ke dalam to do list */
@@ -229,6 +229,27 @@ void insertPesanan()
     while (WAKTU_PLAYER(Mobita) >= WAKTU_PICK_UP_ITEM(HEAD_QUEUE(daftarPesanan))) {
         dequeue(&daftarPesanan, &I);
         insertLastListLinked(&toDoList, I);
+    }
+}
+
+void updateTas()
+/* Mengurangi waktu Perishable Item pada Stack tas */
+/* I.S. : State pada main program sudah diisi */
+/* F.S. : Waktu Perishable Item pada Stack Tas berkurang */
+{
+    /* KAMUS */
+    Item I;
+    int i;
+
+    /* ALGORITMA */
+    for (i = 0; i < CAPACITY_STACK(tas); i++) {
+        I = tas.buffer[i];
+        if (JENIS_ITEM(I) == 'P') {
+            WAKTU_HANGUS_ITEM(I)--;
+            if (WAKTU_HANGUS_ITEM(I) == 0) {
+                deleteAtStack(&tas, i, &I);
+            }
+        }
     }
 }
 
@@ -405,9 +426,31 @@ void pickUpMenu()
     /* KAMUS */
     Address p;
     Item I;
+    int i;
 
     /* ALGORITMA */
-    p = FIRST_LIST_LINKED(toDoList);
+    if (!isFullStack(tas)) {
+        p = FIRST_LIST_LINKED(toDoList);
+        i = 0;
+        while ((p != NULL) && (!EQLokasi(PICK_UP_ITEM(INFO_NODE(p)), LOKASI_PLAYER(Mobita)))) {
+            p = NEXT_NODE(p);
+            i++;
+        }
+
+        if (p == NULL) {
+            printf("Pesanan tidak ditemukan!\n");
+        } else {
+            deleteAtListLinked(&toDoList, i, &I);
+            pushStack(&tas, I);
+
+            if (JENIS_ITEM(I) == 'H') {
+                SPEED_BOOST_PLAYER(Mobita) = false;
+                BERAT_PLAYER(Mobita)++;
+            }
+        }
+    } else {
+        printf("Tas sudah penuh!\n");
+    }
 }
 
 void dropOffMenu()
@@ -416,9 +459,34 @@ void dropOffMenu()
 /* F.S. : Elemen teratas stack tas di drop off di lokasi */
 {
     /* KAMUS */
+    Item I;
 
     /* ALGORITMA */
+    if (!isEmptyStack(tas)) {
+        popStack(&tas, &I);
 
+        switch (JENIS_ITEM(I)) {
+            case 'N':
+                UANG_PLAYER(Mobita) += 200;
+                break;
+            case 'H':
+                UANG_PLAYER(Mobita) += 400;
+                BERAT_PLAYER(Mobita)--;
+                SPEED_BOOST_PLAYER(Mobita) = BERAT_PLAYER(Mobita) == 0;
+                break;
+            case 'P':
+                UANG_PLAYER(Mobita) += 400;
+                growStack(&tas);
+                break;
+            case 'V':
+                UANG_PLAYER(Mobita) += 600;
+                JUMLAH_RETURN_PLAYER(Mobita)++;
+                break;
+        }
+
+    } else {
+        printf("Tas kosong!\n");
+    }
 }
 
 void toDoListMenu()
@@ -430,7 +498,7 @@ void toDoListMenu()
 
     /* ALGORITMA */
     if (isEmptyListLinked(toDoList)) {
-        printf("Tidak ada pesanan pada To Do List.\n");
+        printf("Tidak ada pesanan pada To Do List!\n");
     } else {
         printf("Pesanan pada To Do List:\n");
         displayListLinked(toDoList);
@@ -446,7 +514,7 @@ void inProgressMenu()
 
     /* ALGORITMA */
     if (isEmptyStack(tas)) {
-        printf("Tidak ada pesanan yang sedang diantarkan.\n");
+        printf("Tidak ada pesanan yang sedang diantarkan!\n");
     } else {
         printf("Pesanan yang sedang diantarkan:\n");
         displayStack(tas);
@@ -528,7 +596,9 @@ void gameMenu()
         printf("Waktu: %d\n", WAKTU_PLAYER(Mobita));
         printf("Uang yang dimiliki: %d Yen\n\n", UANG_PLAYER(Mobita));
 
-        insertPesanan();
+        updatePesanan();
+
+        updateTas();
 
         printf("ENTER COMMAND: ");
         readQuery(&inputQuery);

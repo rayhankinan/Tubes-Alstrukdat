@@ -80,6 +80,24 @@ void popStack(Stack *s, ElTypeStack *val)
     IDX_TOP_STACK(*s)--;
 }
 
+/* ************ Menghapus elemen ke idx dari Stack ************ */
+void deleteAtStack(Stack* s, int idx, ElTypeStack* val)
+/* I.S. s tidak mungkin kosong dan idx terdefinisi */
+/* F.S. val adalah nilai elemen ke idx yang lama */
+{
+    /* KAMUS */
+    int i;
+
+    /* ALGORITMA */
+    *val = s->buffer[idx];
+    
+    i = idx;
+    while (i < IDX_TOP_STACK(*s)) {
+        s->buffer[i] = s->buffer[i + 1];
+    }
+    IDX_TOP_STACK(*s)--;
+}
+
 /* ************ Menambah kapasitas sebuah Stack ************ */
 void growStack(Stack *s)
 /* Menambah kapasitas Stack s sebanyak satu slot */
