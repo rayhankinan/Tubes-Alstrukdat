@@ -8,6 +8,7 @@
 
 #include "../Boolean/boolean.h"
 #include "node.h"
+#include "../Player/player.h"
 
 typedef Address ListLinked;
 

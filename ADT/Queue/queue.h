@@ -8,6 +8,7 @@
 #include "../Item/item.h"
 #include "../Mesin/wordmachinefile.h"
 #include "../ListDinamis/listdin.h"
+#include "../Player/player.h"
 
 #define IDX_UNDEF_QUEUE -1
 #define CAPACITY_QUEUE 100

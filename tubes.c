@@ -518,7 +518,7 @@ void inProgressMenu()
         printf("Tidak ada pesanan yang sedang diantarkan!\n");
     } else {
         printf("Pesanan yang sedang diantarkan:\n");
-        displayStack(tas);
+        displayStack(tas, Mobita);
     }
 }
 

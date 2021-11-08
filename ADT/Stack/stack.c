@@ -114,7 +114,7 @@ void growStack(Stack *s)
 }
 
 /* ************ I/O Stack ************ */
-void displayStack(Stack s)
+void displayStack(Stack s, Player P)
 /* Menampilkan isi Stack s pada layar */
 /* I.S. Stack s terdefinisi */
 /* F.S. isi Item di dalam Stack s ditampilkan pada layar */
@@ -136,7 +136,7 @@ void displayStack(Stack s)
                 printf("%s (Tujuan: %c)", "Heavy Item", NAMA_LOKASI(DROP_OFF_ITEM(I)));
                 break;
             case 'P':
-                printf("%s, sisa waktu %d (Tujuan: %c)", "Perishable Item", WAKTU_HANGUS_ITEM(I), NAMA_LOKASI(DROP_OFF_ITEM(I)));
+                printf("%s, sisa waktu %d (Tujuan: %c)", "Perishable Item", WAKTU_HANGUS_ITEM(I) - WAKTU_PLAYER(P), NAMA_LOKASI(DROP_OFF_ITEM(I)));
                 break;
             case 'V':
                 printf("%s (Tujuan: %c)", "VIP Item", NAMA_LOKASI(DROP_OFF_ITEM(I)));

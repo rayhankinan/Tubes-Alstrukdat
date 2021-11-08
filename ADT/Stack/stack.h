@@ -7,6 +7,7 @@
 
 #include "../Boolean/boolean.h"
 #include "../Item/item.h"
+#include "../Player/player.h"
 
 #define IDX_UNDEF_STACK -1
 
@@ -61,7 +62,7 @@ void growStack(Stack *s);
 /* F.S. kapasitas Stack s bertambah satu slot */
 
 /* ************ I/O Stack ************ */
-void displayStack(Stack s);
+void displayStack(Stack s, Player P);
 /* Menampilkan isi Stack s pada layar */
 /* I.S. Stack s terdefinisi */
 /* F.S. isi Item di dalam Stack s ditampilkan pada layar */
