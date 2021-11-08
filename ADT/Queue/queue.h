@@ -7,6 +7,7 @@
 #include "../Boolean/boolean.h"
 #include "../Item/item.h"
 #include "../Mesin/wordmachinefile.h"
+#include "../ListDinamis/listdin.h"
 
 #define IDX_UNDEF_QUEUE -1
 #define CAPACITY_QUEUE 100
@@ -59,7 +60,7 @@ void dequeue(Queue* q, ElTypeQueue* val);
         q mungkin kosong */
 
         /* *** I/O Queue *** */
-void readQueue(Queue* q);
+void readQueue(Queue* q, ListDin daftarBangunan);
 /* I.S. q sembarang dan sudah dialokasikan sebelumnya */
 /* F.S. Queue q terdefinisi */
 /* Proses : membaca banyaknya elemen q dan mengisi nilainya */
@@ -77,6 +78,5 @@ void displayQueue(Queue q);
    /* F.S. Jika q tidak kosong: [e1,e2,...,en] */
    /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
    /* Jika Queue kosong : menulis [] */
-
 
 #endif

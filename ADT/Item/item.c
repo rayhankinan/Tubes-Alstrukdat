@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 /* KONSTRUKTOR */
-Item CreateItem(char jenis, char pick_up, char drop_off, int waktu)
+Item CreateItem(char jenis, Lokasi pick_up, Lokasi drop_off, int waktu)
 /* Membentuk sebuah Item dari komponen-komponennya */
 {
     /* KAMUS */
@@ -20,7 +20,7 @@ Item CreateItem(char jenis, char pick_up, char drop_off, int waktu)
 }
 
 /* BACA/TULIS */
-void BacaItem(Item *I)
+void BacaItem(Item *I, ListDin daftarBangunan)
 /* Membaca jenis, lokasi pick up, lokasi drop off, serta waktu hangus item (khusus perishable item)
    dan membentuk Item I berdasarkan nilai tersebut */
 /* Semua komponen ditulis dalam 1 baris, dipisahkan 1 spasi */
@@ -28,14 +28,26 @@ void BacaItem(Item *I)
 /* F.S. : I terdefinisi */
 {
     /* KAMUS */
+    int i;
 
     /* ALGORITMA */
     advWordFile();
     WAKTU_PICK_UP_ITEM(*I) = wordToInt(currentWordFile);
+
     advWordFile();
-    PICK_UP_ITEM(*I) = currentWordFile.contents[0];
+    i = 0;
+    while ((i < lengthListDin(daftarBangunan)) && (NAMA_LOKASI(ELMT_LISTDIN(daftarBangunan, i)) != currentWordFile.contents[0])) {
+        i++;
+    }
+    PICK_UP_ITEM(*I) = ELMT_LISTDIN(daftarBangunan, i);
+
     advWordFile();
-    DROP_OFF_ITEM(*I) = currentWordFile.contents[0];
+    i = 0;
+    while ((i < lengthListDin(daftarBangunan)) && (NAMA_LOKASI(ELMT_LISTDIN(daftarBangunan, i)) != currentWordFile.contents[0])) {
+        i++;
+    }
+    DROP_OFF_ITEM(*I) = ELMT_LISTDIN(daftarBangunan, i);
+
     advWordFile();
     JENIS_ITEM(*I) = currentWordFile.contents[0];
 
@@ -57,18 +69,18 @@ void TulisItem(Item I)
 
     /* ALGORITMA */
     switch (JENIS_ITEM(I)) {
-    case 'N':
-        printf("%c -> %c (%s)", PICK_UP_ITEM(I), DROP_OFF_ITEM(I), "Normal Item");
-        break;
-    case 'H':
-        printf("%c -> %c (%s)", PICK_UP_ITEM(I), DROP_OFF_ITEM(I), "Heavy Item");
-        break;
-    case 'P':
-        printf("%c -> %c (%s, sisa waktu %d)", PICK_UP_ITEM(I), DROP_OFF_ITEM(I), "Heavy Item", WAKTU_HANGUS_ITEM(I));
-        break;
-    case 'V':
-        printf("%c -> %c (%s)", PICK_UP_ITEM(I), DROP_OFF_ITEM(I), "VIP Item");
-        break;
+        case 'N':
+            printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(DROP_OFF_ITEM(I)), "Normal Item");
+            break;
+        case 'H':
+            printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Heavy Item");
+            break;
+        case 'P':
+            printf("%c -> %c (%s, sisa waktu %d)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Perishable Item", WAKTU_HANGUS_ITEM(I));
+            break;
+        case 'V':
+            printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "VIP Item");
+            break;
     }
 }
 
@@ -79,5 +91,5 @@ boolean EQItem(Item I1, Item I2)
     /* KAMUS */
 
     /* ALGORITMA */
-    return ((WAKTU_PICK_UP_ITEM(I1) == WAKTU_PICK_UP_ITEM(I2)) && (JENIS_ITEM(I1) == JENIS_ITEM(I2)) && (PICK_UP_ITEM(I1) == PICK_UP_ITEM(I2)) && (DROP_OFF_ITEM(I1) == DROP_OFF_ITEM(I2)) && (WAKTU_HANGUS_ITEM(I1) == WAKTU_HANGUS_ITEM(I2)));
+    return ((WAKTU_PICK_UP_ITEM(I1) == WAKTU_PICK_UP_ITEM(I2)) && (JENIS_ITEM(I1) == JENIS_ITEM(I2)) && EQLokasi(PICK_UP_ITEM(I1), PICK_UP_ITEM(I2)) && EQLokasi(DROP_OFF_ITEM(I1), DROP_OFF_ITEM(I2)) && (WAKTU_HANGUS_ITEM(I1) == WAKTU_HANGUS_ITEM(I2)));
 }

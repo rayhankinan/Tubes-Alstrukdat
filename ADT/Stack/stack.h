@@ -6,19 +6,22 @@
 #define STACK_H
 
 #include "../Boolean/boolean.h"
+#include "../Item/item.h"
 
 #define IDX_UNDEF_STACK -1
-#define CAPACITY_STACK 100
 
-typedef int ElTypeStack;
+typedef Item ElTypeStack;
 typedef struct {
-  ElTypeStack buffer[CAPACITY_STACK]; /* tabel penyimpan elemen */
+  ElTypeStack* buffer; /* tabel penyimpan elemen */
   int idxTop;              /* alamat TOP: elemen puncak */
+  int capacity;            /* kapasitas */
 } Stack;
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika s adalah Stack, maka akses elemen : */
+#define BUFFER_STACK(s) (s).buffer
 #define IDX_TOP_STACK(s) (s).idxTop
+#define CAPACITY_STACK(s) (s).capacity
 #define TOP_STACK(s) (s).buffer[(s).idxTop]
 
 /* *** Konstruktor/Kreator *** */
@@ -45,5 +48,17 @@ void popStack(Stack* s, ElTypeStack* val);
 /* Menghapus val dari Stack s */
 /* I.S. s tidak mungkin kosong */
 /* F.S. val adalah nilai elemen TOP yang lama, IDX_TOP berkurang 1 */
+
+/* ************ Menambah kapasitas sebuah Stack ************ */
+void growStack(Stack *s);
+/* Menambah kapasitas Stack s sebanyak satu slot */
+/* I.S. Stack s terdefinisi, boleh kosong */
+/* F.S. kapasitas Stack s bertambah satu slot */
+
+/* ************ I/O Stack ************ */
+void displayStack(Stack s);
+/* Menampilkan isi Stack s pada layar */
+/* I.S. Stack s terdefinisi */
+/* F.S. isi Item di dalam Stack s ditampilkan pada layar */
 
 #endif

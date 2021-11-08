@@ -28,7 +28,7 @@ int lengthListPos(ListPos l)
   int i;
   /* ALGORITMA */
   i = 0;
-  while ((ELMT_LISTPOS(l, i) != VAL_UNDEF_LISTPOS) && (i < CAPACITY_LISTPOS)) {
+  while ((i < CAPACITY_LISTPOS) && (ELMT_LISTPOS(l, i) != VAL_UNDEF_LISTPOS)) {
     i++;
   }
   return i;

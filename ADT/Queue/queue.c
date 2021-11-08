@@ -109,7 +109,7 @@ void dequeue(Queue *q, ElTypeQueue *val)
 }
 
 /* *** I/O Queue *** */
-void readQueue(Queue *q)
+void readQueue(Queue* q, ListDin daftarBangunan)
 /* I.S. q sembarang dan sudah dialokasikan sebelumnya */
 /* F.S. Queue q terdefinisi */
 /* Proses : membaca banyaknya elemen q dan mengisi nilainya */
@@ -132,7 +132,7 @@ void readQueue(Queue *q)
     advCharFile(); /* Membaca baris berikutnya */
 
     for (i = 0; i < P; i++) {
-        BacaItem(&tempItem);
+        BacaItem(&tempItem, daftarBangunan);
         enqueue(q, tempItem);
     }
 }

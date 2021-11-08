@@ -5,6 +5,8 @@
 
 #include "../Boolean/boolean.h"
 #include "../Mesin/wordmachinefile.h"
+#include "../Lokasi/lokasi.h"
+#include "../ListDinamis/listdin.h"
 
 #define UNDEF_WAKTU -1
 /* dipasangkan ke waktu jika bukan perishable item */
@@ -12,8 +14,8 @@
 typedef struct item {
   int waktu_pick_up;  /* waktu item bisa di pick up */
   char jenis;    /* jenis item */
-  char pick_up;  /* lokasi pick up */
-  char drop_off; /* lokasi drop off */
+  Lokasi pick_up;  /* lokasi pick up */
+  Lokasi drop_off; /* lokasi drop off */
   int waktu_hangus;     /* waktu item hangus (khusus perishable item) */
 } Item;
 
@@ -25,11 +27,11 @@ typedef struct item {
 #define WAKTU_HANGUS_ITEM(x) (x).waktu_hangus
 
 /* KONSTRUKTOR */
-Item CreateItem(char jenis, char pick_up, char drop_off, int waktu);
+Item CreateItem(char jenis, Lokasi pick_up, Lokasi drop_off, int waktu);
 /* Membentuk sebuah Item dari komponen-komponennya */
 
 /* BACA/TULIS */
-void BacaItem(Item *I);
+void BacaItem(Item *I, ListDin daftarBangunan);
 /* Membaca jenis, lokasi pick up, lokasi drop off, serta waktu hangus item (khusus perishable item)
    dan membentuk Item I berdasarkan nilai tersebut */
 /* Semua komponen ditulis dalam 1 baris, dipisahkan 1 spasi */

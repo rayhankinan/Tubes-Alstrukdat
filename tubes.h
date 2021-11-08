@@ -30,6 +30,9 @@ extern Queue daftarPesanan;
 /* State berjalan pada main program (didefinisikan seiring berjalannya program) */
 extern boolean hasWon;
 extern Player Mobita;
+extern ListPos inventory, hargaGadget;
+extern Stack tas;
+extern ListLinked toDoList;
 
 void readQuery(Word *ptrQuery);
 /* Membaca input string dari user */
@@ -52,6 +55,11 @@ void printGadgetName(int id);
 /* I.S. : id gadget terdefinisi */
 /* I.F. : nama gadget tertulis ke dalam main program */
 
+void insertPesanan();
+/* Memasukkan pesanan dari daftar pesanan ke dalam to do list sesuai dengan waktu pesanan */
+/* I.S. : State pada main program sudah diisi */
+/* F.S. : Pesanan masuk dari daftar pesanan ke dalam to do list */
+
 void shopMenu();
 /* Menampilkan gadget yang dapat dibeli pada main program lalu Player membelinya */
 /* I.S. : Keadaan awal main program bebas */
@@ -71,6 +79,26 @@ void moveMenu();
 /* Meminta lokasi tujuan player yang bisa diakses dari lokasi player, kemudian menggerakannya */
 /* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
 /* F.S. : Lokasi player berubah sesuai input pengguna */
+
+void pickUpMenu();
+/* Mengambil Item yang terletak di lokasi player */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Item ditambahkan ke dalam tas bila tas belum penuh */
+
+void dropOffMenu();
+/* Mengantarkan Item dari elemen teratas stack tas ke lokasi drop off */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Elemen teratas stack tas di drop off di lokasi */
+
+void toDoListMenu();
+/* Menampilkan Item yang bisa diambil */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Output list Item yang bisa diambil pada map */
+
+void inProgressMenu();
+/* Menampilkan Item yang ada di dalam tas */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Output list Item yang ada di dalam tas */
 
 void mainMenu();
 /* Menampilkan main menu pada main program */

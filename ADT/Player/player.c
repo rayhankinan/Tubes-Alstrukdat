@@ -14,7 +14,7 @@ void CreatePlayer(Player *p, Lokasi lAwal)
   BERAT_PLAYER(*p) = 0;
   SPEED_BOOST_PLAYER(*p) = false;
   JUMLAH_RETURN_PLAYER(*p) = 0;
-  WAKTU_PLAYER(*p) = 1;
+  WAKTU_PLAYER(*p) = 0;
   LOKASI_PLAYER(*p) = lAwal;
 }
 

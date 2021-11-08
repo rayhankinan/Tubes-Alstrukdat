@@ -246,10 +246,13 @@ void displayListLinked(ListLinked l)
 {
   /* KAMUS LOKAL */
   Address p;
+  int i;
 
   /* ALGORITMA */
   p = FIRST_LIST_LINKED(l);
+  i = 0;
   while (p != NULL) {
+    printf("%d. ", i + 1);
     TulisItem(INFO_NODE(p));
     printf("\n");
     p = NEXT_NODE(p);

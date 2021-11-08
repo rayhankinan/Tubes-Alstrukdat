@@ -13,9 +13,9 @@ Queue daftarPesanan;
 /* State berjalan pada main program (didefinisikan seiring berjalannya program) */
 boolean hasWon;
 Player Mobita;
-ListPos inventory;
-ListPos hargaGadget;
-FILE *tempFile;
+ListPos inventory, hargaGadget;
+Stack tas;
+ListLinked toDoList;
 
 void printWord(Word kata)
 /* Menuliskan string ke dalam main program */
@@ -124,6 +124,111 @@ void printGadgetName(int id)
         break;
     case 4:
         printf("Mesin Waktu");
+    }
+}
+
+void readFileConfigNewGame(char namaFile[])
+/* Membaca file configuration new game */
+/* I.S. : State pada main program bebas dan namaFile terdefinisi */
+/* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
+{
+    /* KAMUS */
+    int i, j;
+    Lokasi tempLoc;
+
+    /* ALGORITMA */
+    startWordFile(namaFile);
+    N = wordToInt(currentWordFile);
+    advWordFile();
+    M = wordToInt(currentWordFile);
+    advCharFile(); /* Membaca baris berikutnya */
+
+    CreateListDin(&daftarBangunan, 1);
+    NAMA_LOKASI(HQ) = '8';
+    BacaPOINT(&KOORDINAT_LOKASI(HQ));
+    insertLastListDin(&daftarBangunan, HQ);
+
+    readListDin(&daftarBangunan);
+
+    readMatrix(&adjacencyMatrix, lengthListDin(daftarBangunan), lengthListDin(daftarBangunan));
+
+    readQueue(&daftarPesanan, daftarBangunan);
+
+    stopWordFile();
+}
+
+void readFileConfigLoadGame(char namaFile[])
+/* Membaca file configuration load game */
+/* I.S. : State pada main program bebas dan namaFile terdefinisi */
+/* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+}
+
+void readNewGame()
+/* Membaca file configuration untuk NEW GAME */
+/* I.S. : State pada main program terdefinisi */
+/* F.S. : Meminta nama file pada ConfigNewGame kemudian melakukan pembacaan file */
+{
+    /* KAMUS */
+    Word dirFile, input, namaFile;
+    FILE *tempFile;
+
+    /* ALGORITMA */
+    writeQuery(&dirFile, "ConfigNewGame/", 14);
+    printf("ENTER FILE NAME: ");
+    readQuery(&input);
+    namaFile = concatQuery(dirFile, input);
+
+    /* Janlup buat handling kalau nama filenya tidak ada di directory */
+    tempFile = fopen(namaFile.contents, "r");
+    if (tempFile == NULL) {
+        printf("Name file tidak ada.\n");
+        mainMenu();
+    } else {
+        readFileConfigNewGame(namaFile.contents);
+    }
+}
+
+void readLoadGame()
+/* Membaca file configuration untuk NEW GAME */
+/* I.S. : State pada main program terdefinisi */
+/* F.S. : Meminta nama file pada ConfidLoadGame kemudian melakukan pembacaan file */
+{
+    /* KAMUS */
+    Word dirFile, input, namaFile;
+    FILE *tempFile;
+
+    /* ALGORITMA */
+    writeQuery(&dirFile, "ConfigLoadGame/", 15);
+    printf("ENTER FILE NAME: ");
+    readQuery(&input);
+    namaFile = concatQuery(dirFile, input);
+
+    /* Janlup buat handling kalau nama filenya tidak ada di directory */
+    tempFile = fopen(namaFile.contents, "r");
+    if (tempFile == NULL) {
+        printf("Name file tidak ada.\n");
+        mainMenu();
+    } else {
+        readFileConfigLoadGame(namaFile.contents);
+    }
+}
+
+void insertPesanan()
+/* Memasukkan pesanan dari daftar pesanan ke dalam to do list sesuai dengan waktu pesanan */
+/* I.S. : State pada main program sudah diisi */
+/* F.S. : Pesanan masuk dari daftar pesanan ke dalam to do list */
+{
+    /* KAMUS */
+    Item I;
+
+    /* ALGORITMA */
+    while (WAKTU_PLAYER(Mobita) >= WAKTU_PICK_UP_ITEM(HEAD_QUEUE(daftarPesanan))) {
+        dequeue(&daftarPesanan, &I);
+        insertLastListLinked(&toDoList, I);
     }
 }
 
@@ -286,9 +391,65 @@ void moveMenu()
         }
     } else if (index != 0) {
         speedMove = 0;
-        WAKTU_PLAYER(Mobita)++;
+        WAKTU_PLAYER(Mobita) += (BERAT_PLAYER(Mobita) + 1);
     } else {
         printf("Returning to main menu.\n");
+    }
+}
+
+void pickUpMenu()
+/* Mengambil Item yang terletak di lokasi player */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Item ditambahkan ke dalam tas bila tas belum penuh */
+{
+    /* KAMUS */
+    Address p;
+    Item I;
+
+    /* ALGORITMA */
+    p = FIRST_LIST_LINKED(toDoList);
+}
+
+void dropOffMenu()
+/* Mengantarkan Item dari elemen teratas stack tas ke lokasi drop off */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Elemen teratas stack tas di drop off di lokasi */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+
+}
+
+void toDoListMenu()
+/* Menampilkan Item yang bisa diambil */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Output list Item yang bisa diambil pada map */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    if (isEmptyListLinked(toDoList)) {
+        printf("Tidak ada pesanan pada To Do List.\n");
+    } else {
+        printf("Pesanan pada To Do List:\n");
+        displayListLinked(toDoList);
+    }
+}
+
+void inProgressMenu()
+/* Menampilkan Item yang ada di dalam tas */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Output list Item yang ada di dalam tas */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    if (isEmptyStack(tas)) {
+        printf("Tidak ada pesanan yang sedang diantarkan.\n");
+    } else {
+        printf("Pesanan yang sedang diantarkan:\n");
+        displayStack(tas);
     }
 }
 
@@ -298,110 +459,30 @@ void mainMenu()
 /* F.S. Output main menu pada layar */
 {
     /* KAMUS */
-    Word input, quit, newGame, loadGame;
+    Word inputQuery, quitQuery, newGameQuery, loadGameQuery;
 
     /* ALGORITMA */
-    writeQuery(&newGame, "NEW_GAME", 8);
-    writeQuery(&quit, "QUIT", 4);
-    writeQuery(&loadGame, "LOAD_GAME", 9);
+    writeQuery(&newGameQuery, "NEW_GAME", 8);
+    writeQuery(&quitQuery, "QUIT", 4);
+    writeQuery(&loadGameQuery, "LOAD_GAME", 9);
 
     do {
         printf("ENTER COMMAND: ");
-        readQuery(&input);
+        readQuery(&inputQuery);
 
-        if (compareQuery(input, newGame)) {
+        if (compareQuery(inputQuery, newGameQuery)) {
             readNewGame();
             gameMenu();
-        } else if (compareQuery(input, quit)) {
+        } else if (compareQuery(inputQuery, quitQuery)) {
             printf("Quiting the game . . .\n");
             stopWord();
-        } else if (compareQuery(input, loadGame)) {
+        } else if (compareQuery(inputQuery, loadGameQuery)) {
             readLoadGame();
             gameMenu();
         } else {
             printf("Try Again!\n");
         }
-    } while (!compareQuery(input, newGame) || !compareQuery(input, quit) || !compareQuery(input, loadGame));
-}
-
-void readFileConfigNewGame(char namaFile[])
-/* Membaca file configuration new game */
-/* I.S. : State pada main program bebas dan namaFile terdefinisi */
-/* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
-{
-    /* KAMUS */
-    int i, j;
-    Lokasi tempLoc;
-
-    /* ALGORITMA */
-    startWordFile(namaFile);
-    N = wordToInt(currentWordFile);
-    advWordFile();
-    M = wordToInt(currentWordFile);
-    advCharFile(); /* Membaca baris berikutnya */
-
-    CreateListDin(&daftarBangunan, 1);
-    NAMA_LOKASI(HQ) = '8';
-    BacaPOINT(&KOORDINAT_LOKASI(HQ));
-    insertLastListDin(&daftarBangunan, HQ);
-
-    readListDin(&daftarBangunan);
-
-    readMatrix(&adjacencyMatrix, lengthListDin(daftarBangunan), lengthListDin(daftarBangunan));
-
-    readQueue(&daftarPesanan);
-
-    stopWordFile();
-}
-
-void readFileConfigLoadGame(char namaFile[])
-/* Membaca file configuration load game */
-/* I.S. : State pada main program bebas dan namaFile terdefinisi */
-/* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
-{
-    /* KAMUS */
-
-    /* ALGORITMA */
-}
-
-void readNewGame()
-/* Membaca file configuration untuk NEW GAME */
-/* I.S. : State pada main program terdefinisi */
-/* F.S. : Meminta nama file pada ConfigNewGame kemudian melakukan pembacaan file */
-{
-    /* KAMUS */
-    Word dirFile, input, namaFile;
-
-    /* ALGORITMA */
-    writeQuery(&dirFile, "ConfigNewGame/", 14);
-    printf("ENTER FILE NAME: ");
-    readQuery(&input);
-    namaFile = concatQuery(dirFile, input);
-
-    /* Janlup buat handling kalau nama filenya tidak ada di directory */
-    tempFile = fopen(namaFile.contents, "r");
-    if (tempFile == NULL) {
-        printf("Name file tidak ada.\n");
-        mainMenu();
-    } else {
-        readFileConfigNewGame(namaFile.contents);
-    }
-}
-
-void readLoadGame()
-/* Membaca file configuration untuk NEW GAME */
-/* I.S. : State pada main program terdefinisi */
-/* F.S. : Meminta nama file pada ConfidLoadGame kemudian melakukan pembacaan file */
-{
-    /* KAMUS */
-    Word dirFile, input;
-
-    /* ALGORITMA */
-    writeQuery(&dirFile, "ConfigLoadGame/", 15);
-    printf("ENTER FILE NAME: ");
-    readQuery(&input);
-
-    readFileConfigLoadGame(concatQuery(dirFile, input).contents); /* Janlup buat handling kalau nama filenya tidak ada di directory */
+    } while (!compareQuery(inputQuery, newGameQuery) || !compareQuery(inputQuery, quitQuery) || !compareQuery(inputQuery, loadGameQuery));
 }
 
 void gameMenu()
@@ -410,7 +491,7 @@ void gameMenu()
 /* F.S. : Output game menu pada layar */
 {
     /* KAMUS */
-    Word input, moveFromLoc, pickUp, dropOff, mapLokasi, toDoList, inProgress, buyGadget, inventoryGadget, helpCommand, saveGame, returnItem;
+    Word inputQuery, moveFromLocQuery, pickUpQuery, dropOffQuery, mapLokasiQuery, toDoListQuery, inProgressQuery, buyGadgetQuery, inventoryGadgetQuery, helpCommandQuery, saveGameQuery, returnItemQuery;
 
     /* ALGORITMA */
     hasWon = false;
@@ -419,22 +500,26 @@ void gameMenu()
     CreateListPos(&inventory);
 
     CreateListPos(&hargaGadget);
-    ELMT_LISTPOS(hargaGadget, 0) = 800;
-    ELMT_LISTPOS(hargaGadget, 1) = 1200;
-    ELMT_LISTPOS(hargaGadget, 2) = 1500;
-    ELMT_LISTPOS(hargaGadget, 3) = 3000;
+    insertLastListPos(&hargaGadget, 800);
+    insertLastListPos(&hargaGadget, 1200);
+    insertLastListPos(&hargaGadget, 1500);
+    insertLastListPos(&hargaGadget, 3000);
 
-    writeQuery(&moveFromLoc, "MOVE", 4);
-    writeQuery(&pickUp, "PICK_UP", 7);
-    writeQuery(&dropOff, "DROP_OFF", 8);
-    writeQuery(&mapLokasi, "MAP", 3);
-    writeQuery(&toDoList, "TO_DO", 5);
-    writeQuery(&inProgress, "IN_PROGRESS", 11);
-    writeQuery(&buyGadget, "BUY", 3);
-    writeQuery(&inventoryGadget, "INVENTORY", 9);
-    writeQuery(&helpCommand, "HELP", 4);
-    writeQuery(&saveGame, "SAVE_GAME", 9);
-    writeQuery(&returnItem, "RETURN", 6);
+    CreateStack(&tas);
+
+    CreateListLinked(&toDoList);
+
+    writeQuery(&moveFromLocQuery, "MOVE", 4);
+    writeQuery(&pickUpQuery, "PICK_UP", 7);
+    writeQuery(&dropOffQuery, "DROP_OFF", 8);
+    writeQuery(&mapLokasiQuery, "MAP", 3);
+    writeQuery(&toDoListQuery, "TO_DO", 5);
+    writeQuery(&inProgressQuery, "IN_PROGRESS", 11);
+    writeQuery(&buyGadgetQuery, "BUY", 3);
+    writeQuery(&inventoryGadgetQuery, "INVENTORY", 9);
+    writeQuery(&helpCommandQuery, "HELP", 4);
+    writeQuery(&saveGameQuery, "SAVE_GAME", 9);
+    writeQuery(&returnItemQuery, "RETURN", 6);
 
     do {
         printf("\nMobita berada di posisi ");
@@ -443,34 +528,36 @@ void gameMenu()
         printf("Waktu: %d\n", WAKTU_PLAYER(Mobita));
         printf("Uang yang dimiliki: %d Yen\n\n", UANG_PLAYER(Mobita));
 
+        insertPesanan();
+
         printf("ENTER COMMAND: ");
-        readQuery(&input);
+        readQuery(&inputQuery);
 
-        if (compareQuery(input, moveFromLoc)) {
+        if (compareQuery(inputQuery, moveFromLocQuery)) {
             moveMenu();
-        } else if (compareQuery(input, pickUp)) {
+        } else if (compareQuery(inputQuery, pickUpQuery)) {
             pickUpMenu();
-        } else if (compareQuery(input, dropOff)) {
+        } else if (compareQuery(inputQuery, dropOffQuery)) {
             dropOffMenu();
-        } else if (compareQuery(input, mapLokasi)) {
+        } else if (compareQuery(inputQuery, mapLokasiQuery)) {
 
-        } else if (compareQuery(input, toDoList)) {
+        } else if (compareQuery(inputQuery, toDoListQuery)) {
             toDoListMenu();
-        } else if (compareQuery(input, inProgress)) {
+        } else if (compareQuery(inputQuery, inProgressQuery)) {
             inProgressMenu();
-        } else if (compareQuery(input, buyGadget)) {
+        } else if (compareQuery(inputQuery, buyGadgetQuery)) {
             shopMenu();
-        } else if (compareQuery(input, inventoryGadget)) {
+        } else if (compareQuery(inputQuery, inventoryGadgetQuery)) {
             inventoryMenu();
-        } else if (compareQuery(input, helpCommand)) {
+        } else if (compareQuery(inputQuery, helpCommandQuery)) {
 
-        } else if (compareQuery(input, saveGame)) {
+        } else if (compareQuery(inputQuery, saveGameQuery)) {
 
             stopWord();
-        } else if (compareQuery(input, returnItem)) {
+        } else if (compareQuery(inputQuery, returnItemQuery)) {
 
         } else {
             printf("Try Again!\n");
         }
-    } while (!hasWon || !compareQuery(input, saveGame));
+    } while (!hasWon || !compareQuery(inputQuery, saveGameQuery));
 }
