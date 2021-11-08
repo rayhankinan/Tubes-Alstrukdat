@@ -60,7 +60,7 @@ void BacaItem(Item *I, ListDin daftarBangunan)
 
     advCharFile(); /* Membaca baris berikutnya */
 }
-void TulisItem(Item I)
+void TulisItem(Item I, Player P)
 /* Nilai I tertulis di layar dengan format <pick_up> -> <drop_off> (<jenis_item_translated>, <waktu_hangus jika perishable>) */
 /* I.S. : I dan currentWaktu terdefinisi */
 /* F.S. : I tertulis di layar sesuai dengan format */
@@ -76,7 +76,7 @@ void TulisItem(Item I)
             printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Heavy Item");
             break;
         case 'P':
-            printf("%c -> %c (%s, sisa waktu %d)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Perishable Item", WAKTU_HANGUS_ITEM(I));
+            printf("%c -> %c (%s, sisa waktu %d)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Perishable Item", WAKTU_HANGUS_ITEM(I) - WAKTU_PLAYER(P));
             break;
         case 'V':
             printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "VIP Item");

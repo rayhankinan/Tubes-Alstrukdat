@@ -236,7 +236,7 @@ void deleteAtListLinked(ListLinked* l, int idx, ElTypeNode* val)
 }
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void displayListLinked(ListLinked l)
+void displayListLinked(ListLinked l, Player P)
 // void printInfo(List l);
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
@@ -253,7 +253,7 @@ void displayListLinked(ListLinked l)
   i = 0;
   while (p != NULL) {
     printf("%d. ", i + 1);
-    TulisItem(INFO_NODE(p));
+    TulisItem(INFO_NODE(p), P);
     printf("\n");
     p = NEXT_NODE(p);
   }

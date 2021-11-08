@@ -7,6 +7,7 @@
 #include "../Mesin/wordmachinefile.h"
 #include "../Lokasi/lokasi.h"
 #include "../ListDinamis/listdin.h"
+#include "../Player/player.h"
 
 #define UNDEF_WAKTU -1
 /* dipasangkan ke waktu jika bukan perishable item */
@@ -37,7 +38,7 @@ void BacaItem(Item *I, ListDin daftarBangunan);
 /* Semua komponen ditulis dalam 1 baris, dipisahkan 1 spasi */
 /* I.S. : I sembarang */
 /* F.S. : I terdefinisi */
-void TulisItem(Item I);
+void TulisItem(Item I, Player P);
 /* Nilai I tertulis di layar dengan format <pick_up> -> <drop_off> (<jenis_item_translated>, <waktu_hangus jika perishable>) */
 /* I.S. : I dan currentWaktu terdefinisi */
 /* F.S. : I tertulis di layar sesuai dengan format */

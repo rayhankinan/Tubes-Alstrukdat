@@ -244,11 +244,8 @@ void updateTas()
     /* ALGORITMA */
     for (i = 0; i < CAPACITY_STACK(tas); i++) {
         I = tas.buffer[i];
-        if (JENIS_ITEM(I) == 'P') {
-            WAKTU_HANGUS_ITEM(I)--;
-            if (WAKTU_HANGUS_ITEM(I) == 0) {
-                deleteAtStack(&tas, i, &I);
-            }
+        if ((JENIS_ITEM(I) == 'P') && (WAKTU_HANGUS_ITEM(I) - WAKTU_PLAYER(Mobita) <= 0)) {
+            deleteAtStack(&tas, i, &I);
         }
     }
 }
@@ -505,7 +502,7 @@ void toDoListMenu()
         printf("Tidak ada pesanan pada To Do List!\n");
     } else {
         printf("Pesanan pada To Do List:\n");
-        displayListLinked(toDoList);
+        displayListLinked(toDoList, Mobita);
     }
 }
 

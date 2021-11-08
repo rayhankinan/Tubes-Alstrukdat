@@ -80,7 +80,7 @@ void deleteAtListLinked(ListLinked* l, int idx, ElTypeNode* val);
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void displayListLinked(ListLinked l);
+void displayListLinked(ListLinked l, Player P);
 // void printInfo(List l);
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
