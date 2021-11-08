@@ -264,41 +264,45 @@ void shopMenu()
 
     /* ALGORITMA */
 
-    if (isFullListPos(inventory)) {
-        printf("Maaf, inventory Anda sudah full.\n");
-    } else {
-        printf("Uang Anda sekarang: %d Yen\n", UANG_PLAYER(Mobita));
-        printf("Gadget yang tersedia:\n");
-        printf("1. Kain Pembungkus Waktu (800 Yen)\n");
-        printf("2. Senter Pembesar (1200 Yen)\n");
-        printf("3. Pintu Kemana Saja (1500 Yen)\n");
-        printf("4. Mesin Waktu (3000 Yen)\n");
-        printf("Gadget mana yang ingin kau beli? (ketik 0 jika ingin kembali)\n");
-
-        do {
-            printf("\nENTER COMMAND: ");
-            readQuery(&input);
-            N = wordToInt(input);
-            if (N < 0 || N > 4) {
-                printf("Try Again!");
-            }
-        } while (N < 0 || N > 4);
-
-        if (N != 0) {
-            total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, N - 1);
-            if (total < 0) {
-                printf("Uang tidak cukup untuk membeli gadget!\n");
-            } else {
-                printGadgetName(N);
-                printf(" berhasil dibeli!\n");
-                printf("Uang anda sekarang: %d Yen\n", total);
-                UANG_PLAYER(Mobita) = total;
-                insertFreeSlot(&inventory, N);
-            }
+    if (EQLokasi(LOKASI_PLAYER(Mobita), HQ)) {
+        if (isFullListPos(inventory)) {
+            printf("Maaf, inventory Anda sudah full.\n");
         } else {
-            printf("Exiting INVENTORY . . .\n");
-            printf("Returning to main menu.\n");
+            printf("Uang Anda sekarang: %d Yen\n", UANG_PLAYER(Mobita));
+            printf("Gadget yang tersedia:\n");
+            printf("1. Kain Pembungkus Waktu (800 Yen)\n");
+            printf("2. Senter Pembesar (1200 Yen)\n");
+            printf("3. Pintu Kemana Saja (1500 Yen)\n");
+            printf("4. Mesin Waktu (3000 Yen)\n");
+            printf("Gadget mana yang ingin kau beli? (ketik 0 jika ingin kembali)\n");
+
+            do {
+                printf("\nENTER COMMAND: ");
+                readQuery(&input);
+                N = wordToInt(input);
+                if (N < 0 || N > 4) {
+                    printf("Try Again!");
+                }
+            } while (N < 0 || N > 4);
+
+            if (N != 0) {
+                total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, N - 1);
+                if (total < 0) {
+                    printf("Uang tidak cukup untuk membeli gadget!\n");
+                } else {
+                    printGadgetName(N);
+                    printf(" berhasil dibeli!\n");
+                    printf("Uang anda sekarang: %d Yen\n", total);
+                    UANG_PLAYER(Mobita) = total;
+                    insertFreeSlot(&inventory, N);
+                }
+            } else {
+                printf("Exiting INVENTORY . . .\n");
+                printf("Returning to main menu.\n");
+            }
         }
+    } else {
+        printf("Mobita tidak berada di Headquarters!\n");
     }
 }
 
