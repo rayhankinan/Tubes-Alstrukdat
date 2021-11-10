@@ -174,11 +174,30 @@ void updatewaktutimetas(Stack* tas, int waktu)
     int i;
     Item I;
     /*ALGORITMA*/
-    for (i = 0; i < CAPACITY_STACK(*tas); i++) {
+    for (i = 0; i < (IDX_TOP_STACK(*tas)+1); i++) {
         I = (*tas).buffer[i];
         if ((JENIS_ITEM(I) == 'P')) {
             WAKTU_HANGUS_ITEM((*tas).buffer[i]) -= waktu;
             WAKTU_LEWAT_ITEM((*tas).buffer[i]) += waktu;
         }
+    }
+}
+
+void kembalikanWaktuItemTas(Stack* tas)
+//I.S Menerima tas yang tidak kosong, 
+//F.S Mengembalikan waktu semula item perishable teratas
+{
+/*KAMUS*/
+    int i = IDX_TOP_STACK(*tas);
+    boolean flag = false;
+    /*ALGORITMA*/
+    while (i >= 0 && !flag) {
+        if ((JENIS_ITEM((*tas).buffer[i]) == 'P')) {
+            WAKTU_HANGUS_ITEM((*tas).buffer[i]) += WAKTU_LEWAT_ITEM((*tas).buffer[i]);
+            WAKTU_LEWAT_ITEM((*tas).buffer[i]) = 0;
+            flag = true;
+
+        }
+        i--;
     }
 }

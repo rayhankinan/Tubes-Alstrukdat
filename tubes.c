@@ -247,12 +247,14 @@ void updateTas()
     int i;
 
     /* ALGORITMA */
-    updatewaktutimetas(&tas, waktuTambah);
-    for (i = 0; i < CAPACITY_STACK(tas); i++) {
-        if ((JENIS_ITEM(tas.buffer[i]) == 'P') && (WAKTU_HANGUS_ITEM(tas.buffer[i]) <= 0)) {
-            deleteAtStack(&tas, i, &I);
+    if (!isEmptyStack(tas)){
+        updatewaktutimetas(&tas, waktuTambah);
+        for (i = 0; (i < (IDX_TOP_STACK(tas)+1)) ; i++) {
+            if ((JENIS_ITEM(tas.buffer[i]) == 'P') && (WAKTU_HANGUS_ITEM(tas.buffer[i]) <= 0)) {
+                deleteAtStack(&tas, i, &I);
+            }
         }
-    }
+    }  
 }
 
 void updateProgressList()
@@ -264,10 +266,10 @@ void updateProgressList()
     Address p;
     int idx = 0;
     ElTypeNode trash;
-
+     
     /*Algoritma*/
-    updateWaktuItem(&progressList, waktuTambah);
     if (!isEmptyListLinked(progressList)) {
+        updateWaktuItem(&progressList, waktuTambah);
         p = FIRST_LIST_LINKED(progressList);
         while (p != NULL) {
             if (JENIS_ITEM(INFO_NODE(p)) == 'P' && WAKTU_HANGUS_ITEM(INFO_NODE(p)) <= 0) {
@@ -341,8 +343,8 @@ void activateEffect(int id)
 {
     switch (id) {
     case 1:
-        if (JENIS_ITEM(TOP_STACK(tas)) == 'P') {
-        }
+        kembalikanWaktuItem(&progressList);
+        kembalikanWaktuItemTas(&tas);
         break;
     case 2:
         growDoubleStack(&tas);

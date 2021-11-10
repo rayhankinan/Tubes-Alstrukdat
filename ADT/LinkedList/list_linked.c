@@ -312,22 +312,28 @@ void updateWaktuItem(ListLinked *l, int waktu)
   /* KAMUS LOKAL */
   Address p;
   /*algoritma*/
-  if (!isEmptyListLinked(*l)){
-    p = FIRST_LIST_LINKED(*l);
-    while(p != NULL){
-      if (JENIS_ITEM(INFO_NODE(p)) == 'P'){
-        WAKTU_HANGUS_ITEM(INFO_NODE(p)) -= waktu;
-        WAKTU_LEWAT_ITEM(INFO_NODE(p)) += waktu;
-      }
-      p = NEXT_NODE(p);
+
+  p = FIRST_LIST_LINKED(*l);
+  while(p != NULL){
+    if (JENIS_ITEM(INFO_NODE(p)) == 'P'){
+      WAKTU_HANGUS_ITEM(INFO_NODE(p)) -= waktu;
+      WAKTU_LEWAT_ITEM(INFO_NODE(p)) += waktu;
     }
-  }
+    p = NEXT_NODE(p);
+  } 
 }
 
-void kembalikanWaktuItem(ListLinked *l)
+void kembalikanWaktuItem(ListLinked* l)
 //I.S Menerima list yang tidak kosong, 
-//F.S Mengembalikan waktu semula item perishable
+//F.S Mengembalikan waktu semula item perishable teratas
 {
-  WAKTU_HANGUS_ITEM(INFO_NODE(*l)) += WAKTU_LEWAT_ITEM(INFO_NODE(*l));
-  WAKTU_LEWAT_ITEM(INFO_NODE(*l)) = 0;
+  /* KAMUS LOKAL */
+  Address p = FIRST_LIST_LINKED(*l);
+
+  /* ALGORITMA */
+  while (JENIS_ITEM(INFO_NODE(p)) != 'P'){
+    p = NEXT_NODE(p);
+  }
+  WAKTU_HANGUS_ITEM(INFO_NODE(p)) += WAKTU_LEWAT_ITEM(INFO_NODE(p));
+  WAKTU_LEWAT_ITEM(INFO_NODE(p)) = 0;
 }

@@ -75,4 +75,8 @@ void updatewaktutimetas(Stack* tas, int waktu);
 //I.S menerima queue tas bisa empty juga
 //F.S Mengupdatae waktu item tas
 
+void kembalikanWaktuItemTas(Stack *tas);
+//I.S Menerima tas yang tidak kosong, 
+//F.S Mengembalikan waktu semula item perishable teratas
+
 #endif

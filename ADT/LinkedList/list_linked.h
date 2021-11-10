@@ -106,6 +106,6 @@ void updateWaktuItem(ListLinked* l, int waktu);
 
 void kembalikanWaktuItem(ListLinked* l);
 //I.S Menerima list yang tidak kosong, 
-//F.S Mengembalikan waktu semula item perishable
+//F.S Mengembalikan waktu semula item perishable teratas
 
 #endif
