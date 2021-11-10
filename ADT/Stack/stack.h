@@ -56,10 +56,14 @@ void deleteAtStack(Stack* s, int idx, ElTypeStack* val);
 /* F.S. val adalah nilai elemen ke idx yang lama */
 
 /* ************ Menambah kapasitas sebuah Stack ************ */
-void growStack(Stack *s);
+void growStack(Stack* s);
 /* Menambah kapasitas Stack s sebanyak satu slot */
 /* I.S. Stack s terdefinisi, boleh kosong */
 /* F.S. kapasitas Stack s bertambah satu slot */
+void growDoubleStack(Stack* s);
+/* Mengubah kapasitas Stack s sebesar dua kali lipat  dari kapasitas sebelumnya */
+/* I.S. Stack s terdefinisi, boleh kosong */
+/* F.S. kapasitas Stack s menjadi dua kali lipat */
 
 /* ************ I/O Stack ************ */
 void displayStack(Stack s, Player P);

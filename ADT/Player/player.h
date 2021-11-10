@@ -14,6 +14,7 @@ typedef struct
   boolean isSpeedBoost; /* apakah Player mendapat ability speed boost */
   int jumlahReturn; /* jumlah effect return item yang dimiliki */
   int waktu;  /* waktu berlalu setelah Player terdefinisi */
+  boolean isKemanaSaja; /* status efek item pintu kemana saja */
 } Player;
 
 /* SELEKTOR */
@@ -23,6 +24,7 @@ typedef struct
 #define SPEED_BOOST_PLAYER(x) (x).isSpeedBoost
 #define JUMLAH_RETURN_PLAYER(x) (x).jumlahReturn
 #define WAKTU_PLAYER(x) (x).waktu
+#define PINTU_KEMANA_SAJA_PLAYER(x) (x).isKemanaSaja
 
 /* KONSTRUKTOR */
 void CreatePlayer(Player* p, Lokasi lAwal);

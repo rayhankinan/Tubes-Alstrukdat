@@ -2,13 +2,12 @@
 #include <stdio.h>
 
 /* KONSTRUKTOR */
-void CreatePlayer(Player *p, Lokasi lAwal)
+void CreatePlayer(Player* p, Lokasi lAwal)
 /* Menghasilkan data player yang terdefinisi */
 /* I.S. : p sembarang dan lAwal terdefinisi */
 /* F.S. : p terdefinisi */
 {
   /* KAMUS */
-
   /* ALGORITMA  */
   UANG_PLAYER(*p) = 0;
   BERAT_PLAYER(*p) = 0;
@@ -16,9 +15,10 @@ void CreatePlayer(Player *p, Lokasi lAwal)
   JUMLAH_RETURN_PLAYER(*p) = 0;
   WAKTU_PLAYER(*p) = 0;
   LOKASI_PLAYER(*p) = lAwal;
+  PINTU_KEMANA_SAJA_PLAYER(*p) = false;
 }
 
-void movePlayer(Player *p, Lokasi l)
+void movePlayer(Player* p, Lokasi l)
 /* Mengubah koordinat lokasi Player sesuai input lokasi */
 /* I.S. : p dan l terdefinisi */
 /* F.S. : lokasi p berubah menjadi l */

@@ -32,7 +32,7 @@ void printWord(Word kata)
     }
 }
 
-void readQuery(Word *ptrQuery)
+void readQuery(Word* ptrQuery)
 /* Membaca input string dari user */
 /* I.S. Query bebas */
 /* F.S. Query berisi string input user */
@@ -46,7 +46,8 @@ void readQuery(Word *ptrQuery)
 
     if (eot) {
         writeQuery(ptrQuery, currentWord.contents, currentWord.length);
-    } else {
+    }
+    else {
         writeQuery(ptrQuery, "", 0);
         while (!eot) {
             advWord();
@@ -54,7 +55,7 @@ void readQuery(Word *ptrQuery)
     }
 }
 
-void writeQuery(Word *ptrQuery, char input[], int length)
+void writeQuery(Word* ptrQuery, char input[], int length)
 /* Menuliskan string input ke dalam query */
 /* I.S. : Query bebas */
 /* F.S. : Query.contents berisi string input dengan query.length berisi integer length */
@@ -176,7 +177,7 @@ void readNewGame()
 {
     /* KAMUS */
     Word dirFile, input, namaFile;
-    FILE *tempFile;
+    FILE* tempFile;
 
     /* ALGORITMA */
     writeQuery(&dirFile, "ConfigNewGame/", 14);
@@ -189,7 +190,8 @@ void readNewGame()
     if (tempFile == NULL) {
         printf("Name file tidak ada.\n");
         mainMenu();
-    } else {
+    }
+    else {
         readFileConfigNewGame(namaFile.contents);
     }
 }
@@ -201,7 +203,7 @@ void readLoadGame()
 {
     /* KAMUS */
     Word dirFile, input, namaFile;
-    FILE *tempFile;
+    FILE* tempFile;
 
     /* ALGORITMA */
     writeQuery(&dirFile, "ConfigLoadGame/", 15);
@@ -214,7 +216,8 @@ void readLoadGame()
     if (tempFile == NULL) {
         printf("Name file tidak ada.\n");
         mainMenu();
-    } else {
+    }
+    else {
         readFileConfigLoadGame(namaFile.contents);
     }
 }
@@ -256,7 +259,7 @@ void updateProgressList()
 /* Mengurangi waktu perishible item pada progress list */
 /* I.S. : State pada main program sudah diisi */
 /* F.S. : Waktu Perishable Item pada progress list berkurang */
-{   
+{
     /* KAMUS LOKAL */
     Address p;
     int idx = 0;
@@ -264,10 +267,10 @@ void updateProgressList()
 
     /*Algoritma*/
     updateWaktuItem(&progressList, waktuTambah);
-    if (!isEmptyListLinked(progressList)){
+    if (!isEmptyListLinked(progressList)) {
         p = FIRST_LIST_LINKED(progressList);
-        while(p != NULL){
-            if (JENIS_ITEM(INFO_NODE(p)) == 'P' && WAKTU_HANGUS_ITEM(INFO_NODE(p)) <= 0 ){
+        while (p != NULL) {
+            if (JENIS_ITEM(INFO_NODE(p)) == 'P' && WAKTU_HANGUS_ITEM(INFO_NODE(p)) <= 0) {
                 deleteAtListLinked(&progressList, idx, &trash);
             }
             p = NEXT_NODE(p);
@@ -284,13 +287,14 @@ void shopMenu()
     /* KAMUS LOKAL */
     Word input;
     int N, total;
-
+    //UANG_PLAYER(Mobita) = 99999;
     /* ALGORITMA */
 
     if (EQLokasi(LOKASI_PLAYER(Mobita), HQ)) {
         if (isFullListPos(inventory)) {
             printf("Maaf, inventory Anda sudah full.\n");
-        } else {
+        }
+        else {
             printf("Uang Anda sekarang: %d Yen\n", UANG_PLAYER(Mobita));
             printf("Gadget yang tersedia:\n");
             printf("1. Kain Pembungkus Waktu (800 Yen)\n");
@@ -312,19 +316,22 @@ void shopMenu()
                 total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, N - 1);
                 if (total < 0) {
                     printf("Uang tidak cukup untuk membeli gadget!\n");
-                } else {
+                }
+                else {
                     printGadgetName(N);
                     printf(" berhasil dibeli!\n");
                     printf("Uang anda sekarang: %d Yen\n", total);
                     UANG_PLAYER(Mobita) = total;
                     insertFreeSlot(&inventory, N);
                 }
-            } else {
+            }
+            else {
                 printf("Exiting INVENTORY . . .\n");
                 printf("Returning to main menu.\n");
             }
         }
-    } else {
+    }
+    else {
         printf("Mobita tidak berada di Headquarters!\n");
     }
 }
@@ -332,11 +339,25 @@ void shopMenu()
 void activateEffect(int id)
 /* Mengaktifkan efek gadget */
 {
-    printf("[Placeholder]\n");
+    switch (id) {
+    case 1:
+        if (JENIS_ITEM(TOP_STACK(tas)) == 'P') {
+        }
+        break;
+    case 2:
+        growDoubleStack(&tas);
+        break;
+    case 3:
+        PINTU_KEMANA_SAJA_PLAYER(Mobita) = true;
+        break;
+    case 4:
+        WAKTU_PLAYER(Mobita) = 0;
+        break;
+    }
 }
 
 void inventoryMenu()
-/* Menampilkan isi list inventory pada main program 
+/* Menampilkan isi list inventory pada main program
 lalu player menggunakan gadget yang diinginkan */
 /* I.S. Keadaan awal main program bebas */
 /* F.S. Output gadget berhasil atau gagal untuk digunakan lalu menghasilkan
@@ -351,7 +372,8 @@ efek gadget tersebut */
         printf("%d. ", i + 1);
         if (ELMT_LISTPOS(inventory, i) == VAL_UNDEF_LISTPOS) {
             printf("-\n");
-        } else {
+        }
+        else {
             printGadgetName(ELMT_LISTPOS(inventory, i));
             printf("\n");
         }
@@ -369,13 +391,15 @@ efek gadget tersebut */
     if (N != 0) {
         if (ELMT_LISTPOS(inventory, N - 1) == VAL_UNDEF_LISTPOS) {
             printf("Tidak ada Gadget yang dapat digunakan!\n");
-        } else {
+        }
+        else {
             activateEffect(ELMT_LISTPOS(inventory, N - 1));
             printGadgetName(ELMT_LISTPOS(inventory, N - 1));
             printf(" berhasil digunakan!\n");
             ELMT_LISTPOS(inventory, N - 1) = VAL_UNDEF_LISTPOS;
         }
-    } else {
+    }
+    else {
         printf("Exiting INVENTORY . . .\n");
         printf("Returning to main menu.\n");
     }
@@ -414,7 +438,8 @@ void moveMenu()
 
         if (index == 0) {
             printf("Exiting MOVE . . .\n");
-        } else if (index > 0 && index <= count) {
+        }
+        else if (index > 0 && index <= count) {
             count = 0;
 
             for (j = 0; j < lengthListDin(daftarBangunan) && index != count; j++) {
@@ -427,24 +452,27 @@ void moveMenu()
                     movePlayer(&Mobita, ELMT_LISTDIN(daftarBangunan, j));
                 }
             }
-        } else {
+        }
+        else {
             printf("Try Again!\n");
         }
     } while (index < 0 || index > count);
-        waktuTambah = 0;
-        if (SPEED_BOOST_PLAYER(Mobita) && index != 0) {
-            speedMove++;
-            if (speedMove % 2 == 0) {
-                WAKTU_PLAYER(Mobita)++;
-                waktuTambah = 1;
-            }
-        } else if (index != 0) {
-            speedMove = 0;
-            WAKTU_PLAYER(Mobita) += (BERAT_PLAYER(Mobita) + 1);
-            waktuTambah = (BERAT_PLAYER(Mobita) + 1);
-        } else {
-            printf("Returning to main menu.\n");
+    waktuTambah = 0;
+    if (SPEED_BOOST_PLAYER(Mobita) && index != 0) {
+        speedMove++;
+        if (speedMove % 2 == 0) {
+            WAKTU_PLAYER(Mobita)++;
+            waktuTambah = 1;
         }
+    }
+    else if (index != 0) {
+        speedMove = 0;
+        WAKTU_PLAYER(Mobita) += (BERAT_PLAYER(Mobita) + 1);
+        waktuTambah = (BERAT_PLAYER(Mobita) + 1);
+    }
+    else {
+        printf("Returning to main menu.\n");
+    }
 }
 
 void pickUpMenu()
@@ -468,7 +496,8 @@ void pickUpMenu()
 
         if (p == NULL) {
             printf("Pesanan tidak ditemukan!\n");
-        } else {
+        }
+        else {
             deleteAtListLinked(&toDoList, i, &I);
             pushStack(&tas, I);
             insertFirstListLinked(&progressList, I);
@@ -478,7 +507,8 @@ void pickUpMenu()
                 BERAT_PLAYER(Mobita)++;
             }
         }
-    } else {
+    }
+    else {
         printf("Tas sudah penuh!\n");
     }
 }
@@ -497,25 +527,26 @@ void dropOffMenu()
         deleteFirstListLinked(&progressList, &I);
 
         switch (JENIS_ITEM(I)) {
-            case 'N':
-                UANG_PLAYER(Mobita) += 200;
-                break;
-            case 'H':
-                UANG_PLAYER(Mobita) += 400;
-                BERAT_PLAYER(Mobita)--;
-                SPEED_BOOST_PLAYER(Mobita) = BERAT_PLAYER(Mobita) == 0;
-                break;
-            case 'P':
-                UANG_PLAYER(Mobita) += 400;
-                growStack(&tas);
-                break;
-            case 'V':
-                UANG_PLAYER(Mobita) += 600;
-                JUMLAH_RETURN_PLAYER(Mobita)++;
-                break;
+        case 'N':
+            UANG_PLAYER(Mobita) += 200;
+            break;
+        case 'H':
+            UANG_PLAYER(Mobita) += 400;
+            BERAT_PLAYER(Mobita)--;
+            SPEED_BOOST_PLAYER(Mobita) = BERAT_PLAYER(Mobita) == 0;
+            break;
+        case 'P':
+            UANG_PLAYER(Mobita) += 400;
+            growStack(&tas);
+            break;
+        case 'V':
+            UANG_PLAYER(Mobita) += 600;
+            JUMLAH_RETURN_PLAYER(Mobita)++;
+            break;
         }
 
-    } else {
+    }
+    else {
         printf("Tas kosong!\n");
     }
 }
@@ -530,7 +561,8 @@ void toDoListMenu()
     /* ALGORITMA */
     if (isEmptyListLinked(toDoList)) {
         printf("Tidak ada pesanan pada To Do List!\n");
-    } else {
+    }
+    else {
         printf("Pesanan pada To Do List:\n");
         displayListLinked(toDoList, Mobita);
     }
@@ -546,40 +578,41 @@ void inProgressMenu()
     /* ALGORITMA */
     if (isEmptyStack(tas)) {
         printf("Tidak ada pesanan yang sedang diantarkan!\n");
-    } else {
+    }
+    else {
         printf("Pesanan yang sedang diantarkan:\n");
         displayStack(tas, Mobita);
     }
 }
 
- void returnMenu()
+void returnMenu()
 /* Mengecek apabila bisa mengembalikan item, dan restore it menjadi keadaan awal item tersebut lagi */
 //  I.S. : Cek ability player kalau punya ability untuk return, dan jenis item stack teratas bukan VIP Item 
 //  F.S. : Jika true, pesanan teratas kembali ke todo list terakhir (N,H), time limit pesanan reset sebelum dikembalikan ke todo list terakhir(P)  
- {
+{
     Item trash;
 
- 	if ((NAMA_LOKASI(LOKASI_PLAYER(Mobita)) == NAMA_LOKASI(PICK_UP_ITEM(TOP_STACK(tas))) && (JUMLAH_RETURN_PLAYER(Mobita)) > 0)){
- 		if (JENIS_ITEM(TOP_STACK(tas)) == 'V'){
- 			printf("Sorry, VIP item tidak bisa dikembalikan\n");
- 		}
- 		else{
- 			popStack(&tas, &trash);
- 			if (JENIS_ITEM(TOP_STACK(tas)) == 'N'|| JENIS_ITEM(TOP_STACK(tas)) == 'H'){
- 				deleteFirstListLinked(&progressList, &trash);
- 				insertLastListLinked(&toDoList, trash);
-                printf("Top Item in bag, succeded returned to sender\n");
- 			}
- 			else{
- 				kembalikanWaktuItem(&progressList);
+    if ((NAMA_LOKASI(LOKASI_PLAYER(Mobita)) == NAMA_LOKASI(PICK_UP_ITEM(TOP_STACK(tas))) && (JUMLAH_RETURN_PLAYER(Mobita)) > 0)) {
+        if (JENIS_ITEM(TOP_STACK(tas)) == 'V') {
+            printf("Sorry, VIP item tidak bisa dikembalikan\n");
+        }
+        else {
+            popStack(&tas, &trash);
+            if (JENIS_ITEM(TOP_STACK(tas)) == 'N' || JENIS_ITEM(TOP_STACK(tas)) == 'H') {
                 deleteFirstListLinked(&progressList, &trash);
- 				insertLastListLinked(&toDoList, trash);
+                insertLastListLinked(&toDoList, trash);
                 printf("Top Item in bag, succeded returned to sender\n");
- 			}
- 			JUMLAH_RETURN_PLAYER(Mobita) -= 1;
- 		}
- 	}
-    else{
+            }
+            else {
+                kembalikanWaktuItem(&progressList);
+                deleteFirstListLinked(&progressList, &trash);
+                insertLastListLinked(&toDoList, trash);
+                printf("Top Item in bag, succeded returned to sender\n");
+            }
+            JUMLAH_RETURN_PLAYER(Mobita) -= 1;
+        }
+    }
+    else {
         printf("Item can't be returned\n");
     }
 }
@@ -604,13 +637,16 @@ void mainMenu()
         if (compareQuery(inputQuery, newGameQuery)) {
             readNewGame();
             gameMenu();
-        } else if (compareQuery(inputQuery, quitQuery)) {
+        }
+        else if (compareQuery(inputQuery, quitQuery)) {
             printf("Quiting the game . . .\n");
             stopWord();
-        } else if (compareQuery(inputQuery, loadGameQuery)) {
+        }
+        else if (compareQuery(inputQuery, loadGameQuery)) {
             readLoadGame();
             gameMenu();
-        } else {
+        }
+        else {
             printf("Try Again!\n");
         }
     } while (!compareQuery(inputQuery, newGameQuery) || !compareQuery(inputQuery, quitQuery) || !compareQuery(inputQuery, loadGameQuery));
@@ -638,7 +674,7 @@ void gameMenu()
 
     CreateStack(&tas);
 
-    
+
 
     CreateListLinked(&toDoList);
 
@@ -672,28 +708,39 @@ void gameMenu()
             moveMenu();
             updateTas();
             updateProgressList();
-        } else if (compareQuery(inputQuery, pickUpQuery)) {
+        }
+        else if (compareQuery(inputQuery, pickUpQuery)) {
             pickUpMenu();
-        } else if (compareQuery(inputQuery, dropOffQuery)) {
+        }
+        else if (compareQuery(inputQuery, dropOffQuery)) {
             dropOffMenu();
-        } else if (compareQuery(inputQuery, mapLokasiQuery)) {
+        }
+        else if (compareQuery(inputQuery, mapLokasiQuery)) {
 
-        } else if (compareQuery(inputQuery, toDoListQuery)) {
+        }
+        else if (compareQuery(inputQuery, toDoListQuery)) {
             toDoListMenu();
-        } else if (compareQuery(inputQuery, inProgressQuery)) {
+        }
+        else if (compareQuery(inputQuery, inProgressQuery)) {
             inProgressMenu();
-        } else if (compareQuery(inputQuery, buyGadgetQuery)) {
+        }
+        else if (compareQuery(inputQuery, buyGadgetQuery)) {
             shopMenu();
-        } else if (compareQuery(inputQuery, inventoryGadgetQuery)) {
+        }
+        else if (compareQuery(inputQuery, inventoryGadgetQuery)) {
             inventoryMenu();
-        } else if (compareQuery(inputQuery, helpCommandQuery)) {
+        }
+        else if (compareQuery(inputQuery, helpCommandQuery)) {
 
-        } else if (compareQuery(inputQuery, saveGameQuery)) {
+        }
+        else if (compareQuery(inputQuery, saveGameQuery)) {
 
             stopWord();
-        } else if (compareQuery(inputQuery, returnItemQuery)) {
+        }
+        else if (compareQuery(inputQuery, returnItemQuery)) {
             returnMenu();
-        } else {
+        }
+        else {
             printf("Try Again!\n");
         }
     } while (!hasWon || !compareQuery(inputQuery, saveGameQuery));
