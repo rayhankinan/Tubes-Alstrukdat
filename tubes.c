@@ -16,6 +16,8 @@ Player Mobita;
 ListPos inventory, hargaGadget;
 Stack tas;
 ListLinked toDoList;
+ListLinked progressList;
+int waktuTambah;
 
 void printWord(Word kata)
 /* Menuliskan string ke dalam main program */
@@ -226,7 +228,7 @@ void updatePesanan()
     Item I;
 
     /* ALGORITMA */
-    while (WAKTU_PLAYER(Mobita) >= WAKTU_PICK_UP_ITEM(HEAD_QUEUE(daftarPesanan))) {
+    while ((WAKTU_PLAYER(Mobita) >= WAKTU_PICK_UP_ITEM(HEAD_QUEUE(daftarPesanan))) && (!isEmptyQueue(daftarPesanan))) {
         dequeue(&daftarPesanan, &I);
         insertLastListLinked(&toDoList, I);
     }
@@ -242,10 +244,34 @@ void updateTas()
     int i;
 
     /* ALGORITMA */
+    updatewaktutimetas(&tas, waktuTambah);
     for (i = 0; i < CAPACITY_STACK(tas); i++) {
-        I = tas.buffer[i];
-        if ((JENIS_ITEM(I) == 'P') && (WAKTU_HANGUS_ITEM(I) - WAKTU_PLAYER(Mobita) <= 0)) {
+        if ((JENIS_ITEM(tas.buffer[i]) == 'P') && (WAKTU_HANGUS_ITEM(tas.buffer[i]) <= 0)) {
             deleteAtStack(&tas, i, &I);
+        }
+    }
+}
+
+void updateProgressList()
+/* Mengurangi waktu perishible item pada progress list */
+/* I.S. : State pada main program sudah diisi */
+/* F.S. : Waktu Perishable Item pada progress list berkurang */
+{   
+    /* KAMUS LOKAL */
+    Address p;
+    int idx = 0;
+    ElTypeNode trash;
+
+    /*Algoritma*/
+    updateWaktuItem(&progressList, waktuTambah);
+    if (!isEmptyListLinked(progressList)){
+        p = FIRST_LIST_LINKED(progressList);
+        while(p != NULL){
+            if (JENIS_ITEM(INFO_NODE(p)) == 'P' && WAKTU_HANGUS_ITEM(INFO_NODE(p)) <= 0 ){
+                deleteAtListLinked(&progressList, idx, &trash);
+            }
+            p = NEXT_NODE(p);
+            idx++;
         }
     }
 }
@@ -405,18 +431,20 @@ void moveMenu()
             printf("Try Again!\n");
         }
     } while (index < 0 || index > count);
-
-    if (SPEED_BOOST_PLAYER(Mobita) && index != 0) {
-        speedMove++;
-        if (speedMove % 2 == 0) {
-            WAKTU_PLAYER(Mobita)++;
+        waktuTambah = 0;
+        if (SPEED_BOOST_PLAYER(Mobita) && index != 0) {
+            speedMove++;
+            if (speedMove % 2 == 0) {
+                WAKTU_PLAYER(Mobita)++;
+                waktuTambah = 1;
+            }
+        } else if (index != 0) {
+            speedMove = 0;
+            WAKTU_PLAYER(Mobita) += (BERAT_PLAYER(Mobita) + 1);
+            waktuTambah = (BERAT_PLAYER(Mobita) + 1);
+        } else {
+            printf("Returning to main menu.\n");
         }
-    } else if (index != 0) {
-        speedMove = 0;
-        WAKTU_PLAYER(Mobita) += (BERAT_PLAYER(Mobita) + 1);
-    } else {
-        printf("Returning to main menu.\n");
-    }
 }
 
 void pickUpMenu()
@@ -443,6 +471,7 @@ void pickUpMenu()
         } else {
             deleteAtListLinked(&toDoList, i, &I);
             pushStack(&tas, I);
+            insertFirstListLinked(&progressList, I);
 
             if (JENIS_ITEM(I) == 'H') {
                 SPEED_BOOST_PLAYER(Mobita) = false;
@@ -465,6 +494,7 @@ void dropOffMenu()
     /* ALGORITMA */
     if (!isEmptyStack(tas)) {
         popStack(&tas, &I);
+        deleteFirstListLinked(&progressList, &I);
 
         switch (JENIS_ITEM(I)) {
             case 'N':
@@ -522,6 +552,38 @@ void inProgressMenu()
     }
 }
 
+ void returnMenu()
+/* Mengecek apabila bisa mengembalikan item, dan restore it menjadi keadaan awal item tersebut lagi */
+//  I.S. : Cek ability player kalau punya ability untuk return, dan jenis item stack teratas bukan VIP Item 
+//  F.S. : Jika true, pesanan teratas kembali ke todo list terakhir (N,H), time limit pesanan reset sebelum dikembalikan ke todo list terakhir(P)  
+ {
+    Item trash;
+
+ 	if ((NAMA_LOKASI(LOKASI_PLAYER(Mobita)) == NAMA_LOKASI(PICK_UP_ITEM(TOP_STACK(tas))) && (JUMLAH_RETURN_PLAYER(Mobita)) > 0)){
+ 		if (JENIS_ITEM(TOP_STACK(tas)) == 'V'){
+ 			printf("Sorry, VIP item tidak bisa dikembalikan\n");
+ 		}
+ 		else{
+ 			popStack(&tas, &trash);
+ 			if (JENIS_ITEM(TOP_STACK(tas)) == 'N'|| JENIS_ITEM(TOP_STACK(tas)) == 'H'){
+ 				deleteFirstListLinked(&progressList, &trash);
+ 				insertLastListLinked(&toDoList, trash);
+                printf("Top Item in bag, succeded returned to sender\n");
+ 			}
+ 			else{
+ 				kembalikanWaktuItem(&progressList);
+                deleteFirstListLinked(&progressList, &trash);
+ 				insertLastListLinked(&toDoList, trash);
+                printf("Top Item in bag, succeded returned to sender\n");
+ 			}
+ 			JUMLAH_RETURN_PLAYER(Mobita) -= 1;
+ 		}
+ 	}
+    else{
+        printf("Item can't be returned\n");
+    }
+}
+
 void mainMenu()
 /* Menampilkan main menu pada main program */
 /* I.S. Keadaan awal main program bebas */
@@ -576,7 +638,11 @@ void gameMenu()
 
     CreateStack(&tas);
 
+    
+
     CreateListLinked(&toDoList);
+
+    CreateListLinked(&progressList);
 
     writeQuery(&moveFromLocQuery, "MOVE", 4);
     writeQuery(&pickUpQuery, "PICK_UP", 7);
@@ -599,13 +665,13 @@ void gameMenu()
 
         updatePesanan();
 
-        updateTas();
-
         printf("ENTER COMMAND: ");
         readQuery(&inputQuery);
 
         if (compareQuery(inputQuery, moveFromLocQuery)) {
             moveMenu();
+            updateTas();
+            updateProgressList();
         } else if (compareQuery(inputQuery, pickUpQuery)) {
             pickUpMenu();
         } else if (compareQuery(inputQuery, dropOffQuery)) {
@@ -626,7 +692,7 @@ void gameMenu()
 
             stopWord();
         } else if (compareQuery(inputQuery, returnItemQuery)) {
-
+            returnMenu();
         } else {
             printf("Try Again!\n");
         }

@@ -53,9 +53,11 @@ void BacaItem(Item *I, ListDin daftarBangunan)
 
     if (eotFile) {
         WAKTU_HANGUS_ITEM(*I) = UNDEF_WAKTU;
+        WAKTU_LEWAT_ITEM(*I) = UNDEF_WAKTU;
     } else {
         advWordFile();
         WAKTU_HANGUS_ITEM(*I) = wordToInt(currentWordFile);
+        WAKTU_LEWAT_ITEM(*I) = 0;
     }
 
     advCharFile(); /* Membaca baris berikutnya */
@@ -76,7 +78,7 @@ void TulisItem(Item I, Player P)
             printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Heavy Item");
             break;
         case 'P':
-            printf("%c -> %c (%s, sisa waktu %d)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Perishable Item", WAKTU_HANGUS_ITEM(I) - WAKTU_PLAYER(P));
+            printf("%c -> %c (%s, sisa waktu %d)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Perishable Item", WAKTU_HANGUS_ITEM(I));
             break;
         case 'V':
             printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "VIP Item");

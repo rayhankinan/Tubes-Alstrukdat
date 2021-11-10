@@ -18,6 +18,7 @@ typedef struct item {
   Lokasi pick_up;  /* lokasi pick up */
   Lokasi drop_off; /* lokasi drop off */
   int waktu_hangus;     /* waktu item hangus (khusus perishable item) */
+  int waktu_lewat; /*waktu yang diperlukan saat berkurang waktu perishable item*/
 } Item;
 
 /* SELEKTOR */
@@ -26,6 +27,7 @@ typedef struct item {
 #define PICK_UP_ITEM(x) (x).pick_up
 #define DROP_OFF_ITEM(x) (x).drop_off
 #define WAKTU_HANGUS_ITEM(x) (x).waktu_hangus
+#define WAKTU_LEWAT_ITEM(x) (x).waktu_lewat
 
 /* KONSTRUKTOR */
 Item CreateItem(char jenis, Lokasi pick_up, Lokasi drop_off, int waktu);

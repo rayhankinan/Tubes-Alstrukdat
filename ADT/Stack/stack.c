@@ -136,7 +136,7 @@ void displayStack(Stack s, Player P)
                 printf("%s (Tujuan: %c)", "Heavy Item", NAMA_LOKASI(DROP_OFF_ITEM(I)));
                 break;
             case 'P':
-                printf("%s, sisa waktu %d (Tujuan: %c)", "Perishable Item", WAKTU_HANGUS_ITEM(I) - WAKTU_PLAYER(P), NAMA_LOKASI(DROP_OFF_ITEM(I)));
+                printf("%s, sisa waktu %d (Tujuan: %c)", "Perishable Item", WAKTU_HANGUS_ITEM(I), NAMA_LOKASI(DROP_OFF_ITEM(I)));
                 break;
             case 'V':
                 printf("%s (Tujuan: %c)", "VIP Item", NAMA_LOKASI(DROP_OFF_ITEM(I)));
@@ -144,5 +144,22 @@ void displayStack(Stack s, Player P)
         }
         printf("\n");
         i++;
+    }
+}
+
+void updatewaktutimetas(Stack* tas, int waktu)
+//I.S menerima queue tas bisa empty juga
+//F.S Mengupdatae waktu item tas
+{
+    /*KAMUS*/
+    int i;
+    Item I;
+    /*ALGORITMA*/
+    for (i = 0; i < CAPACITY_STACK(*tas); i++) {
+        I = (*tas).buffer[i];
+        if ((JENIS_ITEM(I) == 'P')) {
+            WAKTU_HANGUS_ITEM((*tas).buffer[i]) -= waktu;
+            WAKTU_LEWAT_ITEM((*tas).buffer[i]) += waktu;
+        }
     }
 }

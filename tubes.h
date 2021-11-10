@@ -65,6 +65,11 @@ void updateTas();
 /* I.S. : State pada main program sudah diisi */
 /* F.S. : Waktu Perishable Item pada Stack Tas berkurang */
 
+void updateProgressList();
+/* Mengurangi waktu perishible item pada progress list */
+/* I.S. : State pada main program sudah diisi */
+/* F.S. : Waktu Perishable Item pada progress list berkurang */
+
 void shopMenu();
 /* Menampilkan gadget yang dapat dibeli pada main program lalu Player membelinya */
 /* I.S. : Keadaan awal main program bebas */
@@ -104,6 +109,11 @@ void inProgressMenu();
 /* Menampilkan Item yang ada di dalam tas */
 /* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
 /* F.S. : Output list Item yang ada di dalam tas */
+
+void returnMenu();
+/* Mengecek apabila bisa mengembalikan item, dan restore it menjadi keadaan awal item tersebut lagi */
+/*  I.S. : Cek ability player kalau punya ability untuk return, dan jenis item stack teratas bukan VIP Item */
+/*  F.S. : Jika true, pesanan teratas kembali ke todo list terakhir (N,H), time limit pesanan reset sebelum dikembalikan ke todo list terakhir(P)  */
 
 void mainMenu();
 /* Menampilkan main menu pada main program */

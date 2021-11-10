@@ -256,6 +256,7 @@ void displayListLinked(ListLinked l, Player P)
     TulisItem(INFO_NODE(p), P);
     printf("\n");
     p = NEXT_NODE(p);
+    i++;
   }
 }
 
@@ -302,4 +303,31 @@ ListLinked concatListLinked(ListLinked l1, ListLinked l2)
     p = NEXT_NODE(p);
   }
   return l3;
+}
+
+void updateWaktuItem(ListLinked *l, int waktu)
+//I.S Menerima list yang tidak kosong, dan hanya progress list yang diproses
+//F.S Menghitung mundur item perishable dan delete item kalau sudah hangus
+{
+  /* KAMUS LOKAL */
+  Address p;
+  /*algoritma*/
+  if (!isEmptyListLinked(*l)){
+    p = FIRST_LIST_LINKED(*l);
+    while(p != NULL){
+      if (JENIS_ITEM(INFO_NODE(p)) == 'P'){
+        WAKTU_HANGUS_ITEM(INFO_NODE(p)) -= waktu;
+        WAKTU_LEWAT_ITEM(INFO_NODE(p)) += waktu;
+      }
+      p = NEXT_NODE(p);
+    }
+  }
+}
+
+void kembalikanWaktuItem(ListLinked *l)
+//I.S Menerima list yang tidak kosong, 
+//F.S Mengembalikan waktu semula item perishable
+{
+  WAKTU_HANGUS_ITEM(INFO_NODE(*l)) += WAKTU_LEWAT_ITEM(INFO_NODE(*l));
+  WAKTU_LEWAT_ITEM(INFO_NODE(*l)) = 0;
 }

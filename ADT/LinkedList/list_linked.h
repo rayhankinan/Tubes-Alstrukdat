@@ -100,4 +100,12 @@ ListLinked concatListLinked(ListLinked l1, ListLinked l2);
 /* menghasilkan l3 yang baru (dengan elemen list l1 dan l2 secara beurutan). */
 /* Tidak ada alokasi/dealokasi pada prosedur ini */
 
+void updateWaktuItem(ListLinked* l, int waktu);
+//I.S Menerima list yang tidak kosong, dan hanya progress list yang diproses
+//F.S Menghitung mundur item perishable dan delete item kalau sudah hangus
+
+void kembalikanWaktuItem(ListLinked* l);
+//I.S Menerima list yang tidak kosong, 
+//F.S Mengembalikan waktu semula item perishable
+
 #endif
