@@ -508,6 +508,8 @@ void pickUpMenu()
                 SPEED_BOOST_PLAYER(Mobita) = false;
                 BERAT_PLAYER(Mobita)++;
             }
+
+            /* TAMBAHKAN RESPONSE */
         }
     }
     else {
@@ -546,6 +548,8 @@ void dropOffMenu()
             JUMLAH_RETURN_PLAYER(Mobita)++;
             break;
         }
+
+        /* TAMBAHKAN RESPONSE */
 
     }
     else {

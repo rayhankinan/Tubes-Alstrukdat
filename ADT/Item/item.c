@@ -75,7 +75,7 @@ void TulisItem(Item I, Player P)
             printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(DROP_OFF_ITEM(I)), "Normal Item");
             break;
         case 'H':
-            printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Heavy Item");
+            printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(DROP_OFF_ITEM(I)), "Heavy Item");
             break;
         case 'P':
             printf("%c -> %c (%s, sisa waktu %d)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(PICK_UP_ITEM(I)), "Perishable Item", WAKTU_HANGUS_ITEM(I));
