@@ -107,15 +107,10 @@ void growStack(Stack* s)
 /* I.S. Stack s terdefinisi, boleh kosong */
 /* F.S. kapasitas Stack s bertambah satu slot */
 {
-    /* KAMUS */
-    int newCapacity;
+
     /* ALGORITMA */
-    newCapacity = CAPACITY_STACK(*s);
-    newCapacity++;
-    if (newCapacity < 100) {
-        CAPACITY_STACK(*s)++;
-        BUFFER_STACK(*s) = (ElTypeStack*)realloc(BUFFER_STACK(*s), CAPACITY_STACK(*s) * sizeof(ElTypeStack));
-    }
+    CAPACITY_STACK(*s)++;
+    BUFFER_STACK(*s) = (ElTypeStack*)realloc(BUFFER_STACK(*s), CAPACITY_STACK(*s) * sizeof(ElTypeStack));
 }
 
 void growDoubleStack(Stack* s)
@@ -174,7 +169,7 @@ void updatewaktutimetas(Stack* tas, int waktu)
     int i;
     Item I;
     /*ALGORITMA*/
-    for (i = 0; i < (IDX_TOP_STACK(*tas)+1); i++) {
+    for (i = 0; i < (IDX_TOP_STACK(*tas) + 1); i++) {
         I = (*tas).buffer[i];
         if ((JENIS_ITEM(I) == 'P')) {
             WAKTU_HANGUS_ITEM((*tas).buffer[i]) -= waktu;
@@ -187,7 +182,7 @@ void kembalikanWaktuItemTas(Stack* tas)
 //I.S Menerima tas yang tidak kosong, 
 //F.S Mengembalikan waktu semula item perishable teratas
 {
-/*KAMUS*/
+    /*KAMUS*/
     int i = IDX_TOP_STACK(*tas);
     boolean flag = false;
     /*ALGORITMA*/

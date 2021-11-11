@@ -14,7 +14,6 @@ typedef struct
   boolean isSpeedBoost; /* apakah Player mendapat ability speed boost */
   int jumlahReturn; /* jumlah effect return item yang dimiliki */
   int waktu;  /* waktu berlalu setelah Player terdefinisi */
-  boolean isKemanaSaja; /* status efek item pintu kemana saja */
 } Player;
 
 /* SELEKTOR */

@@ -247,14 +247,14 @@ void updateTas()
     int i;
 
     /* ALGORITMA */
-    if (!isEmptyStack(tas)){
+    if (!isEmptyStack(tas)) {
         updatewaktutimetas(&tas, waktuTambah);
-        for (i = 0; (i < (IDX_TOP_STACK(tas)+1)) ; i++) {
+        for (i = 0; (i < (IDX_TOP_STACK(tas) + 1)); i++) {
             if ((JENIS_ITEM(tas.buffer[i]) == 'P') && (WAKTU_HANGUS_ITEM(tas.buffer[i]) <= 0)) {
                 deleteAtStack(&tas, i, &I);
             }
         }
-    }  
+    }
 }
 
 void updateProgressList()
@@ -266,7 +266,7 @@ void updateProgressList()
     Address p;
     int idx = 0;
     ElTypeNode trash;
-     
+
     /*Algoritma*/
     if (!isEmptyListLinked(progressList)) {
         updateWaktuItem(&progressList, waktuTambah);
@@ -350,7 +350,6 @@ void activateEffect(int id)
         growDoubleStack(&tas);
         break;
     case 3:
-        PINTU_KEMANA_SAJA_PLAYER(Mobita) = true;
         break;
     case 4:
         WAKTU_PLAYER(Mobita) = 0;
@@ -623,7 +622,7 @@ void returnMenu()
     }
 }
 
-int findLoc(int i, int j){
+int findLoc(int i, int j) {
     /*KAMUS LOKAL*/
     boolean found;
     int indeks;
@@ -631,90 +630,100 @@ int findLoc(int i, int j){
     /*ALGORITMA*/
     indeks = 0;
     found = false;
- 
-    while(indeks < lengthListDin(daftarBangunan) && found == false){
-        if(Absis_POINT(KOORDINAT_LOKASI(ELMT_LISTDIN(daftarBangunan,indeks))) == i && Ordinat_POINT(KOORDINAT_LOKASI(ELMT_LISTDIN(daftarBangunan,indeks))) == j){
+
+    while (indeks < lengthListDin(daftarBangunan) && found == false) {
+        if (Absis_POINT(KOORDINAT_LOKASI(ELMT_LISTDIN(daftarBangunan, indeks))) == i && Ordinat_POINT(KOORDINAT_LOKASI(ELMT_LISTDIN(daftarBangunan, indeks))) == j) {
             found = true;
-        }else{
-            indeks = indeks +1;
+        }
+        else {
+            indeks = indeks + 1;
         }
     }
-    if(indeks == lengthListDin(daftarBangunan)){
+    if (indeks == lengthListDin(daftarBangunan)) {
         return IDX_UNDEF_LISTDIN;
-    }else{
+    }
+    else {
         return indeks;
     }
 }
 
-void map(){
+void map() {
     /* KAMUS LOKAL */
-    int i,j,m;
+    int i, j, m;
     int idxBangunan;
     char locationName;
     boolean found;
     Address adrTemp;
 
     /* ALGORITMA */
-    for(i = 0; i <= (M+1); i++){
+    for (i = 0; i <= (M + 1); i++) {
         printf("*");
     }
 
     printf("\n");
-    for(i=1; i <= N; i++){
-        for(j=0; j <= (M+1); j++){
-            idxBangunan = findLoc(i,j);
+    for (i = 1; i <= N; i++) {
+        for (j = 0; j <= (M + 1); j++) {
+            idxBangunan = findLoc(i, j);
             locationName = NAMA_LOKASI(ELMT_LISTDIN(daftarBangunan, idxBangunan));
 
-            if(j == 0){
+            if (j == 0) {
                 printf("*");
-            }else if(j == (M+1)){
+            }
+            else if (j == (M + 1)) {
                 printf("*\n");
-            }else if(idxBangunan != IDX_UNDEF_LISTDIN){
-                if(locationName == NAMA_LOKASI(LOKASI_PLAYER(Mobita))){
+            }
+            else if (idxBangunan != IDX_UNDEF_LISTDIN) {
+                if (locationName == NAMA_LOKASI(LOKASI_PLAYER(Mobita))) {
                     // posisi mobita
                     print_yellow(locationName);
-                }else{
+                }
+                else {
                     // bukan posisi mobita
-                    if(locationName == NAMA_LOKASI(DROP_OFF_ITEM(TOP_STACK(tas)))){
+                    if (locationName == NAMA_LOKASI(DROP_OFF_ITEM(TOP_STACK(tas)))) {
                         // drop off
                         print_blue(locationName);
-                    }else{
+                    }
+                    else {
                         // bukan drop off
                         found = false;
                         adrTemp = FIRST_LIST_LINKED(toDoList);
 
-                        while(adrTemp != NULL && found == false){
-                            if(locationName == NAMA_LOKASI(PICK_UP_ITEM(INFO_NODE(adrTemp)))){
+                        while (adrTemp != NULL && found == false) {
+                            if (locationName == NAMA_LOKASI(PICK_UP_ITEM(INFO_NODE(adrTemp)))) {
                                 found = true;
-                            }else{
+                            }
+                            else {
                                 adrTemp = NEXT_NODE(adrTemp);
                             }
                         }
 
-                        if(found == true){
+                        if (found == true) {
                             // pickup
                             print_red(locationName);
-                        }else{
+                        }
+                        else {
                             // bukan pickup
                             m = indexOfListDin(daftarBangunan, LOKASI_PLAYER(Mobita));
 
-                            if(ELMT_MATRIX(adjacencyMatrix, m, idxBangunan)){
+                            if (ELMT_MATRIX(adjacencyMatrix, m, idxBangunan)) {
                                 // move
                                 print_green(locationName);
-                            }else{
+                            }
+                            else {
                                 // bukan move
                                 printf("%c", locationName);
                             }
                         }
                     }
                 }
-            }else{
+            }
+            else {
                 printf(" ");
             }
         }
     }
 
-    for(i = 0; i <= (M+1); i++){
+    for (i = 0; i <= (M + 1); i++) {
         printf("*");
     }
 }

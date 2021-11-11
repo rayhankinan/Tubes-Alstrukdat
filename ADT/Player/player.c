@@ -15,7 +15,6 @@ void CreatePlayer(Player* p, Lokasi lAwal)
   JUMLAH_RETURN_PLAYER(*p) = 0;
   WAKTU_PLAYER(*p) = 0;
   LOKASI_PLAYER(*p) = lAwal;
-  PINTU_KEMANA_SAJA_PLAYER(*p) = false;
 }
 
 void movePlayer(Player* p, Lokasi l)
