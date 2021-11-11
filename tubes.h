@@ -14,6 +14,7 @@
 #include "ADT/Point/point.h"
 #include "ADT/Queue/queue.h"
 #include "ADT/Stack/stack.h"
+#include "ADT/PColor/pcolor.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -114,6 +115,14 @@ void returnMenu();
 /* Mengecek apabila bisa mengembalikan item, dan restore it menjadi keadaan awal item tersebut lagi */
 /*  I.S. : Cek ability player kalau punya ability untuk return, dan jenis item stack teratas bukan VIP Item */
 /*  F.S. : Jika true, pesanan teratas kembali ke todo list terakhir (N,H), time limit pesanan reset sebelum dikembalikan ke todo list terakhir(P)  */
+
+int findLoc(int i, int j);
+/* Mencari indeks lokasi pada list dinamis berdasarkan koordinat (i,j) */
+
+void map();
+/* Menampilkan Map */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Output Map berdasarkan file konfigurasi dengan kategori warnanya */
 
 void mainMenu();
 /* Menampilkan main menu pada main program */

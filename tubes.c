@@ -623,6 +623,102 @@ void returnMenu()
     }
 }
 
+int findLoc(int i, int j){
+    /*KAMUS LOKAL*/
+    boolean found;
+    int indeks;
+
+    /*ALGORITMA*/
+    indeks = 0;
+    found = false;
+ 
+    while(indeks < lengthListDin(daftarBangunan) && found == false){
+        if(Absis_POINT(KOORDINAT_LOKASI(ELMT_LISTDIN(daftarBangunan,indeks))) == i && Ordinat_POINT(KOORDINAT_LOKASI(ELMT_LISTDIN(daftarBangunan,indeks))) == j){
+            found = true;
+        }else{
+            indeks = indeks +1;
+        }
+    }
+    if(indeks == lengthListDin(daftarBangunan)){
+        return IDX_UNDEF_LISTDIN;
+    }else{
+        return indeks;
+    }
+}
+
+void map(){
+    /* KAMUS LOKAL */
+    int i,j,m;
+    int idxBangunan;
+    char locationName;
+    boolean found;
+    Address adrTemp;
+
+    /* ALGORITMA */
+    for(i = 0; i <= (M+1); i++){
+        printf("*");
+    }
+
+    printf("\n");
+    for(i=1; i <= N; i++){
+        for(j=0; j <= (M+1); j++){
+            idxBangunan = findLoc(i,j);
+            locationName = NAMA_LOKASI(ELMT_LISTDIN(daftarBangunan, idxBangunan));
+
+            if(j == 0){
+                printf("*");
+            }else if(j == (M+1)){
+                printf("*\n");
+            }else if(idxBangunan != IDX_UNDEF_LISTDIN){
+                if(locationName == NAMA_LOKASI(LOKASI_PLAYER(Mobita))){
+                    // posisi mobita
+                    print_yellow(locationName);
+                }else{
+                    // bukan posisi mobita
+                    if(locationName == NAMA_LOKASI(DROP_OFF_ITEM(TOP_STACK(tas)))){
+                        // drop off
+                        print_blue(locationName);
+                    }else{
+                        // bukan drop off
+                        found = false;
+                        adrTemp = FIRST_LIST_LINKED(toDoList);
+
+                        while(adrTemp != NULL && found == false){
+                            if(locationName == NAMA_LOKASI(PICK_UP_ITEM(INFO_NODE(adrTemp)))){
+                                found = true;
+                            }else{
+                                adrTemp = NEXT_NODE(adrTemp);
+                            }
+                        }
+
+                        if(found == true){
+                            // pickup
+                            print_red(locationName);
+                        }else{
+                            // bukan pickup
+                            m = indexOfListDin(daftarBangunan, LOKASI_PLAYER(Mobita));
+
+                            if(ELMT_MATRIX(adjacencyMatrix, m, idxBangunan)){
+                                // move
+                                print_green(locationName);
+                            }else{
+                                // bukan move
+                                printf("%c", locationName);
+                            }
+                        }
+                    }
+                }
+            }else{
+                printf(" ");
+            }
+        }
+    }
+
+    for(i = 0; i <= (M+1); i++){
+        printf("*");
+    }
+}
+
 void mainMenu()
 /* Menampilkan main menu pada main program */
 /* I.S. Keadaan awal main program bebas */
@@ -722,7 +818,7 @@ void gameMenu()
             dropOffMenu();
         }
         else if (compareQuery(inputQuery, mapLokasiQuery)) {
-
+            map();
         }
         else if (compareQuery(inputQuery, toDoListQuery)) {
             toDoListMenu();
