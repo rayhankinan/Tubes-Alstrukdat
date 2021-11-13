@@ -159,6 +159,21 @@ void readFileConfigNewGame(char namaFile[])
     stopWordFile();
 }
 
+void helpMenu() {
+    printf("1. MOVE -> Berpindah ke lokasi selanjutnya\n");
+    printf("2. PICK_UP -> Mengambil item di lokasi sekarang\n");
+    printf("3. DROP_OFF -> Mengantarkan item ke lokasi sekarang\n");
+    printf("4. MAP -> Memunculkan peta\n");
+    printf("5. TO_DO -> Menampilkan pesanan yang masuk ke To Do List\n");
+    printf("6. IN_PROGRESS -> Menampilkan pesanan yang sedang dikerjakan\n");
+    printf("7. BUY -> Menampilkan gadget yang dapat dibeli (Hanya ketika Mobita dalam lokasi HQ)\n");
+    printf("8. INVENTORY -> Menampilkan list isi inventory\n");
+    printf("9. HELP -> Mengeluarkan list command dan kegunaannya\n");
+    printf("10. SAVE_GAME -> Melakukan save state dari permainan yang sedang dijalankan\n");
+    printf("11. RETURN -> Mengembalikan item di tumpukan tas teratas pada tas kembali ke lokasi pick up \n");
+    printf("            (Hanya ketika Mobita memiliki ability Return To Sender)\n");
+}
+
 void readFileConfigLoadGame(char namaFile[])
 /* Membaca file configuration load game */
 /* I.S. : State pada main program bebas dan namaFile terdefinisi */
@@ -266,7 +281,7 @@ void updateProgressList()
     int idx = 0;
     ElTypeNode trash;
 
-    /*Algoritma*/
+    /* ALGORITMA */
     if (!isEmptyListLinked(progressList)) {
         updateWaktuItem(&progressList, waktuTambah);
         p = FIRST_LIST_LINKED(progressList);
@@ -287,10 +302,10 @@ void shopMenu()
 {
     /* KAMUS LOKAL */
     Word input;
-    int N, total;
-    //UANG_PLAYER(Mobita) = 99999;
-    /* ALGORITMA */
+    int shop_index, total;
+    UANG_PLAYER(Mobita) = 99999;
 
+    /* ALGORITMA */
     if (EQLokasi(LOKASI_PLAYER(Mobita), HQ)) {
         if (isFullListPos(inventory)) {
             printf("Maaf, inventory Anda sudah full.\n");
@@ -307,23 +322,23 @@ void shopMenu()
             do {
                 printf("\nENTER COMMAND: ");
                 readQuery(&input);
-                N = wordToInt(input);
-                if (N < 0 || N > 4) {
+                shop_index = wordToInt(input);
+                if (shop_index < 0 || shop_index > 4) {
                     printf("Try Again!");
                 }
-            } while (N < 0 || N > 4);
+            } while (shop_index < 0 || shop_index > 4);
 
-            if (N != 0) {
-                total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, N - 1);
+            if (shop_index != 0) {
+                total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, shop_index - 1);
                 if (total < 0) {
                     printf("Uang tidak cukup untuk membeli gadget!\n");
                 }
                 else {
-                    printGadgetName(N);
+                    printGadgetName(shop_index);
                     printf(" berhasil dibeli!\n");
                     printf("Uang anda sekarang: %d Yen\n", total);
                     UANG_PLAYER(Mobita) = total;
-                    insertFreeSlot(&inventory, N);
+                    insertFreeSlot(&inventory, shop_index);
                 }
             }
             else {
@@ -337,18 +352,61 @@ void shopMenu()
     }
 }
 
+void pintuKemanaSajaMenu()
+/* Menampilkan semua lokasi bangunan, kemudian menggerakkan player ke lokasi
+tersebut tanpa menambahkan WAKTU_PLAYER */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Lokasi player berubah sesuai input pengguna */
+{
+    /* KAMUS LOKAL */
+    int i, index, count;
+    Word input;
+
+    /* ALGORITMA */
+    count = 0;
+    for (i = 0; i < lengthListDin(daftarBangunan); i++) {
+        if (!EQLokasi(ELMT_LISTDIN(daftarBangunan, i), LOKASI_PLAYER(Mobita))) {
+            printf("%d. ", count + 1);
+            TulisLokasi(ELMT_LISTDIN(daftarBangunan, i));
+            printf("\n");
+            count++;
+        }
+    }
+    printf("Posisi yang ingin dipilih? \n\n");
+    do {
+        printf("ENTER COMMAND: ");
+        readQuery(&input);
+        index = wordToInt(input);
+        if (index < 1 || index > lengthListDin(daftarBangunan)) {
+            printf("Try Again!\n");
+        }
+    } while (index < 1 || index > lengthListDin(daftarBangunan));
+    count = 0;
+    for (i = 0; i < lengthListDin(daftarBangunan) && index != count; i++) {
+        if (!EQLokasi(ELMT_LISTDIN(daftarBangunan, i), LOKASI_PLAYER(Mobita))) {
+            count++;
+        }
+    }
+    movePlayer(&Mobita, ELMT_LISTDIN(daftarBangunan, count));
+}
+
 void activateEffect(int id)
 /* Mengaktifkan efek gadget */
 {
     switch (id) {
     case 1:
-        kembalikanWaktuItem(&progressList);
-        kembalikanWaktuItemTas(&tas);
+        if (JENIS_ITEM(TOP_STACK(tas)) == 'P') {
+            kembalikanWaktuItem(&progressList);
+            kembalikanWaktuItemTas(&tas);
+        }
         break;
     case 2:
-        growDoubleStack(&tas);
+        if (CAPACITY_STACK(tas) < 1000) {
+            growDoubleStack(&tas);
+        }
         break;
     case 3:
+        pintuKemanaSajaMenu();
         break;
     case 4:
         WAKTU_PLAYER(Mobita) = 0;
@@ -366,7 +424,7 @@ efek gadget tersebut */
     /* KAMUS LOKAL */
     Word input;
     int id_gadget;
-    int i;
+    int i, index_gadget;
     /* ALGORITMA */
     for (i = 0; i < 5; i++) {
         printf("%d. ", i + 1);
@@ -382,21 +440,21 @@ efek gadget tersebut */
     do {
         printf("\nENTER COMMAND: ");
         readQuery(&input);
-        N = wordToInt(input);
-        if (N < 0 || N > 5) {
+        index_gadget = wordToInt(input);
+        if (index_gadget < 0 || index_gadget > 5) {
             printf("Try Again!\n");
         }
-    } while (N < 0 || N > 5);
+    } while (index_gadget < 0 || index_gadget > 5);
 
-    if (N != 0) {
-        if (ELMT_LISTPOS(inventory, N - 1) == VAL_UNDEF_LISTPOS) {
+    if (index_gadget != 0) {
+        if (ELMT_LISTPOS(inventory, index_gadget - 1) == VAL_UNDEF_LISTPOS) {
             printf("Tidak ada Gadget yang dapat digunakan!\n");
         }
         else {
-            activateEffect(ELMT_LISTPOS(inventory, N - 1));
-            printGadgetName(ELMT_LISTPOS(inventory, N - 1));
+            printGadgetName(ELMT_LISTPOS(inventory, index_gadget - 1));
             printf(" berhasil digunakan!\n");
-            ELMT_LISTPOS(inventory, N - 1) = VAL_UNDEF_LISTPOS;
+            activateEffect(ELMT_LISTPOS(inventory, index_gadget - 1));
+            ELMT_LISTPOS(inventory, index_gadget - 1) = VAL_UNDEF_LISTPOS;
         }
     }
     else {
@@ -444,8 +502,6 @@ void moveMenu()
 
             for (j = 0; j < lengthListDin(daftarBangunan) && index != count; j++) {
                 if (ELMT_MATRIX(adjacencyMatrix, i, j)) {
-                    TulisLokasi(ELMT_LISTDIN(daftarBangunan, j));
-                    printf("\n");
                     count++;
                 }
                 if (index == count) {
@@ -646,7 +702,11 @@ int findLoc(int i, int j) {
     }
 }
 
-void map() {
+void map()
+/* Menampilkan Map */
+/* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
+/* F.S. : Output Map berdasarkan file konfigurasi dengan kategori warnanya */
+{
     /* KAMUS LOKAL */
     int i, j, m;
     int idxBangunan;
@@ -839,7 +899,7 @@ void gameMenu()
             inventoryMenu();
         }
         else if (compareQuery(inputQuery, helpCommandQuery)) {
-
+            helpMenu();
         }
         else if (compareQuery(inputQuery, saveGameQuery)) {
 
