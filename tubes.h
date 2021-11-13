@@ -30,10 +30,11 @@ extern Queue daftarPesanan;
 
 /* State berjalan pada main program (didefinisikan seiring berjalannya program) */
 extern boolean hasWon;
+extern int waktuTambah;
 extern Player Mobita;
 extern ListPos inventory, hargaGadget;
 extern Stack tas;
-extern ListLinked toDoList;
+extern ListLinked toDoList, progressList;
 
 void readQuery(Word *ptrQuery);
 /* Membaca input string dari user */

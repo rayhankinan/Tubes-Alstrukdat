@@ -12,12 +12,11 @@ Queue daftarPesanan;
 
 /* State berjalan pada main program (didefinisikan seiring berjalannya program) */
 boolean hasWon;
+int waktuTambah;
 Player Mobita;
 ListPos inventory, hargaGadget;
 Stack tas;
-ListLinked toDoList;
-ListLinked progressList;
-int waktuTambah;
+ListLinked toDoList, progressList;
 
 void printWord(Word kata)
 /* Menuliskan string ke dalam main program */
@@ -784,8 +783,6 @@ void gameMenu()
     insertLastListPos(&hargaGadget, 3000);
 
     CreateStack(&tas);
-
-
 
     CreateListLinked(&toDoList);
 
