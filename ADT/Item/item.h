@@ -18,7 +18,7 @@ typedef struct item {
   Lokasi pick_up;  /* lokasi pick up */
   Lokasi drop_off; /* lokasi drop off */
   int waktu_hangus;     /* waktu item hangus (khusus perishable item) */
-  int waktu_lewat; /*waktu yang diperlukan saat berkurang waktu perishable item*/
+  int waktu_lewat; /* waktu yang diperlukan saat berkurang waktu perishable item */
 } Item;
 
 /* SELEKTOR */

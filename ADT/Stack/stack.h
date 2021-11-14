@@ -71,7 +71,7 @@ void displayStack(Stack s, Player P);
 /* I.S. Stack s terdefinisi */
 /* F.S. isi Item di dalam Stack s ditampilkan pada layar */
 
-void updatewaktutimetas(Stack* tas, int waktu);
+void updateWaktuTimeTas(Stack* tas, int waktu);
 //I.S menerima queue tas bisa empty juga
 //F.S Mengupdatae waktu item tas
 

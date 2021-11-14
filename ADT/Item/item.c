@@ -11,10 +11,12 @@ Item CreateItem(char jenis, Lokasi pick_up, Lokasi drop_off, int waktu)
     Item I;
 
     /* ALGORITMA */
+    WAKTU_PICK_UP_ITEM(I) = UNDEF_WAKTU;
     JENIS_ITEM(I) = jenis;
     PICK_UP_ITEM(I) = pick_up;
     DROP_OFF_ITEM(I) = drop_off;
     WAKTU_HANGUS_ITEM(I) = waktu;
+    WAKTU_LEWAT_ITEM(I) = UNDEF_WAKTU;
 
     return I;
 }

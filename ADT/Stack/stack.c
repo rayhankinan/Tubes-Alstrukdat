@@ -56,16 +56,6 @@ void pushStack(Stack* s, ElTypeStack val)
     else {
         IDX_TOP_STACK(*s)++;
         TOP_STACK(*s) = val;
-
-        if (JENIS_ITEM(TOP_STACK(*s)) != 'V') {
-            i = IDX_TOP_STACK(*s);
-            while ((i > 0) && (JENIS_ITEM(s->buffer[i - 1]) == 'V')) {
-                temp = s->buffer[i - 1];
-                s->buffer[i - 1] = s->buffer[i];
-                s->buffer[i] = temp;
-                i--;
-            }
-        }
     }
 }
 
@@ -161,7 +151,7 @@ void displayStack(Stack s, Player P)
     }
 }
 
-void updatewaktutimetas(Stack* tas, int waktu)
+void updateWaktuTimeTas(Stack* tas, int waktu)
 //I.S menerima queue tas bisa empty juga
 //F.S Mengupdatae waktu item tas
 {

@@ -262,7 +262,7 @@ void updateTas()
 
     /* ALGORITMA */
     if (!isEmptyStack(tas)) {
-        updatewaktutimetas(&tas, waktuTambah);
+        updateWaktuTimeTas(&tas, waktuTambah);
         for (i = 0; (i < (IDX_TOP_STACK(tas) + 1)); i++) {
             if ((JENIS_ITEM(tas.buffer[i]) == 'P') && (WAKTU_HANGUS_ITEM(tas.buffer[i]) <= 0)) {
                 deleteAtStack(&tas, i, &I);
@@ -553,7 +553,9 @@ void pickUpMenu()
         if (p == NULL) {
             printf("Pesanan tidak ditemukan!\n");
         }
-        else {
+        else if (JENIS_ITEM(TOP_STACK(tas)) == 'V') {
+            printf("Tidak bisa pick up barang dikarenakan membawa barang VIP!\n");
+        } else {
             deleteAtListLinked(&toDoList, i, &I);
             pushStack(&tas, I);
             insertFirstListLinked(&progressList, I);
@@ -563,7 +565,22 @@ void pickUpMenu()
                 BERAT_PLAYER(Mobita)++;
             }
 
-            /* TAMBAHKAN RESPONSE */
+            switch (JENIS_ITEM(I)) {
+                case 'N':
+                    printf("Pesanan berupa Normal Item berhasil diambil!\n");
+                    break;
+                case 'H':
+                    SPEED_BOOST_PLAYER(Mobita) = false;
+                    BERAT_PLAYER(Mobita)++;
+                    printf("Pesanan berupa Heavy Item berhasil diambil! Efek Heavy Item akan aktif!\n");
+                    break;
+                case 'P':
+                    printf("Pesanan berupa Perishable Item berhasil diambil! Item ini akan hangus dalam %d unit waktu!\n", WAKTU_HANGUS_ITEM(I));
+                    break;
+                case 'V':
+                    printf("Pesanan berupa VIP Item berhasil diambil! Mobita tidak akan bisa pick up Item lainnya sampai Item ini di drop off!\n");
+                    break;
+            }
         }
     }
     else {
@@ -587,24 +604,29 @@ void dropOffMenu()
         switch (JENIS_ITEM(I)) {
         case 'N':
             UANG_PLAYER(Mobita) += 200;
+            printf("Pesanan berupa Normal Item berhasil diantarkan!\n");
+            printf("Uang yang didapatkan: %d Yen\n", 200);
             break;
         case 'H':
             UANG_PLAYER(Mobita) += 400;
             BERAT_PLAYER(Mobita)--;
             SPEED_BOOST_PLAYER(Mobita) = BERAT_PLAYER(Mobita) == 0;
+            printf("Pesanan berupa Heavy Item berhasil diantarkan!\n");
+            printf("Uang yang didapatkan: %d Yen\n", 400);
             break;
         case 'P':
             UANG_PLAYER(Mobita) += 400;
             growStack(&tas);
+            printf("Pesanan berupa Perishable Item berhasil diantarkan!\n");
+            printf("Uang yang didapatkan: %d Yen\n", 400);
             break;
         case 'V':
             UANG_PLAYER(Mobita) += 600;
             JUMLAH_RETURN_PLAYER(Mobita)++;
+            printf("Pesanan berupa VIP Item berhasil diantarkan!\n");
+            printf("Uang yang didapatkan: %d Yen\n", 600);
             break;
         }
-
-        /* TAMBAHKAN RESPONSE */
-
     }
     else {
         printf("Tas kosong!\n");
@@ -865,17 +887,17 @@ void gameMenu()
         TulisLokasi(LOKASI_PLAYER(Mobita));
         printf("\n");
         printf("Waktu: %d\n", WAKTU_PLAYER(Mobita));
-        printf("Uang yang dimiliki: %d Yen\n\n", UANG_PLAYER(Mobita));
+        printf("Uang yang dimiliki: %d Yen\n", UANG_PLAYER(Mobita));
 
         updatePesanan();
+
+        printf("Jumlah pesanan yang harus dikerjakan: %d\n\n", lengthListLinked(toDoList));
 
         printf("ENTER COMMAND: ");
         readQuery(&inputQuery);
 
         if (compareQuery(inputQuery, moveFromLocQuery)) {
             moveMenu();
-            updateTas();
-            updateProgressList();
         }
         else if (compareQuery(inputQuery, pickUpQuery)) {
             pickUpMenu();
@@ -911,5 +933,17 @@ void gameMenu()
         else {
             printf("Try Again!\n");
         }
+
+        hasWon = isEmptyQueue(daftarPesanan) && isEmptyStack(tas) && isEmptyListLinked(toDoList);
+
+        updateTas();
+        updateProgressList();
+
     } while (!hasWon || !compareQuery(inputQuery, saveGameQuery));
+
+    if (hasWon) {
+        printf("Selamat, Mobita berhasil mengantarkan seluruh Item!\n");
+    } else {
+        printf("Saving game . . .\n");
+    }
 }
