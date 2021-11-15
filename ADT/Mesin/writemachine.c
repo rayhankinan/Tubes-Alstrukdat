@@ -7,6 +7,9 @@ static FILE *tapeFile;
 static int retValWrite;
 
 void startFile(char namaFile[])
+/* Membuka File Tape */
+/* I.S. : File Tape sembarang */
+/* F.S. : File Tape terdefinisi dan bisa ditulis */
 {
     /* KAMUS */
 
@@ -15,6 +18,9 @@ void startFile(char namaFile[])
 }
 
 void writeLineFile(Word arrOfQuery[], int N)
+/* Menulis satu baris pada File Tape */
+/* I.S. : File Tape sudah terdefinisi */
+/* F.S. : Menambah satu baris pada File Tape */
 {
     /* KAMUS */
     int i;
@@ -31,6 +37,9 @@ void writeLineFile(Word arrOfQuery[], int N)
 }
 
 void endFile()
+/* Menutup File Tape */
+/* I.S. : File Tape terdefinisi */
+/* F.S. : FIle Tape ditutup dan tidak bisa lagi ditulis */
 {
     /* KAMUS */
 
