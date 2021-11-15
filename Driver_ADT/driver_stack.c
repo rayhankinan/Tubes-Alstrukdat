@@ -6,10 +6,16 @@
 int main(){
     /* KAMUS */
     Stack s;
-    ElTypeStack val1, valPop;
-    int jumlahElemen, i;
-
+    ElTypeStack items, trash;
+    int idx, i;
+    char initpickup, dropoff, tampung;
+    int waktuawal,waktuhangus,xp,yp,xd,yd,tempnum;
+    POINT tempp,tempd;
+    Player icakicak;
+    Lokasi templokawal, templokakhir;
     /* ALGORITMA */
+
+    // Membuat Stack
     CreateStack(&s);
     if(isEmptyStack(s)){
         printf("Stack kosong\n");
@@ -19,45 +25,72 @@ int main(){
 
     printf("index TOP:%d\n", IDX_TOP_STACK(s));
 
+    // Membuat Item dan mengisi Stack
+    initpickup = 'A';
+    dropoff = 'B';
+    waktuawal = 1;
+    waktuhangus = 0;
+    xp=0;
+    yp=0;
+    xd=0;
+    yd=0;
+    for (int i=0 ; i < 3; i++){
+     
+        if (i == 0) tampung = 'H';
+        if (i == 1) tampung = 'N';
+        if (i == 2) tampung = 'P';
+        initpickup += 2; //bergeser 2 char di ascii
+        dropoff += 2; //bergeser 2 char di ascii
+        xp +=1; //mengisi koordinat sendiri
+        yp +=2;
+        xd +=3;
+        yd +=4;
+
+        tempp = MakePOINT(xp,yp);
+        tempd = MakePOINT(xd,yd);
+        templokawal = CreateLokasi(initpickup, tempp);
+        templokakhir = CreateLokasi(dropoff, tempd);
+
+        tempnum = 5;
+        items = CreateItem(tampung, templokawal, templokakhir, tempnum);
+        WAKTU_LEWAT_ITEM(items) = 0;
+        pushStack(&s, items);
+        printf("\nnama lokasi pickup: %c\n", NAMA_LOKASI(PICK_UP_ITEM(items)));
+
+        displayStack(s);
+        TulisLokasi(templokawal);printf("\n");
+        TulisLokasi(templokakhir); printf("\n");
+    }
+
+    // Mengecek jika stack penuh
     if(isFullStack(s)){
-        printf("Stack penuh\n");
+        printf("\nStack penuh\n");
     }else{
         printf("Stack tidak penuh\n");
     }
+    // Memainkan capacity stack
+    printf("stack capacity initial: %d\n", CAPACITY_STACK(s));
+    growStack(&s);
+    printf("stack after capacity added: %d\n", CAPACITY_STACK(s));
+    growDoubleStack(&s);
+    printf("stack after capacity doubled: %d\n", CAPACITY_STACK(s));
     
+    // Delete item di indeks tertentu
+    printf("\nMasukkan idx stack yang mau dihapuskan(pasti valid): 1\n");
+    deleteAtStack(&s, 1, &trash);
+    printf("Item yang didelete: ");
+    TulisItem(trash);printf("\n");
 
-    printf("Masukkan jumlah elemen yang ingin di push: ");
-    scanf("%d", &jumlahElemen);
+    displayStack(s);
 
-    for (i=0; i < jumlahElemen; i++){
-        printf("elemen ke %d : ", (i+1));
-        scanf("%d", &val1);
-        pushStack(&s, val1);
-    }
+    // tes update waktu di stack
+    updateWaktuTimeTas(&s, 4);
+    printf("\nmengurangkan waktu item semua perishable\n");
+    displayStack(s);
 
-    printf("Elemen TOP dan index TOP: %d & %d\n", TOP_STACK(s), IDX_TOP_STACK(s));
-
-    printf("-------------------------\n");
-    printf("Dilakukan Pop sekali: \n");
-    popStack(&s, &valPop);
-    printf("Elemen TOP dan index TOP: %d & %d\n", TOP_STACK(s), IDX_TOP_STACK(s));
-    printf("Elemen TOP yang lama: %d", valPop);
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // tes update waktu pertama kalli ketemu perishble item stack
+    printf("\nmengembalikan waktu perishable item teratas\n");
+    kembalikanWaktuItemTas(&s);
+    displayStack(s);
     return 0;
 }
