@@ -11,7 +11,7 @@
 extern char currentCharFile;
 extern boolean eotFile;
 
-void startCharFile(char* namaFile);
+void startCharFile(char namaFile[]);
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.
    I.S. : sembarang

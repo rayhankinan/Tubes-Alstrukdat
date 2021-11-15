@@ -159,21 +159,6 @@ void readFileConfigNewGame(char namaFile[])
     stopWordFile();
 }
 
-void helpMenu() {
-    printf("1. MOVE -> Berpindah ke lokasi selanjutnya\n");
-    printf("2. PICK_UP -> Mengambil item di lokasi sekarang\n");
-    printf("3. DROP_OFF -> Mengantarkan item ke lokasi sekarang\n");
-    printf("4. MAP -> Memunculkan peta\n");
-    printf("5. TO_DO -> Menampilkan pesanan yang masuk ke To Do List\n");
-    printf("6. IN_PROGRESS -> Menampilkan pesanan yang sedang dikerjakan\n");
-    printf("7. BUY -> Menampilkan gadget yang dapat dibeli (Hanya ketika Mobita dalam lokasi HQ)\n");
-    printf("8. INVENTORY -> Menampilkan list isi inventory\n");
-    printf("9. HELP -> Mengeluarkan list command dan kegunaannya\n");
-    printf("10. SAVE_GAME -> Melakukan save state dari permainan yang sedang dijalankan\n");
-    printf("11. RETURN -> Mengembalikan item di tumpukan tas teratas pada tas kembali ke lokasi pick up \n");
-    printf("            (Hanya ketika Mobita memiliki ability Return To Sender)\n");
-}
-
 void readFileConfigLoadGame(char namaFile[])
 /* Membaca file configuration load game */
 /* I.S. : State pada main program bebas dan namaFile terdefinisi */
@@ -182,6 +167,20 @@ void readFileConfigLoadGame(char namaFile[])
     /* KAMUS */
 
     /* ALGORITMA */
+
+    /* ISI INI @GIBRAN*/
+}
+
+void writeFileConfig(char namaFile[])
+/* Menuliskan state program pada file configuration */
+/* I.S. : State pada main program dan namaFile terdefinisi */
+/* F.S. : File configuration diisi dengan nilai state program */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+
+    /* ISI INI @GIBRAN*/
 }
 
 void readNewGame()
@@ -199,13 +198,11 @@ void readNewGame()
     readQuery(&input);
     namaFile = concatQuery(dirFile, input);
 
-    /* Janlup buat handling kalau nama filenya tidak ada di directory */
     tempFile = fopen(namaFile.contents, "r");
     if (tempFile == NULL) {
         printf("Name file tidak ada.\n");
         mainMenu();
-    }
-    else {
+    } else {
         readFileConfigNewGame(namaFile.contents);
     }
 }
@@ -225,14 +222,36 @@ void readLoadGame()
     readQuery(&input);
     namaFile = concatQuery(dirFile, input);
 
-    /* Janlup buat handling kalau nama filenya tidak ada di directory */
     tempFile = fopen(namaFile.contents, "r");
     if (tempFile == NULL) {
         printf("Name file tidak ada.\n");
         mainMenu();
-    }
-    else {
+    } else {
         readFileConfigLoadGame(namaFile.contents);
+    }
+}
+
+void saveGame()
+/* Melakukan save state game pada file txt */
+/* I.S. : State pada main program terdefinisi */
+/* F.S. : Meminta nama file pada <FUNGSI TULIS STATE> kemudian melakukan penulisan file */
+{
+    /* KAMUS */
+    Word dirFile, input, namaFile;
+    FILE* tempFile;
+
+    /* ALGORITMA */
+    writeQuery(&dirFile, "ConfigLoadGame/", 15);
+    printf("ENTER FILE NAME: ");
+    readQuery(&input);
+    namaFile = concatQuery(dirFile, input);
+
+    tempFile = fopen(namaFile.contents, "w");
+    if (tempFile == NULL) {
+        printf("Nama file tidak ada.\n");
+        mainMenu();
+    } else {
+        writeFileConfig(namaFile.contents);
     }
 }
 
@@ -809,6 +828,25 @@ void map()
     }
 }
 
+void helpMenu() 
+/* Menampilkan Help */
+/* I.S. : Game menu sudah ditampilkan */
+/* F.S. : Output Help Menu pada layar */
+{
+    printf("1. MOVE -> Berpindah ke lokasi selanjutnya\n");
+    printf("2. PICK_UP -> Mengambil item di lokasi sekarang\n");
+    printf("3. DROP_OFF -> Mengantarkan item ke lokasi sekarang\n");
+    printf("4. MAP -> Memunculkan peta\n");
+    printf("5. TO_DO -> Menampilkan pesanan yang masuk ke To Do List\n");
+    printf("6. IN_PROGRESS -> Menampilkan pesanan yang sedang dikerjakan\n");
+    printf("7. BUY -> Menampilkan gadget yang dapat dibeli (Hanya ketika Mobita dalam lokasi HQ)\n");
+    printf("8. INVENTORY -> Menampilkan list isi inventory\n");
+    printf("9. HELP -> Mengeluarkan list command dan kegunaannya\n");
+    printf("10. SAVE_GAME -> Melakukan save state dari permainan yang sedang dijalankan\n");
+    printf("11. RETURN -> Mengembalikan item di tumpukan tas teratas pada tas kembali ke lokasi pick up \n");
+    printf("            (Hanya ketika Mobita memiliki ability Return To Sender)\n");
+}
+
 void mainMenu()
 /* Menampilkan main menu pada main program */
 /* I.S. Keadaan awal main program bebas */
@@ -924,7 +962,7 @@ void gameMenu()
             helpMenu();
         }
         else if (compareQuery(inputQuery, saveGameQuery)) {
-
+            saveGame();
             stopWord();
         }
         else if (compareQuery(inputQuery, returnItemQuery)) {
@@ -934,7 +972,7 @@ void gameMenu()
             printf("Try Again!\n");
         }
 
-        hasWon = isEmptyQueue(daftarPesanan) && isEmptyStack(tas) && isEmptyListLinked(toDoList);
+        hasWon = isEmptyQueue(daftarPesanan) && isEmptyStack(tas) && isEmptyListLinked(toDoList) && (EQLokasi(LOKASI_PLAYER(Mobita), HQ));
 
         updateTas();
         updateProgressList();

@@ -10,6 +10,7 @@
 #include "ADT/Matrix/matrix.h"
 #include "ADT/Mesin/wordmachine.h"
 #include "ADT/Mesin/wordmachinefile.h"
+#include "ADT/Mesin/writemachine.h"
 #include "ADT/Player/player.h"
 #include "ADT/Point/point.h"
 #include "ADT/Queue/queue.h"
@@ -125,6 +126,11 @@ void map();
 /* I.S. : Game menu sudah ditampilkan pada layar dan state pada main program sudah diisi */
 /* F.S. : Output Map berdasarkan file konfigurasi dengan kategori warnanya */
 
+void helpMenu();
+/* Menampilkan Help */
+/* I.S. : Game menu sudah ditampilkan */
+/* F.S. : Output Help Menu pada layar */
+
 void mainMenu();
 /* Menampilkan main menu pada main program */
 /* I.S. Keadaan awal main program bebas */
@@ -140,6 +146,11 @@ void readFileConfigLoadGame(char namaFile[]);
 /* I.S. : State pada main program bebas dan namaFile terdefinisi */
 /* F.S. : State pada main program diisi dengan nilai sesuai dengan isi namaFile */
 
+void writeFileConfig(char namaFile[]);
+/* Menuliskan state program pada file configuration */
+/* I.S. : State pada main program dan namaFile terdefinisi */
+/* F.S. : File configuration diisi dengan nilai state program */
+
 void readNewGame();
 /* Membaca file configuration untuk NEW GAME */
 /* I.S. : State pada main program terdefinisi */
@@ -148,7 +159,12 @@ void readNewGame();
 void readLoadGame();
 /* Membaca file configuration untuk NEW GAME */
 /* I.S. : State pada main program terdefinisi */
-/* F.S. : Meminta nama file pada ConfidLoadGame kemudian melakukan pembacaan file */
+/* F.S. : Meminta nama file pada ConfigLoadGame kemudian melakukan pembacaan file */
+
+void saveGame();
+/* Melakukan save state game pada file txt */
+/* I.S. : State pada main program terdefinisi */
+/* F.S. : Meminta nama file pada ConfigLoadGame kemudian melakukan penulisan file */
 
 void gameMenu();
 /* Menampikan game menu pada main program */
