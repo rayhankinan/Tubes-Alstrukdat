@@ -71,12 +71,9 @@ void readQueue(Queue* q, ListDin daftarBangunan);
       0 satu per satu diakhiri enter */
       /*    Jika N = 0; hanya terbentuk l kosong */
 void displayQueue(Queue q);
-/* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung
-   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan
-   karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
-   /* I.S. q boleh kosong */
-   /* F.S. Jika q tidak kosong: [e1,e2,...,en] */
-   /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-   /* Jika Queue kosong : menulis [] */
+/* Proses : Menuliskan isi Queue dengan traversal dengan menggunakan fungsi tulis item*/
+/* I.S. q terisi, apabila kosong, tidak akan mendisplay apa=apa */
+/* F.S. Jika q tidak kosong: <lokasi_pickup> -> <lokasi dropoff> <(jenis_item)> untuk item biasa,
+dan menampilkan sisa waktu untuk item perishable */
 
 #endif
