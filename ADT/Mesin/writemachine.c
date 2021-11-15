@@ -17,27 +17,18 @@ void startFile(char namaFile[])
     tapeFile = fopen(namaFile, "w");
 }
 
-void writeLineFile(Word arrOfQuery[], int N)
-/* Menulis satu baris pada File Tape */
+void printfFile(char format[], ...)
+/* Menulis format pada file layaknya printf */
 /* I.S. : File Tape sudah terdefinisi */
-/* F.S. : Menambah satu baris pada File Tape */
+/* F.S. : Menulis string format pada File Tape */
 {
     /* KAMUS */
-    int i;
+    va_list args;
 
     /* ALGORITMA */
-    for (i = 0; i < N; i++) {
-        retValWrite = fprintf(tapeFile, "%s", arrOfQuery[i].contents);
-        if (i < N - 1) {
-            retValWrite = fprintf(tapeFile, "%c", BLANK_WRITEMACHINE);
-        } else {
-            retValWrite = fprintf(tapeFile, "%c", MARK_WRITEMACHINE);
-        }
-    }
-
-    if (N == 0) { /* EMPTY LINE */
-        retValWrite = fprintf(tapeFile, "%c", MARK_WRITEMACHINE);
-    }
+    va_start(args, format);
+    vfprintf(tapeFile, format, args);
+    va_end(args);
 }
 
 void endFile()
