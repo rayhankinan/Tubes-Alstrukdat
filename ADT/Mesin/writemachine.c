@@ -34,6 +34,10 @@ void writeLineFile(Word arrOfQuery[], int N)
             retValWrite = fprintf(tapeFile, "%c", MARK_WRITEMACHINE);
         }
     }
+
+    if (N == 0) { /* EMPTY LINE */
+        retValWrite = fprintf(tapeFile, "%c", MARK_WRITEMACHINE);
+    }
 }
 
 void endFile()

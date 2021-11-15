@@ -8,7 +8,6 @@
 
 #include "../Boolean/boolean.h"
 #include "node.h"
-#include "../Player/player.h"
 
 typedef Address ListLinked;
 
@@ -81,8 +80,10 @@ void deleteAtListLinked(ListLinked* l, int idx, ElTypeNode* val);
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void displayListLinked(ListLinked l, Player P);
-// void printInfo(List l);
+void readListLinked(ListLinked* l, ListDin daftarBangunan);
+/* I.S. List sembarang */
+/* F.S. List terdefinisi dengan nilai dari file config */
+void displayListLinked(ListLinked l);
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */

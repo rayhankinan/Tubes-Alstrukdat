@@ -236,7 +236,27 @@ void deleteAtListLinked(ListLinked* l, int idx, ElTypeNode* val)
 }
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void displayListLinked(ListLinked l, Player P)
+void readListLinked(ListLinked* l, ListDin daftarBangunan)
+/* I.S. List sembarang */
+/* F.S. List terdefinisi dengan nilai dari file config */
+{
+  /* KAMUS */
+  int i, N;
+  ElTypeNode tempFile;
+
+  /* ALGORITMA */
+  CreateListLinked(l);
+
+  advWordFile();
+  N = wordToInt(currentWordFile);
+  advCharFile(); /* Membaca baris berikutnya */
+
+  for (i = 0; i < N; i++) {
+    BacaItem(&tempFile, daftarBangunan);
+    insertLastListLinked(l, tempFile);
+  }
+}
+void displayListLinked(ListLinked l)
 // void printInfo(List l);
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
@@ -253,7 +273,7 @@ void displayListLinked(ListLinked l, Player P)
   i = 0;
   while (p != NULL) {
     printf("%d. ", i + 1);
-    TulisItem(INFO_NODE(p), P);
+    TulisItem(INFO_NODE(p));
     printf("\n");
     p = NEXT_NODE(p);
     i++;

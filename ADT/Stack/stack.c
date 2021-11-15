@@ -118,7 +118,28 @@ void growDoubleStack(Stack* s)
 }
 
 /* ************ I/O Stack ************ */
-void displayStack(Stack s, Player P)
+void readStack(Stack* s, ListDin daftarBangunan)
+/* Membaca Stack S dari file config kemudian mengisi nilainya */
+/* I.S. Stack s sembarang */
+/* F.S. Stack s terdefinisi dengan nilai dari file config */
+{
+    /* KAMUS */
+    int i, N;
+    ElTypeStack tempItem;
+
+    /* ALGORITMA */
+    CreateStack(s);
+
+    advWordFile();
+    N = wordToInt(currentWordFile);
+    advCharFile(); /* Membaca baris berikutnya */
+
+    for (i = 0; i < N; i++) {
+        BacaItem(&tempItem, daftarBangunan);
+        pushStack(s, tempItem);
+    }
+}
+void displayStack(Stack s)
 /* Menampilkan isi Stack s pada layar */
 /* I.S. Stack s terdefinisi */
 /* F.S. isi Item di dalam Stack s ditampilkan pada layar */
@@ -181,7 +202,6 @@ void kembalikanWaktuItemTas(Stack* tas)
             WAKTU_HANGUS_ITEM((*tas).buffer[i]) += WAKTU_LEWAT_ITEM((*tas).buffer[i]);
             WAKTU_LEWAT_ITEM((*tas).buffer[i]) = 0;
             flag = true;
-
         }
         i--;
     }

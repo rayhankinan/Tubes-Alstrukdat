@@ -9,12 +9,14 @@ void CreatePlayer(Player* p, Lokasi lAwal)
 {
   /* KAMUS */
   /* ALGORITMA  */
+  LOKASI_PLAYER(*p) = lAwal;
   UANG_PLAYER(*p) = 0;
   BERAT_PLAYER(*p) = 0;
   SPEED_BOOST_PLAYER(*p) = false;
+  SPEED_MOVE_PLAYER(*p) = 0;
   JUMLAH_RETURN_PLAYER(*p) = 0;
   WAKTU_PLAYER(*p) = 0;
-  LOKASI_PLAYER(*p) = lAwal;
+  WAKTU_TAMBAH_PLAYER(*p) = 0;
 }
 
 void movePlayer(Player* p, Lokasi l)
@@ -26,4 +28,38 @@ void movePlayer(Player* p, Lokasi l)
 
   /* ALGORITMA */
   LOKASI_PLAYER(*p) = l;
+}
+
+void BacaPlayer(Player* p)
+/* Membaca data karakteristik Player dari File Config */
+/* I.S. : p sembarang */
+/* F.S. : p terdefinisi dengan data File Config */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
+  BacaLokasi(&LOKASI_PLAYER(*p));
+
+  advWordFile();
+  UANG_PLAYER(*p) = wordToInt(currentWordFile);
+
+  advWordFile();
+  BERAT_PLAYER(*p) = wordToInt(currentWordFile);
+
+  advWordFile();
+  SPEED_BOOST_PLAYER(*p) = wordToInt(currentWordFile);
+
+  advWordFile();
+  SPEED_MOVE_PLAYER(*p) = wordToInt(currentWordFile);
+
+  advWordFile();
+  JUMLAH_RETURN_PLAYER(*p) = wordToInt(currentWordFile);
+
+  advWordFile();
+  WAKTU_PLAYER(*p) = wordToInt(currentWordFile);
+
+  advWordFile();
+  WAKTU_TAMBAH_PLAYER(*p) = wordToInt(currentWordFile);
+
+  advCharFile(); /* Membaca baris berikutnya */
 }

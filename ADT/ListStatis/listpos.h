@@ -8,6 +8,7 @@
 #define LISTPOS_H
 
 #include "../Boolean/boolean.h"
+#include "../Mesin/wordmachinefile.h"
 
 /*  Kamus Umum */
 #define CAPACITY_LISTPOS 5

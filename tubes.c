@@ -4,7 +4,7 @@
 #include "tubes.h"
 
 /* State awal pada main program (sudah terdefinisi dari pembacaan file) */
-int N, M, L;
+int N, M;
 Lokasi HQ;
 ListDin daftarBangunan;
 Matrix adjacencyMatrix;
@@ -12,7 +12,6 @@ Queue daftarPesanan;
 
 /* State berjalan pada main program (didefinisikan seiring berjalannya program) */
 boolean hasWon;
-int waktuTambah;
 Player Mobita;
 ListPos inventory, hargaGadget;
 Stack tas;
@@ -146,10 +145,10 @@ void readFileConfigNewGame(char namaFile[])
     advCharFile(); /* Membaca baris berikutnya */
 
     CreateListDin(&daftarBangunan, 1);
+
     NAMA_LOKASI(HQ) = '8';
     BacaPOINT(&KOORDINAT_LOKASI(HQ));
     insertLastListDin(&daftarBangunan, HQ);
-
     readListDin(&daftarBangunan);
 
     readMatrix(&adjacencyMatrix, lengthListDin(daftarBangunan), lengthListDin(daftarBangunan));
@@ -167,8 +166,37 @@ void readFileConfigLoadGame(char namaFile[])
     /* KAMUS */
 
     /* ALGORITMA */
+    startWordFile(namaFile);
+    N = wordToInt(currentWordFile);
+    advWordFile();
+    M = wordToInt(currentWordFile);
+    advCharFile(); /* Membaca baris berikutnya */
 
-    /* ISI INI @GIBRAN*/
+    CreateListDin(&daftarBangunan, 1);
+
+    NAMA_LOKASI(HQ) = '8';
+    BacaPOINT(&KOORDINAT_LOKASI(HQ));
+    insertLastListDin(&daftarBangunan, HQ);
+
+    readListDin(&daftarBangunan);
+
+    readMatrix(&adjacencyMatrix, lengthListDin(daftarBangunan), lengthListDin(daftarBangunan));
+
+    readQueue(&daftarPesanan, daftarBangunan);
+
+    BacaPlayer(&Mobita);
+
+    readListPos(&inventory);
+
+    readListPos(&hargaGadget);
+
+    readStack(&tas, daftarBangunan);
+
+    readListLinked(&toDoList, daftarBangunan);
+
+    readListLinked(&progressList, daftarBangunan);
+
+    stopWordFile();   
 }
 
 void writeFileConfig(char namaFile[])
@@ -180,7 +208,7 @@ void writeFileConfig(char namaFile[])
 
     /* ALGORITMA */
 
-    /* ISI INI @GIBRAN*/
+    /* ISI INI @GIBRAN */
 }
 
 void readNewGame()
@@ -281,7 +309,7 @@ void updateTas()
 
     /* ALGORITMA */
     if (!isEmptyStack(tas)) {
-        updateWaktuTimeTas(&tas, waktuTambah);
+        updateWaktuTimeTas(&tas, WAKTU_TAMBAH_PLAYER(Mobita));
         for (i = 0; (i < (IDX_TOP_STACK(tas) + 1)); i++) {
             if ((JENIS_ITEM(tas.buffer[i]) == 'P') && (WAKTU_HANGUS_ITEM(tas.buffer[i]) <= 0)) {
                 deleteAtStack(&tas, i, &I);
@@ -302,7 +330,7 @@ void updateProgressList()
 
     /* ALGORITMA */
     if (!isEmptyListLinked(progressList)) {
-        updateWaktuItem(&progressList, waktuTambah);
+        updateWaktuItem(&progressList, WAKTU_TAMBAH_PLAYER(Mobita));
         p = FIRST_LIST_LINKED(progressList);
         while (p != NULL) {
             if (JENIS_ITEM(INFO_NODE(p)) == 'P' && WAKTU_HANGUS_ITEM(INFO_NODE(p)) <= 0) {
@@ -490,7 +518,6 @@ void moveMenu()
     /* KAMUS */
     int i, j, count, index;
     Word input;
-    static int speedMove = 0;
 
     /* ALGORITMA */
 
@@ -532,21 +559,22 @@ void moveMenu()
             printf("Try Again!\n");
         }
     } while (index < 0 || index > count);
-    waktuTambah = 0;
+
     if (SPEED_BOOST_PLAYER(Mobita) && index != 0) {
-        speedMove++;
-        if (speedMove % 2 == 0) {
+        SPEED_MOVE_PLAYER(Mobita)++;
+        if (SPEED_MOVE_PLAYER(Mobita) % 2 == 0) {
             WAKTU_PLAYER(Mobita)++;
-            waktuTambah = 1;
+            WAKTU_TAMBAH_PLAYER(Mobita) = 1;
         }
     }
     else if (index != 0) {
-        speedMove = 0;
+        SPEED_MOVE_PLAYER(Mobita) = 0;
         WAKTU_PLAYER(Mobita) += (BERAT_PLAYER(Mobita) + 1);
-        waktuTambah = (BERAT_PLAYER(Mobita) + 1);
+        WAKTU_TAMBAH_PLAYER(Mobita) = (BERAT_PLAYER(Mobita) + 1);
     }
     else {
         printf("Returning to main menu.\n");
+        WAKTU_TAMBAH_PLAYER(Mobita) = 0;
     }
 }
 
@@ -665,7 +693,7 @@ void toDoListMenu()
     }
     else {
         printf("Pesanan pada To Do List:\n");
-        displayListLinked(toDoList, Mobita);
+        displayListLinked(toDoList);
     }
 }
 
@@ -682,7 +710,7 @@ void inProgressMenu()
     }
     else {
         printf("Pesanan yang sedang diantarkan:\n");
-        displayStack(tas, Mobita);
+        displayStack(tas);
     }
 }
 
@@ -963,7 +991,6 @@ void gameMenu()
         }
         else if (compareQuery(inputQuery, saveGameQuery)) {
             saveGame();
-            stopWord();
         }
         else if (compareQuery(inputQuery, returnItemQuery)) {
             returnMenu();
@@ -984,4 +1011,6 @@ void gameMenu()
     } else {
         printf("Saving game . . .\n");
     }
+
+    stopWord();
 }

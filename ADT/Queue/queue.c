@@ -136,7 +136,7 @@ void readQueue(Queue* q, ListDin daftarBangunan)
         enqueue(q, tempItem);
     }
 }
-void displayQueue(Queue q, Player P)
+void displayQueue(Queue q)
 /* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung 
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan 
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
@@ -151,7 +151,7 @@ void displayQueue(Queue q, Player P)
     /* ALGORITMA */
     while (!isEmptyQueue(q)) {
         dequeue(&q, &val);
-        TulisItem(val, P);
+        TulisItem(val);
         printf("\n");
     }
 }

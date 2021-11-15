@@ -86,18 +86,22 @@ void readListPos(ListPos *l)
 /*    Jika n = 0; hanya terbentuk List kosong */
 {
   /* KAMUS LOKAL */
-  int n, E;
-  int i;
+  int i, N;
+  ElTypeListPos X;
+
   /* ALGORITMA */
   CreateListPos(l);
-  do {
-    scanf("%d", &n);
-  } while ((n < 0) || (n > CAPACITY_LISTPOS));
 
-  for (i = 0; i < n; i++) {
-    scanf("%d", &E);
-    ELMT_LISTPOS(*l, i) = E;
+  advWordFile();
+  N = wordToInt(currentWordFile);
+  advCharFile(); /* Membaca baris berikutnya */
+
+  for (i = 0; i < N; i++) {
+    advWordFile();
+    X = wordToInt(currentWordFile);
+    insertLastListPos(l, X);
   }
+  advCharFile(); /* Membaca baris berikutnya */
 }
 
 void displayListPos(ListPos l)

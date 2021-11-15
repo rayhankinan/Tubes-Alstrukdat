@@ -64,7 +64,7 @@ void BacaItem(Item *I, ListDin daftarBangunan)
 
     advCharFile(); /* Membaca baris berikutnya */
 }
-void TulisItem(Item I, Player P)
+void TulisItem(Item I)
 /* Nilai I tertulis di layar dengan format <pick_up> -> <drop_off> (<jenis_item_translated>, <waktu_hangus jika perishable>) */
 /* I.S. : I dan currentWaktu terdefinisi */
 /* F.S. : I tertulis di layar sesuai dengan format */

@@ -8,7 +8,6 @@
 #include "../Item/item.h"
 #include "../Mesin/wordmachinefile.h"
 #include "../ListDinamis/listdin.h"
-#include "../Player/player.h"
 
 #define IDX_UNDEF_QUEUE -1
 #define CAPACITY_QUEUE 100
@@ -71,7 +70,7 @@ void readQueue(Queue* q, ListDin daftarBangunan);
 /* 2. Jika 0 < N <= CAPACITY(l); Lakukan N kali: Baca elemen mulai dari indeks
       0 satu per satu diakhiri enter */
       /*    Jika N = 0; hanya terbentuk l kosong */
-void displayQueue(Queue q, Player P);
+void displayQueue(Queue q);
 /* Proses : Menuliskan isi Queue dengan traversal, Queue ditulis di antara kurung
    siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */

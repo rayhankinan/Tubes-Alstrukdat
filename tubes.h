@@ -23,7 +23,7 @@
 #define CAPACITY_INPUT 50
 
 /* State awal pada main program (sudah terdefinisi dari pembacaan file) */
-extern int N, M, L;
+extern int N, M;
 extern Lokasi HQ;
 extern ListDin daftarBangunan;
 extern Matrix adjacencyMatrix;
@@ -31,7 +31,6 @@ extern Queue daftarPesanan;
 
 /* State berjalan pada main program (didefinisikan seiring berjalannya program) */
 extern boolean hasWon;
-extern int waktuTambah;
 extern Player Mobita;
 extern ListPos inventory, hargaGadget;
 extern Stack tas;
