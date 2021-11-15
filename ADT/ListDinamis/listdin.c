@@ -140,8 +140,8 @@ void writeListDin(ListDin l){
   IdxTypeListDin i;
   /* ALGORITMA */
   for (i = 0; i < (IdxTypeListDin) lengthListDin(l); i++) {
-    printFile(ELMT_LISTDIN(l, i));
-    printFile("\n");
+    /* belum beres hehe */
+    printfFile("\n");
   }
 
 }

@@ -110,9 +110,9 @@ void displayMatrix(Matrix m)
   for (i = 0; i <= getLastIdxRowMatrix(m); i++) {
     for (j = 0; j <= getLastIdxColMatrix(m); j++) {
       if (j < getLastIdxColMatrix(m)) {
-        printFile(ELMT_MATRIX(m, i, j));
+        printfFile("%d ", length(ELMT_MATRIX(m, i, j)));
       } else {
-        printFile(ELMT_MATRIX(m, i, j));
+        printfFile("%d ", length(ELMT_MATRIX(m, i, j)));
       }
     }
     printf("\n");
