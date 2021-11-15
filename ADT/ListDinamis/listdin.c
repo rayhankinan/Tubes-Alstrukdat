@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "listdin.h"
+#include "../Mesin/wordmachinefile.h"
+#include "../Mesin/wordmachine.h"
+#include "../Mesin/writemachine.h"
+
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create list kosong  */
@@ -129,6 +133,17 @@ void displayListDin(ListDin l)
     TulisLokasi(ELMT_LISTDIN(l, i));
     printf("\n");
   }
+}
+
+void writeListDin(ListDin l){
+  /*KAMUS LOKAL*/
+  IdxTypeListDin i;
+  /* ALGORITMA */
+  for (i = 0; i < (IdxTypeListDin) lengthListDin(l); i++) {
+    printFile(ELMT_LISTDIN(l, i));
+    printFile("\n");
+  }
+
 }
 
 IdxTypeListDin indexOfListDin(ListDin l, ElTypeListDin val)

@@ -126,6 +126,18 @@ void displayListPos(ListPos l)
   printf("]");
 }
 
+void writeListPos(ListPos l){
+  /* KAMUS LOKAL */
+  int i;
+  /* ALGORITMA */
+  if (!isEmptyListPos(l)){
+    printFile(ELMT_LISTPOS(l, 0));
+    for (i = 1; i < lengthListPos(l); i++){
+      printFile(ELMT_LISTPOS(l, i));
+    }
+  }
+}
+
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
 int indexOfListPos(ListPos l, ElTypeListPos val)

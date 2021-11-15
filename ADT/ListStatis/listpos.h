@@ -86,6 +86,8 @@ void displayListPos(ListPos l);
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika List kosong : menulis [] */
 
+void writeListPos(ListPos l);
+
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
 int indexOfListPos(ListPos l, ElTypeListPos val);

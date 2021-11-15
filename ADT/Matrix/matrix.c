@@ -100,3 +100,21 @@ void displayMatrix(Matrix m)
     printf("\n");
   }
 }
+
+  void writeMatrix(Matrix m){
+    /* KAMUS */
+
+  IndexMatrix i, j;
+
+  /* ALGORITMA */
+  for (i = 0; i <= getLastIdxRowMatrix(m); i++) {
+    for (j = 0; j <= getLastIdxColMatrix(m); j++) {
+      if (j < getLastIdxColMatrix(m)) {
+        printFile(ELMT_MATRIX(m, i, j));
+      } else {
+        printFile(ELMT_MATRIX(m, i, j));
+      }
+    }
+    printf("\n");
+  }
+}

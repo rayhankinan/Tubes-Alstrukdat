@@ -10,6 +10,7 @@
 #include "../Boolean/boolean.h"
 #include "../Lokasi/lokasi.h"
 #include "../Mesin/wordmachinefile.h"
+#include "../Mesin/writemachine.h"
 
 /*  Kamus Umum */
 #define IDX_UNDEF_LISTDIN -1
@@ -100,6 +101,8 @@ void displayListDin(ListDin l);
 /* F.S. Jika l tidak kosong: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika list kosong : menulis [] */
+
+void writeListDin(ListDin l);
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */

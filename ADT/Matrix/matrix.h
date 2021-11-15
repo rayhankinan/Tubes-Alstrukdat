@@ -67,5 +67,5 @@ void displayMatrix(Matrix m);
    4 5 6
    8 9 10
    */
-
+void writeMatrix(Matrix M);
 #endif
