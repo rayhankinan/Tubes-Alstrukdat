@@ -758,23 +758,26 @@ void returnMenu()
 
     if ((NAMA_LOKASI(LOKASI_PLAYER(Mobita)) == NAMA_LOKASI(PICK_UP_ITEM(TOP_STACK(tas))) && (JUMLAH_RETURN_PLAYER(Mobita)) > 0)) {
         if (JENIS_ITEM(TOP_STACK(tas)) == 'V') {
-            printf("Sorry, VIP item tidak bisa dikembalikan\n");
+            printf("Maaf, VIP item tidak bisa dikembalikan\n");
         }
         else {
-            if (JENIS_ITEM(TOP_STACK(tas)) == 'H'){
+            if (JENIS_ITEM(TOP_STACK(tas)) == 'H') {
                 BERAT_PLAYER(Mobita)--;
-            }
-            popStack(&tas, &trash);
-            if (JENIS_ITEM(TOP_STACK(tas)) == 'N' || JENIS_ITEM(TOP_STACK(tas)) == 'H') {
+                popStack(&tas, &trash);
                 deleteFirstListLinked(&progressList, &trash);
                 insertLastListLinked(&toDoList, trash);
-                printf("Top Item in bag, succeded returned to sender\n");
-            }
-            else {
+                printf("Heavy Item berhasil direturn\n");
+            } else if (JENIS_ITEM(TOP_STACK(tas)) == 'N') {
+                popStack(&tas, &trash);
+                deleteFirstListLinked(&progressList, &trash);
+                insertLastListLinked(&toDoList, trash);
+                printf("Normal Item berhasil direturn\n");
+            } else {
                 kembalikanWaktuItem(&progressList);
+                popStack(&tas, &trash);
                 deleteFirstListLinked(&progressList, &trash);
                 insertLastListLinked(&toDoList, trash);
-                printf("Top Item in bag, succeded returned to sender\n");
+                printf("Perishable Item berhasil direturn\n");
             }
             JUMLAH_RETURN_PLAYER(Mobita)--;
         }
