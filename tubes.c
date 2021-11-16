@@ -199,7 +199,7 @@ void readFileConfigLoadGame(char namaFile[])
 
     isiTas(&tas, progressList);
 
-    stopWordFile();   
+    stopWordFile();
 }
 
 void writeFileConfig(char namaFile[])
@@ -381,9 +381,6 @@ void shopMenu()
     Word input;
     int shop_index, total;
 
-    /* Testing */
-    UANG_PLAYER(Mobita) = 50000;
-
     /* ALGORITMA */
     if (EQLokasi(LOKASI_PLAYER(Mobita), HQ)) {
         if (isFullListPos(inventory)) {
@@ -421,7 +418,7 @@ void shopMenu()
                 }
             }
             else {
-                printf("Exiting INVENTORY . . .\n");
+                printf("Exiting BUY . . .\n");
                 printf("Returning to main menu.\n");
             }
         }
@@ -594,7 +591,7 @@ void moveMenu()
             printf("Try Again!\n");
         }
     } while (index < 0 || index > count);
-    
+
     WAKTU_TAMBAH_PLAYER(Mobita) = 0;
     if (SPEED_BOOST_PLAYER(Mobita) && index != 0) {
         SPEED_MOVE_PLAYER(Mobita)++;
@@ -676,7 +673,7 @@ void dropOffMenu()
 
     /* ALGORITMA */
     if (!isEmptyStack(tas)) {
-        if (NAMA_LOKASI(DROP_OFF_ITEM(TOP_STACK(tas))) == NAMA_LOKASI(LOKASI_PLAYER(Mobita))){
+        if (NAMA_LOKASI(DROP_OFF_ITEM(TOP_STACK(tas))) == NAMA_LOKASI(LOKASI_PLAYER(Mobita))) {
             popStack(&tas, &I);
             deleteFirstListLinked(&progressList, &I);
 
@@ -707,7 +704,7 @@ void dropOffMenu()
                 break;
             }
         }
-        else{
+        else {
             printf("Hanya bisa mengantar item teratas bag ke tujuan lokasi yang benar!\n");
         }
     }
@@ -762,8 +759,8 @@ void returnMenu()
             printf("Sorry, VIP item tidak bisa dikembalikan\n");
         }
         else {
-            if (JENIS_ITEM(TOP_STACK(tas)) == 'H'){
-                BERAT_PLAYER(Mobita)-=1;
+            if (JENIS_ITEM(TOP_STACK(tas)) == 'H') {
+                BERAT_PLAYER(Mobita) -= 1;
             }
             popStack(&tas, &trash);
             if (JENIS_ITEM(TOP_STACK(tas)) == 'N' || JENIS_ITEM(TOP_STACK(tas)) == 'H') {
@@ -933,7 +930,7 @@ void mainMenu()
 
         if (compareQuery(inputQuery, newGameQuery)) {
             readNewGame();
-            
+
             CreatePlayer(&Mobita, HQ);
 
             CreateListPos(&inventory);
