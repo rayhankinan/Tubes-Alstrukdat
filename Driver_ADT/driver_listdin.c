@@ -1,105 +1,101 @@
+//Driver ListDinamis elemen type lokasi
+
 #include <stdio.h>
 #include "../ADT/ListDinamis/listdin.h"
 
 int main() {
     /* KAMUS */
-    int NMax, NExtra;
-    ListDin l1, l2, sortedL1, sortedL2;
-    ElTypeListDin maxL1, minL1, maxL2, minL2, temp;
-    IdxTypeListDin i;
+    int NMax,x,y;
+    ListDin l1,l2;
+    ElTypeListDin templok, trash;
+    IdxTypeListDin i,catch;
+    POINT tempp;
+    char bangunan;
 
     /* ALGORITMA */
-    printf("Masukkan jumlah maksimal elemen ListDin: ");
+
+    CreateListDin(&l2,4);
+
+    // Pengecekan jika kosong atau tidak
+    if (isEmptyListDin(l2)){
+        printf("yes, listdin 2 kosong");
+    }
+    else{
+        printf("listdin tidak kosong");
+    }
+
+    // Mengisi list dinamis baru
+    printf("\nMasukkan jumlah maksimal elemen ListDin 1: ");
     scanf("%d", &NMax);
-
     CreateListDin(&l1, NMax);
-    CreateListDin(&l2, NMax);
+    // Membuat lokasi
+    x = 1;
+    y = 2;
+    bangunan = 'A';
 
-    printf("Masukkan ListDin pertama:\n");
-    readListDin(&l1);
-
-    printf("\n");
-    printf("ListDin pertama: ");displayListDin(l1);printf("\n");
-
-    if (!isEmptyListDin(l1)){
-        extremesListDin(l1, &maxL1, &minL1);
-        printf("Range ListDin pertama: (%d - %d)\n", minL1, maxL1);
-        printf("Jumlah semua elemen pada ListDin pertama: %d\n", sumListDin(l1));
-        printf("Frequency table ListDin pertama: \n");
-        for (i = 0; i <= getLastIdxListDin(l1); i++) {
-            if (i == indexOfListDin(l1, ELMT_LISTDIN(l1, i))) {
-                printf("%d : %d\n", ELMT_LISTDIN(l1, i), countValListDin(l1, ELMT_LISTDIN(l1, i)));
-            }
+    // insert jumlah elemen capacity listdin dari depan dan belakang
+    for (int i = 0; i < NMax; i++){
+        tempp = MakePOINT(x,y);
+        templok = CreateLokasi(bangunan, tempp);
+        insertLastListDin(&l1, templok);
+        x+=1;
+        y+=1;
+        bangunan += 1;
+        if (bangunan > 90){
+            bangunan -= 26;
+            x = 1;
+            y = 2;
         }
-        if (isAllEvenListDin(l1)) {
-            printf("Semua elemen ListDin pertama genap!\n");
-        }
-        if (isFullListDin(l1)) {
-            printf("ListDin pertama penuh!\n");
-        }
-        copyListDin(l1, &sortedL1);
-        sortListDin(&sortedL1, true);
-        printf("ListDin pertama sorted: ");displayListDin(sortedL1);printf("\n");
-    } else {
-        printf("ListDin pertama kosong!\n");
     }
-    printf("\n");
 
+    printf("Masukkan ListDin pertama ada %d elemen:\n", lengthListDin(l1));
+    displayListDin(l1);printf("\n\n");
+    printf("index terakhir listdinamis adalah %d \n", getLastIdxListDin(l1));
+
+    // Pengecekan index jika valid ata tidak
+    printf("masukkan index yang valid: ");
+    scanf("%d", &catch);
+    if (isIdxValidListDin(l1, catch)){
+        if (isIdxEffListDin(l1, catch)){
+            printf("index is valid and effective\n");
+        }
+    } else {
+        printf("index not valid\n");
+    }
+
+    // Pengecekan jika list full atau tidak
+    if (isFullListDin(l1)){
+        printf("list is full\n");
+    } else {
+        printf("list isn't full\n");
+    }
+
+    // Searching elemen tertentu dan mengembalikan indexnya
+    printf("isi dari lokasi yang ingin dicari: "); TulisLokasi(templok);printf("\n");
+    printf("lokasi templok berada di index: %d\n\n", indexOfListDin(l1, templok));
+
+    // Deleting 
+    printf("masukkan jumlah elemen yang  ingin dihapuskan: ");
+    scanf("%d", &catch);
+    for (int j = 0; j < catch ; j++){
+        deleteLastListDin(&l1, &trash);
+    }
+    printf("\nelemen terakhir yang didelete adalah: ");
+    TulisLokasi(trash);printf("\n");
+    printf("\nisi list sekarang\n");
+    displayListDin(l1);
+
+    // Memainkan ukuran capacity list dinamis
+    printf("\ncapacity listdin: %d", CAPACITY_LISTDIN(l1));
+    growListDin(&l1, 4);
+    printf("\ncapacity listdin setelah ditambah 4 ruang: %d\n", CAPACITY_LISTDIN(l1));
+    shrinkListDin(&l1, 2);
+    printf("capacity listdin setelah dikurang 2 ruang: %d\n", CAPACITY_LISTDIN(l1));
     compactListDin(&l1);
+    printf("Capasitas list dinamis sekarang  setelah dicompact menjadi %d\n", CAPACITY_LISTDIN(l1));
+    if (isFullListDin(l1)) printf("And it is full.\n");
 
-    printf("Masukkan ListDin kedua:\n");
-    readListDin(&l2);
-
-    printf("\n");
-    printf("ListDin kedua: ");displayListDin(l2);printf("\n");
-
-    if (!isEmptyListDin(l2)){
-        extremesListDin(l2, &maxL2, &minL2);
-        printf("Range ListDin kedua: (%d - %d)\n", minL2, maxL2);
-        printf("Jumlah semua elemen pada ListDin kedua: %d\n", sumListDin(l2));
-        printf("Frequency table ListDin kedua: \n");
-        for (i = 0; i <= getLastIdxListDin(l2); i++) {
-            if (i == indexOfListDin(l2, ELMT_LISTDIN(l2, i))) {
-                printf("%d : %d\n", ELMT_LISTDIN(l2, i), countValListDin(l2, ELMT_LISTDIN(l2, i)));
-            }
-        }
-        if (isAllEvenListDin(l2)) {
-            printf("Semua elemen ListDin kedua genap!\n");
-        }
-        if (isFullListDin(l2)) {
-            printf("ListDin kedua penuh!\n");
-        }
-        copyListDin(l2, &sortedL2);
-        sortListDin(&sortedL2, true);
-        printf("ListDin kedua sorted: ");displayListDin(sortedL2);printf("\n");
-    } else {
-        printf("ListDin kedua kosong!\n");
-    }
-    printf("\n");
-    
-    compactListDin(&l2);
-
-    if (lengthListDin(l1) == lengthListDin(l2)) {
-        printf("ListDin pertama + ListDin kedua = ");displayListDin(plusMinusListDin(l1, l2, true));printf("\n");
-        printf("ListDin pertama - ListDin kedua = ");displayListDin(plusMinusListDin(l1, l2, false));printf("\n");
-    }
-    if (isListDinEqual(l1, l2)) {
-        printf("ListDin pertama = ListDin kedua\n");
-    }
-
-    growListDin(&l1, lengthListDin(l2));
-
-    NExtra = lengthListDin(l2);
-
-    for (i = 0; i < NExtra; i++) {
-        deleteLastListDin(&l2, &temp);
-        insertLastListDin(&l1, temp);
-    }
-
-    sortListDin(&l1, true);
-
-    printf("Concat kedua ListDin secara terurut: ");displayListDin(l1);printf("\n");
-
+    // Dealokasi list dinamis
     dealocateListDin(&l1);
     dealocateListDin(&l2);
 }
