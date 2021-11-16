@@ -139,22 +139,6 @@ void readFileConfigNewGame(char namaFile[])
     Lokasi tempLoc;
 
     /* ALGORITMA */
-    CreatePlayer(&Mobita, HQ);
-
-    CreateListPos(&inventory);
-
-    CreateListPos(&hargaGadget);
-    insertLastListPos(&hargaGadget, 800);
-    insertLastListPos(&hargaGadget, 1200);
-    insertLastListPos(&hargaGadget, 1500);
-    insertLastListPos(&hargaGadget, 3000);
-
-    CreateStack(&tas);
-
-    CreateListLinked(&toDoList);
-
-    CreateListLinked(&progressList);
-
     startWordFile(namaFile);
     N = wordToInt(currentWordFile);
     advWordFile();
@@ -941,6 +925,23 @@ void mainMenu()
 
         if (compareQuery(inputQuery, newGameQuery)) {
             readNewGame();
+            
+            CreatePlayer(&Mobita, HQ);
+
+            CreateListPos(&inventory);
+
+            CreateListPos(&hargaGadget);
+            insertLastListPos(&hargaGadget, 800);
+            insertLastListPos(&hargaGadget, 1200);
+            insertLastListPos(&hargaGadget, 1500);
+            insertLastListPos(&hargaGadget, 3000);
+
+            CreateStack(&tas);
+
+            CreateListLinked(&toDoList);
+
+            CreateListLinked(&progressList);
+
             gameMenu();
         }
         else if (compareQuery(inputQuery, quitQuery)) {
