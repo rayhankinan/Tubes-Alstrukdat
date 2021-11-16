@@ -30,8 +30,8 @@ int main(){
     latter = CreateItem('N', currentlok, latterlok,4);
 
     // Mendisplay Item
-    TulisItem(current, thistubes);printf("\n");
-    TulisItem(latter, thistubes);printf("\n");
+    TulisItem(current);printf("\n");
+    TulisItem(latter);printf("\n");
     /* Hasil yg benar: A -> D (Perishable Item, sisa waktu 3)
                        A -> B (Normal Item) */
     if (EQItem(current, current)){

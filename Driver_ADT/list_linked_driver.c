@@ -4,66 +4,110 @@
 #include<stdio.h>
 
 int main(){
-	// kamus lokal
+	/*KAMUS*/
 	ListLinked l;
 	ListLinked add;
 	ListLinked hasil;
-	int trash;
+	ElTypeNode oneOfaKind,twoOfaKind, threeOfaKind, trash; // elemen type item
+	POINT tempp,tempd;
+	Lokasi templokawal, templokakhir;
 
-
-	// Algoritma
+	/*ALGORITMA*/
 	CreateListLinked(&l);
 	CreateListLinked(&add);
 	CreateListLinked(&hasil);
-
+	//Mengecek list jika empty atau tidak
 	if (isEmptyListLinked(l)){
-		printf("yes it's empty\n");
+		printf("Linked list is empty\n");
 	}
 
-	for (int i = 0; i < 2; i++){
-		insertFirstListLinked(&l,1);
-		insertLastListLinked(&l, 4);
-		insertFirstListLinked(&l,2);
-	}
-	for (int i = 0; i < 2; i++){
-		insertLastListLinked(&add, 3);
-		insertFirstListLinked(&add,1);
-	}
-	printf("hasil list l:\n");
-	displayListLinked(l); printf("\n");
-	printf("hasil list add:\n");
-	displayListLinked(add); printf("\n");
-	for (int i = 0; i < 2; i++){
-		insertAtListLinked(&l, 3, 1);
-	}
-	printf("Menambah elemen nilai 3 di index 1 pada list l sebanyak 2 kali:\n");
-	displayListLinked(l); printf("\n");
+	// Membuat tiga jenis item
+	tempp = MakePOINT(2,3);
+	tempd = MakePOINT(5,6);
+	templokawal = CreateLokasi('A', tempp);
+	templokakhir = CreateLokasi('B', tempd);
+	oneOfaKind = CreateItem('N',templokawal, templokakhir, 10);
 
-	printf("Panjang list adalah : %d\n", lengthListLinked(l));
+	tempp = MakePOINT(5,9);
+	tempd = MakePOINT(2,1);
+	templokawal = CreateLokasi('C', tempp);
+	templokakhir = CreateLokasi('D', tempd);
+	twoOfaKind = CreateItem('P',templokawal, templokakhir, 10);
+	WAKTU_LEWAT_ITEM(twoOfaKind) = 0;
 
-	printf("Pembuangan ...\n");
-	for (int j = 0; j<2;j++){
-		deleteLastListLinked(&l, &trash); // membuang elemen terakhir list
-		deleteAtListLinked(&l,2,&trash); // membuang elemen index 2 list
+	tempp = MakePOINT(8,10);
+	tempd = MakePOINT(1,1);
+	templokawal = CreateLokasi('E', tempp);
+	templokakhir = CreateLokasi('F', tempd);
+	threeOfaKind = CreateItem('H',templokawal, templokakhir, 6);
+
+	/* Penggunaan primitif */
+	insertFirstListLinked(&l, oneOfaKind);
+	printf("display isi list setelah insert elemen pertama: \n");
+	displayListLinked(l);
+
+	insertLastListLinked(&l, twoOfaKind);
+	printf("display isi list setelah insert elemen terakhir: \n");
+	displayListLinked(l);
+
+	// Mengisi linked list
+
+	for (int i = 0; i < 5; i++){
+		insertFirstListLinked(&l, twoOfaKind);
+		insertLastListLinked(&l,oneOfaKind);
+		insertAtListLinked(&l, threeOfaKind, 3);
 	}
-	displayListLinked(l); printf("\n");
+	printf("\nIsi list sekarang setelah diinsert berulang-ulang:\n");
+	displayListLinked(l);
+
+	// Mengambil elemen index 4, kemudian didisplay
+	printf("\nElemen index ke 4 linked list:\n");
+	TulisItem(getElmtListLinked(l, 4));
+
+	// Mengubah elemen ke 4, menjadi item lain
+	setElmtListLinked(&l, 4, oneOfaKind);
+	printf("\n\nHasil perubahan linked list pd idx ke-4:\n");
+	displayListLinked(l);
+
+	printf("\nindex linked list yang mengandung oneofakind di %d\n\n", indexOfListLinked(l, oneOfaKind));
+
+	// Deleting elements
 	deleteFirstListLinked(&l, &trash);
-	printf("Panjang list l sekarang setelah pembuangan barusan: %d\n", lengthListLinked(l));
-	printf("elemen yang paling baru dibuang: %d\n", trash);
-	displayListLinked(l); printf("\n");
+	printf("item elemen pertama yang didelete: ");
+	TulisItem(trash);printf("\n");
 
-	setElmtListLinked(&add, 3, 1);
-	printf("Mengubah elemen index 3 ke 1 pada list add:\n");
-	displayListLinked(add); printf("\n");
-	printf("Isi dari list hasil:\n");
-	displayListLinked(hasil); printf("\n");
+	deleteLastListLinked(&l, &trash);
+	printf("item elemen terakhir yang didelete: ");
+	TulisItem(trash);printf("\n");
 
-	printf("index-2 dari list add adalah: %d\n", getElmtListLinked(add,2));
-	printf("Index list add jika ada angka 2: %d\n", indexOfListLinked(add,2));
-	printf("Index list add jika ada angka 3: %d\n", indexOfListLinked(add,3));
-	printf("Index list add jika ada angka 1: %d\n", indexOfListLinked(add,1));
+	printf("\ndisplay isi listlinked yang berisi %d\n", lengthListLinked(l));
+	displayListLinked(l);
 
+	for (int i = 0; i < 3 ; i++){
+		deleteFirstListLinked(&l, &trash);
+		deleteLastListLinked(&l, &trash);
+	}
+	printf("\nhasil delete first dan last sekaligus secaara berulang.\n");
+	displayListLinked(l);
+
+	//Menambah list baru
+
+	insertFirstListLinked(&add, oneOfaKind);printf("\n");
+	insertFirstListLinked(&add, twoOfaKind);printf("\n");
+
+	printf("linked list baru ukuran %d\n", lengthListLinked(add));
+	displayListLinked(add);
+
+	// menggabungkan list l dengan yang baru
 	hasil = concatListLinked(l,add);
-	printf("Gabungan list l dan add adalah:\n");
-	displayListLinked(hasil); printf("\n");
+	printf("setelah digabung atau di concat menjadi list baru ukuran %d\n", lengthListLinked(hasil));
+	displayListLinked(hasil);
+
+	printf("\nketika waktu melewati 4 satuan, waktu item menjadi\n");
+	updateWaktuItem(&l,4);
+	displayListLinked(l);
+
+	printf("\nKemudian mengembalikan waktu perishible item teratas ialah\n");
+	kembalikanWaktuItem(&l);
+	displayListLinked(l);
 }

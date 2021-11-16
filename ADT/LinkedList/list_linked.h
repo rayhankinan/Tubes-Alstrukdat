@@ -112,4 +112,9 @@ void kembalikanWaktuItem(ListLinked* l);
 //I.S Menerima list yang tidak kosong, 
 //F.S Mengembalikan waktu semula item perishable teratas
 
+void displayprogress(ListLinked l);
+/* Menampilkan isi progress list pada layar */
+/* I.S. Progress list l terdefinisi */
+/* F.S. isi Item di dalam list progress ditampilkan pada layar */
+
 #endif

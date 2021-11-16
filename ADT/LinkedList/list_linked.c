@@ -257,12 +257,10 @@ void readListLinked(ListLinked* l, ListDin daftarBangunan)
   }
 }
 void displayListLinked(ListLinked l)
-// void printInfo(List l);
 /* I.S. List mungkin kosong */
-/* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika list kosong : menulis [] */
-/* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
+/* F.S. Jika list tidak kosong, akan mencetak isi items dalam list */
+/* Jika ada elemen bernilai, akan mencetak <asal lokasi item> -> <tujuan lokasi item> <(jenis item)> */
+/* Jika list kosong : tidak menampilkan isi apa-apa*/
 {
   /* KAMUS LOKAL */
   Address p;
@@ -373,4 +371,40 @@ void kembalikanWaktuItem(ListLinked* l)
   }
   WAKTU_HANGUS_ITEM(INFO_NODE(p)) += WAKTU_LEWAT_ITEM(INFO_NODE(p));
   WAKTU_LEWAT_ITEM(INFO_NODE(p)) = 0;
+}
+
+void displayprogress(ListLinked l)
+/* Menampilkan isi progress list pada layar */
+/* I.S. Progress list l terdefinisi */
+/* F.S. isi Item di dalam list progress ditampilkan pada layar */
+{
+    /* KAMUS */
+    Address p;
+    int i;
+    Item I;
+
+    /* ALGORITMA */
+    p = FIRST_LIST_LINKED(l);
+    i = 0;
+    while (p != NULL) {
+        I = INFO_NODE(p);
+        printf("%d. ", i + 1);
+        switch (JENIS_ITEM(INFO_NODE(p))) {
+        case 'N':
+            printf("%s (Tujuan: %c)", "Normal Item", NAMA_LOKASI(DROP_OFF_ITEM(I)));
+            break;
+        case 'H':
+            printf("%s (Tujuan: %c)", "Heavy Item", NAMA_LOKASI(DROP_OFF_ITEM(I)));
+            break;
+        case 'P':
+            printf("%s, sisa waktu %d (Tujuan: %c)", "Perishable Item", WAKTU_HANGUS_ITEM(I), NAMA_LOKASI(DROP_OFF_ITEM(I)));
+            break;
+        case 'V':
+            printf("%s (Tujuan: %c)", "VIP Item", NAMA_LOKASI(DROP_OFF_ITEM(I)));
+            break;
+        }
+        printf("\n");
+        p = NEXT_NODE(p);
+        i++;
+    }
 }
