@@ -17,6 +17,7 @@ ListPos inventory, hargaGadget;
 Stack tas;
 ListLinked toDoList, progressList;
 
+
 void printWord(Word kata)
 /* Menuliskan string ke dalam main program */
 /* I.S. kata terdefinisi */
@@ -256,7 +257,8 @@ void readNewGame()
     if (tempFile == NULL) {
         printf("Name file tidak ada.\n");
         mainMenu();
-    } else {
+    }
+    else {
         readFileConfigNewGame(namaFile.contents);
     }
 }
@@ -280,7 +282,8 @@ void readLoadGame()
     if (tempFile == NULL) {
         printf("Name file tidak ada.\n");
         mainMenu();
-    } else {
+    }
+    else {
         readFileConfigLoadGame(namaFile.contents);
     }
 }
@@ -304,7 +307,8 @@ void saveGame()
     if (tempFile == NULL) {
         printf("Nama file tidak ada.\n");
         mainMenu();
-    } else {
+    }
+    else {
         writeFileConfig(namaFile.contents);
     }
 }
@@ -376,7 +380,9 @@ void shopMenu()
     /* KAMUS LOKAL */
     Word input;
     int shop_index, total;
-    UANG_PLAYER(Mobita) = 99999;
+
+    /* Testing */
+    UANG_PLAYER(Mobita) = 50000;
 
     /* ALGORITMA */
     if (EQLokasi(LOKASI_PLAYER(Mobita), HQ)) {
@@ -482,7 +488,10 @@ void activateEffect(int id)
         pintuKemanaSajaMenu();
         break;
     case 4:
-        WAKTU_PLAYER(Mobita) = 0;
+        WAKTU_PLAYER(Mobita) -= 50;
+        if (WAKTU_PLAYER(Mobita) < 0) {
+            WAKTU_PLAYER(Mobita) = 0;
+        }
         break;
     }
 }
@@ -628,26 +637,27 @@ void pickUpMenu()
         }
         else if (JENIS_ITEM(TOP_STACK(tas)) == 'V') {
             printf("Tidak bisa pick up barang dikarenakan membawa barang VIP!\n");
-        } else {
+        }
+        else {
             deleteAtListLinked(&toDoList, i, &I);
             pushStack(&tas, I);
             insertFirstListLinked(&progressList, I);
 
             switch (JENIS_ITEM(I)) {
-                case 'N':
-                    printf("Pesanan berupa Normal Item berhasil diambil!\n");
-                    break;
-                case 'H':
-                    SPEED_BOOST_PLAYER(Mobita) = false;
-                    BERAT_PLAYER(Mobita)++;
-                    printf("Pesanan berupa Heavy Item berhasil diambil! Efek Heavy Item akan aktif!\n");
-                    break;
-                case 'P':
-                    printf("Pesanan berupa Perishable Item berhasil diambil! Item ini akan hangus dalam %d unit waktu!\n", WAKTU_HANGUS_ITEM(I));
-                    break;
-                case 'V':
-                    printf("Pesanan berupa VIP Item berhasil diambil! Mobita tidak akan bisa pick up Item lainnya sampai Item ini di drop off!\n");
-                    break;
+            case 'N':
+                printf("Pesanan berupa Normal Item berhasil diambil!\n");
+                break;
+            case 'H':
+                SPEED_BOOST_PLAYER(Mobita) = false;
+                BERAT_PLAYER(Mobita)++;
+                printf("Pesanan berupa Heavy Item berhasil diambil!\nEfek Heavy Item akan aktif!\n");
+                break;
+            case 'P':
+                printf("Pesanan berupa Perishable Item berhasil diambil!\nItem ini akan hangus dalam %d unit waktu!\n", WAKTU_HANGUS_ITEM(I));
+                break;
+            case 'V':
+                printf("Pesanan berupa VIP Item berhasil diambil! Mobita tidak akan bisa pick up Item lainnya sampai Item ini di drop off!\n");
+                break;
             }
         }
     }
@@ -877,7 +887,7 @@ void map()
     }
 }
 
-void helpMenu() 
+void helpMenu()
 /* Menampilkan Help */
 /* I.S. : Game menu sudah ditampilkan */
 /* F.S. : Output Help Menu pada layar */
@@ -974,8 +984,8 @@ void gameMenu()
         TulisLokasi(LOKASI_PLAYER(Mobita));
         printf("\n");
         printf("Waktu: %d\n", WAKTU_PLAYER(Mobita));
+        printf("Kapasitas Tas: %d/%d\n", lengthStack(tas), CAPACITY_STACK(tas));
         printf("Uang yang dimiliki: %d Yen\n", UANG_PLAYER(Mobita));
-
         updatePesanan();
 
         printf("Jumlah pesanan yang harus dikerjakan: %d\n\n", lengthListLinked(toDoList));
@@ -1029,7 +1039,8 @@ void gameMenu()
 
     if (hasWon) {
         printf("Selamat, Mobita berhasil mengantarkan seluruh Item!\n");
-    } else {
+    }
+    else {
         printf("Saving game . . .\n");
     }
 

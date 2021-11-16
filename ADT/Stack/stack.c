@@ -28,6 +28,7 @@ boolean isEmptyStack(Stack s)
     /* ALGORITMA */
     return (IDX_TOP_STACK(s) == IDX_UNDEF_STACK);
 }
+
 boolean isFullStack(Stack s)
 /* Mengirim true jika tabel penampung nilai s stack penuh */
 {
@@ -35,6 +36,21 @@ boolean isFullStack(Stack s)
 
     /* ALGORITMA */
     return (IDX_TOP_STACK(s) == CAPACITY_STACK(s) - 1);
+}
+
+int lengthStack(Stack s)
+/* Mengirimkan jumlah elemen pada stack */
+{
+    /* KAMUS LOKAL */
+    ElTypeStack temp;
+    int length;
+    /* ALGORITMA */
+    length = 0;
+    while (!isEmptyStack(s)) {
+        popStack(&s, &temp);
+        length++;
+    }
+    return length;
 }
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
@@ -54,7 +70,8 @@ void pushStack(Stack* s, ElTypeStack val)
         TOP_STACK(*s) = val;
     }
     else {
-        IDX_TOP_STACK(*s)++;
+        IDX_TOP_STACK(*s)
+            ++;
         TOP_STACK(*s) = val;
     }
 }
@@ -69,7 +86,8 @@ void popStack(Stack* s, ElTypeStack* val)
 
     /* ALGORITMA */
     *val = TOP_STACK(*s);
-    IDX_TOP_STACK(*s)--;
+    IDX_TOP_STACK(*s)
+        --;
 }
 
 /* ************ Menghapus elemen ke idx dari Stack ************ */
@@ -88,7 +106,8 @@ void deleteAtStack(Stack* s, int idx, ElTypeStack* val)
         s->buffer[i] = s->buffer[i + 1];
         i++;
     }
-    IDX_TOP_STACK(*s)--;
+    IDX_TOP_STACK(*s)
+        --;
 }
 
 /* ************ Menambah kapasitas sebuah Stack ************ */
@@ -99,7 +118,8 @@ void growStack(Stack* s)
 {
 
     /* ALGORITMA */
-    CAPACITY_STACK(*s)++;
+    CAPACITY_STACK(*s)
+        ++;
     BUFFER_STACK(*s) = (ElTypeStack*)realloc(BUFFER_STACK(*s), CAPACITY_STACK(*s) * sizeof(ElTypeStack));
 }
 
@@ -210,7 +230,7 @@ void updateWaktuTimeTas(Stack* tas, int waktu)
 }
 
 void kembalikanWaktuItemTas(Stack* tas)
-//I.S Menerima tas yang tidak kosong, 
+//I.S Menerima tas yang tidak kosong,
 //F.S Mengembalikan waktu semula item perishable teratas
 {
     /*KAMUS*/
