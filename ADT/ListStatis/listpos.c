@@ -165,6 +165,7 @@ int indexOfListPos(ListPos l, ElTypeListPos val)
   /* ALGORITMA */
   hasil = IDX_UNDEF_LISTPOS;
   i = 0;
+  found = false;
   while ((!found) && (i < lengthListPos(l))) {
     if (ELMT_LISTPOS(l, i) == val) {
       hasil = i;
