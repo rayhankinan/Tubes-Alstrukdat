@@ -101,18 +101,17 @@ void displayMatrix(Matrix m)
   }
 }
 
-  void writeMatrix(Matrix m){
-    /* KAMUS */
-
+void writeMatrix(Matrix m){
+  /* KAMUS */
   IndexMatrix i, j;
 
   /* ALGORITMA */
   for (i = 0; i <= getLastIdxRowMatrix(m); i++) {
     for (j = 0; j <= getLastIdxColMatrix(m); j++) {
       if (j < getLastIdxColMatrix(m)) {
-        printfFile("%d ", length(ELMT_MATRIX(m, i, j)));
+        printfFile("%d ", ELMT_MATRIX(m, i, j));
       } else {
-        printfFile("%d ", length(ELMT_MATRIX(m, i, j)));
+        printfFile("%d ", ELMT_MATRIX(m, i, j));
       }
     }
     printf("\n");

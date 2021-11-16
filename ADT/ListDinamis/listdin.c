@@ -141,7 +141,7 @@ void writeListDin(ListDin l){
   /* ALGORITMA */
   for (i = 0; i < (IdxTypeListDin) lengthListDin(l); i++) {
     /* belum beres hehe */
-    printfFile("\n");
+    printfFile("%d", i);
   }
 
 }

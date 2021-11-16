@@ -14,12 +14,11 @@ void startFile(char namaFile[]);
 /* I.S. : File Tape sembarang */
 /* F.S. : File Tape terdefinisi dan bisa ditulis */
 
-void writeWordFile(Word Querry);
-
-void writeLineFile(Word arrOfQuery[], int N);
-/* Menulis satu baris pada File Tape */
+void printfFile(char format[], ...);
+/* Menulis format pada file layaknya printf */
 /* I.S. : File Tape sudah terdefinisi */
 /* F.S. : Menambah satu baris pada File Tape */
+/* F.S. : Menulis string format pada File Tape */
 
 void endFile();
 /* Menutup File Tape */

@@ -131,9 +131,9 @@ void writeListPos(ListPos l){
   int i;
   /* ALGORITMA */
   if (!isEmptyListPos(l)){
-    printfFile("%d", length(ELMT_LISTPOS(l, 0)));
+    printfFile("%d", lengthListPos(l));
     for (i = 1; i < lengthListPos(l); i++){
-      printfFile(" %d", length(ELMT_LISTPOS(l, i)));
+      printfFile(" %d", ELMT_LISTPOS(l, i));
     }
   }
 }
