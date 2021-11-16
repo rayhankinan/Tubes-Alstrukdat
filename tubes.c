@@ -756,7 +756,7 @@ void returnMenu()
 {
     Item trash;
 
-    if ((NAMA_LOKASI(LOKASI_PLAYER(Mobita)) == NAMA_LOKASI(PICK_UP_ITEM(TOP_STACK(tas))) && (JUMLAH_RETURN_PLAYER(Mobita)) > 0)) {
+    if (JUMLAH_RETURN_PLAYER(Mobita) > 0) {
         if (JENIS_ITEM(TOP_STACK(tas)) == 'V') {
             printf("Maaf, VIP item tidak bisa dikembalikan\n");
         }
