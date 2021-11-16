@@ -139,6 +139,22 @@ void readFileConfigNewGame(char namaFile[])
     Lokasi tempLoc;
 
     /* ALGORITMA */
+    CreatePlayer(&Mobita, HQ);
+
+    CreateListPos(&inventory);
+
+    CreateListPos(&hargaGadget);
+    insertLastListPos(&hargaGadget, 800);
+    insertLastListPos(&hargaGadget, 1200);
+    insertLastListPos(&hargaGadget, 1500);
+    insertLastListPos(&hargaGadget, 3000);
+
+    CreateStack(&tas);
+
+    CreateListLinked(&toDoList);
+
+    CreateListLinked(&progressList);
+
     startWordFile(namaFile);
     N = wordToInt(currentWordFile);
     advWordFile();
@@ -952,21 +968,6 @@ void gameMenu()
     /* ALGORITMA */
     hasWon = false;
 
-    CreatePlayer(&Mobita, HQ);
-    CreateListPos(&inventory);
-
-    CreateListPos(&hargaGadget);
-    insertLastListPos(&hargaGadget, 800);
-    insertLastListPos(&hargaGadget, 1200);
-    insertLastListPos(&hargaGadget, 1500);
-    insertLastListPos(&hargaGadget, 3000);
-
-    CreateStack(&tas);
-
-    CreateListLinked(&toDoList);
-
-    CreateListLinked(&progressList);
-
     writeQuery(&moveFromLocQuery, "MOVE", 4);
     writeQuery(&pickUpQuery, "PICK_UP", 7);
     writeQuery(&dropOffQuery, "DROP_OFF", 8);
@@ -995,6 +996,8 @@ void gameMenu()
 
         if (compareQuery(inputQuery, moveFromLocQuery)) {
             moveMenu();
+            updateTas();
+            updateProgressList();
         }
         else if (compareQuery(inputQuery, pickUpQuery)) {
             pickUpMenu();
@@ -1032,10 +1035,7 @@ void gameMenu()
 
         hasWon = isEmptyQueue(daftarPesanan) && isEmptyStack(tas) && isEmptyListLinked(toDoList) && (EQLokasi(LOKASI_PLAYER(Mobita), HQ));
 
-        updateTas();
-        updateProgressList();
-
-    } while (!hasWon || !compareQuery(inputQuery, saveGameQuery));
+    } while (!hasWon && !compareQuery(inputQuery, saveGameQuery));
 
     if (hasWon) {
         printf("Selamat, Mobita berhasil mengantarkan seluruh Item!\n");

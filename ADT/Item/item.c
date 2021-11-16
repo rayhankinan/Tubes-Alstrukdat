@@ -62,6 +62,7 @@ void BacaItem(Item *I, ListDin daftarBangunan)
         if (eotFile) {
             WAKTU_LEWAT_ITEM(*I) = 0;
         } else {
+            advWordFile();
             WAKTU_LEWAT_ITEM(*I) = wordToInt(currentWordFile);
         }
     }
