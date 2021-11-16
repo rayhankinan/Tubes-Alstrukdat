@@ -103,6 +103,9 @@ void displayListDin(ListDin l);
 /* Jika list kosong : menulis [] */
 
 void writeListDin(ListDin l);
+/* Menulis List ke file config */
+/* I.S. l terdefinisi */
+/* F.S. setiap lokasi di dalam l ditulis ke dalam file config dengan format "<nama_lokasi> <absis_lokasi> <ordinat_lokasi>"" */
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : list boleh kosong!! *** */

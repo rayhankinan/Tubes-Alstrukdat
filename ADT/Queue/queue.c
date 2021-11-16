@@ -138,8 +138,8 @@ void readQueue(Queue* q, ListDin daftarBangunan)
 }
 void displayQueue(Queue q)
 /* Proses : Menuliskan isi Queue dengan traversal dengan menggunakan fungsi tulis item*/
-/* I.S. q terisi, apabila kosong, tidak akan mendisplay apa=apa */
-/* F.S. Jika q tidak kosong: <lokasi_pickup> -> <lokasi dropoff> <(jenis_item)> untuk item biasa,
+/* I.S. q terisi, apabila kosong, tidak akan mendisplay apa-apa */
+/* F.S. Jika q tidak kosong: <lokasi_pickup> -> <lokasi dropoff> (<jenis_item>) untuk item biasa,
 dan menampilkan sisa waktu untuk item perishable */
 {
     /* KAMUS */
@@ -150,5 +150,22 @@ dan menampilkan sisa waktu untuk item perishable */
         dequeue(&q, &val);
         TulisItem(val);
         printf("\n");
+    }
+}
+void writeQueue(Queue q)
+/* Proses : Menuliskan isi Queue dengan traversal dengan menggunakan fungsi tulis item*/
+/* I.S. q terisi, apabila kosong, tidak akan mendisplay apa-apa */
+/* F.S. Jika q tidak kosong: <waktu_pickup> <lokasi_pickup> <lokasi dropoff> <jenis_item> untuk item biasa,
+dan menampilkan sisa waktu untuk item perishable */
+{
+    /* KAMUS */
+    ElTypeQueue val;
+
+    /* ALGORITMA */
+    printfFile("%d\n", lengthQueue(q));
+    while (!isEmptyQueue(q)) {
+        dequeue(&q, &val);
+        WriteItem(val);
+        printfFile("\n");
     }
 }

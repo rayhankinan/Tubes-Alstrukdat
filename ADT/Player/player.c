@@ -63,3 +63,18 @@ void BacaPlayer(Player* p)
 
   advCharFile(); /* Membaca baris berikutnya */
 }
+
+void WritePlayer(Player P)
+/* Menulis data karakteristik Player dari File Config */
+/* I.S. : p terdefinisi */
+/* F.S. : p ditulis ke dalam File Config */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
+  WriteLokasi(LOKASI_PLAYER(P));
+  printfFile(" ");
+
+  printfFile("%d %d %d %d %d %d %d\n", UANG_PLAYER(P), BERAT_PLAYER(P), SPEED_BOOST_PLAYER(P), SPEED_MOVE_PLAYER(P), JUMLAH_RETURN_PLAYER(P), WAKTU_PLAYER(P), WAKTU_TAMBAH_PLAYER(P));
+
+}

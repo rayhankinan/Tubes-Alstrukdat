@@ -7,6 +7,7 @@
 
 #include "../Boolean/boolean.h"
 #include "../Item/item.h"
+#include "../LinkedList/list_linked.h"
 
 #define IDX_UNDEF_STACK -1
 
@@ -68,16 +69,26 @@ void growDoubleStack(Stack* s);
 void readStack(Stack* s, ListDin daftarBangunan);
 /* Membaca Stack S dari file config kemudian mengisi nilainya */
 /* I.S. Stack s sembarang */
-/* F.S. Stack s terdefinisi dengan nilai dari file config */
+/* F.S. Stack s terdefinisi dengan nilai kapasitas dari file config */
 
 void displayStack(Stack s);
 /* Menampilkan isi Stack s pada layar */
 /* I.S. Stack s terdefinisi */
 /* F.S. isi Item di dalam Stack s ditampilkan pada layar */
 
+void writeStack(Stack s);
+/* Menulis isi Stack s pada file config */
+/* I.S. Stack s terdefinisi */
+/* F.S. Capacity Stack s ditulis di dalam file config */
+
+void isiTas(Stack* s, ListLinked l);
+/* Mengisi nilai Item sesuai dengan list linked */
+/* I.S. Stack s terdefinisi dan list linked l terdefinisi */
+/* F.S. isi Item di dalam Stack sama dengan list linked l */
+
 void updateWaktuTimeTas(Stack* tas, int waktu);
-//I.S menerima queue tas bisa empty juga
-//F.S Mengupdatae waktu item tas
+/* I.S menerima queue tas bisa empty juga */
+/* F.S Mengupdate waktu item tas*/
 
 void kembalikanWaktuItemTas(Stack *tas);
 //I.S Menerima tas yang tidak kosong, 

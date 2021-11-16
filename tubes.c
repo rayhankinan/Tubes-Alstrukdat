@@ -196,6 +196,8 @@ void readFileConfigLoadGame(char namaFile[])
 
     readListLinked(&progressList, daftarBangunan);
 
+    isiTas(&tas, progressList);
+
     stopWordFile();   
 }
 
@@ -207,8 +209,32 @@ void writeFileConfig(char namaFile[])
     /* KAMUS */
 
     /* ALGORITMA */
+    startFile(namaFile);
 
-    /* ISI INI @GIBRAN */
+    printfFile("%d %d\n", N, M);
+
+    WritePOINT(KOORDINAT_LOKASI(HQ));
+    printfFile("\n");
+
+    writeListDin(daftarBangunan);
+
+    writeMatrix(adjacencyMatrix);
+
+    writeQueue(daftarPesanan);
+
+    WritePlayer(Mobita);
+
+    writeListPos(inventory);
+
+    writeListPos(hargaGadget);
+
+    writeStack(tas);
+
+    writeListLinked(toDoList);
+
+    writeListLinked(progressList);
+
+    endFile();
 }
 
 void readNewGame()
@@ -606,11 +632,6 @@ void pickUpMenu()
             deleteAtListLinked(&toDoList, i, &I);
             pushStack(&tas, I);
             insertFirstListLinked(&progressList, I);
-
-            if (JENIS_ITEM(I) == 'H') {
-                SPEED_BOOST_PLAYER(Mobita) = false;
-                BERAT_PLAYER(Mobita)++;
-            }
 
             switch (JENIS_ITEM(I)) {
                 case 'N':

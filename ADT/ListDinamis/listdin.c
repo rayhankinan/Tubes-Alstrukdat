@@ -129,21 +129,26 @@ void displayListDin(ListDin l)
   IdxTypeListDin i;
   
   /* ALGORITMA */
-  for (i = 0; i < (IdxTypeListDin) lengthListDin(l); i++) {
+  for (i = 0; i < (IdxTypeListDin) lengthListDin(l); i++) { /* HQ IKUT TERPRINT */
     TulisLokasi(ELMT_LISTDIN(l, i));
     printf("\n");
   }
 }
 
-void writeListDin(ListDin l){
+void writeListDin(ListDin l)
+/* Menulis List ke file config */
+/* I.S. l terdefinisi */
+/* F.S. setiap lokasi di dalam l ditulis ke dalam file config dengan format "<nama_lokasi> <absis_lokasi> <ordinat_lokasi>"" */
+{
   /*KAMUS LOKAL*/
   IdxTypeListDin i;
-  /* ALGORITMA */
-  for (i = 0; i < (IdxTypeListDin) lengthListDin(l); i++) {
-    /* belum beres hehe */
-    printfFile("%d", i);
-  }
 
+  /* ALGORITMA */
+  printfFile("%d\n", lengthListDin(l) - 1);
+  for (i = 1; i < (IdxTypeListDin) lengthListDin(l); i++) { /* HQ TIDAK IKUT TERPRINT */
+    WriteLokasi(ELMT_LISTDIN(l, i));
+    printfFile("\n");
+  }
 }
 
 IdxTypeListDin indexOfListDin(ListDin l, ElTypeListDin val)

@@ -90,6 +90,8 @@ void displayListLinked(ListLinked l);
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 void writeListLinked(ListLinked l);
+/* I.S. List terdefinisi */
+/* F.S. isi List ditulis ke dalam file config */
 
 int lengthListLinked(ListLinked l);
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */

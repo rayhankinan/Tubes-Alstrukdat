@@ -72,8 +72,13 @@ void readQueue(Queue* q, ListDin daftarBangunan);
       /*    Jika N = 0; hanya terbentuk l kosong */
 void displayQueue(Queue q);
 /* Proses : Menuliskan isi Queue dengan traversal dengan menggunakan fungsi tulis item*/
-/* I.S. q terisi, apabila kosong, tidak akan mendisplay apa=apa */
-/* F.S. Jika q tidak kosong: <lokasi_pickup> -> <lokasi dropoff> <(jenis_item)> untuk item biasa,
+/* I.S. q terisi, apabila kosong, tidak akan mendisplay apa-apa */
+/* F.S. Jika q tidak kosong: <lokasi_pickup> -> <lokasi dropoff> (<jenis_item>) untuk item biasa,
+dan menampilkan sisa waktu untuk item perishable */
+void writeQueue(Queue q);
+/* Proses : Menuliskan isi Queue dengan traversal dengan menggunakan fungsi tulis item*/
+/* I.S. q terisi, apabila kosong, tidak akan mendisplay apa-apa */
+/* F.S. Jika q tidak kosong: <waktu_pickup> <lokasi_pickup> <lokasi dropoff> <jenis_item> untuk item biasa,
 dan menampilkan sisa waktu untuk item perishable */
 
 #endif

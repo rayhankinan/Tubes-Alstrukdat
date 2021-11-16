@@ -44,6 +44,10 @@ void TulisItem(Item I);
 /* Nilai I tertulis di layar dengan format <pick_up> -> <drop_off> (<jenis_item_translated>, <waktu_hangus jika perishable>) */
 /* I.S. : I dan currentWaktu terdefinisi */
 /* F.S. : I tertulis di layar sesuai dengan format */
+void WriteItem(Item I);
+/* Nilai I tertulis di layar dengan format  */
+/* I.S. : I dan currentWaktu terdefinisi */
+/* F.S. : I tertulis di layar sesuai dengan format */
 
 /* Operasi Relasional */
 boolean EQItem(Item I1, Item I2);

@@ -59,7 +59,11 @@ void BacaItem(Item *I, ListDin daftarBangunan)
     } else {
         advWordFile();
         WAKTU_HANGUS_ITEM(*I) = wordToInt(currentWordFile);
-        WAKTU_LEWAT_ITEM(*I) = 0;
+        if (eotFile) {
+            WAKTU_LEWAT_ITEM(*I) = 0;
+        } else {
+            WAKTU_LEWAT_ITEM(*I) = wordToInt(currentWordFile);
+        }
     }
 
     advCharFile(); /* Membaca baris berikutnya */
@@ -86,6 +90,16 @@ void TulisItem(Item I)
             printf("%c -> %c (%s)", NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(DROP_OFF_ITEM(I)), "VIP Item");
             break;
     }
+}
+void WriteItem(Item I)
+/* Nilai I tertulis di layar dengan format <pick_up> -> <drop_off> (<jenis_item_translated>, <waktu_hangus jika perishable>) */
+/* I.S. : I dan currentWaktu terdefinisi */
+/* F.S. : I tertulis di layar sesuai dengan format */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    printfFile("%d %c %c %c %d %d", WAKTU_PICK_UP_ITEM(I), NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(DROP_OFF_ITEM(I)), JENIS_ITEM(I), WAKTU_HANGUS_ITEM(I), WAKTU_LEWAT_ITEM(I));
 }
 
 /* Operasi Relasional */

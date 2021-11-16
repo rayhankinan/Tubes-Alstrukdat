@@ -67,6 +67,16 @@ void displayMatrix(Matrix m);
    1 2 3
    4 5 6
    8 9 10
-   */
-void writeMatrix(Matrix M);
+*/
+void writeMatrix(Matrix m);
+/* I.S. m terdefinisi */
+/* F.S. Nilai m(i,j) ditulis ke file config per baris per kolom, masing-masing elemen per baris
+   dipisahkan sebuah spasi */
+/* Proses: Menulis nilai setiap elemen m ke file config dengan traversal per baris dan per kolom */
+/* Contoh: Menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
+   1 2 3
+   4 5 6
+   8 9 10
+*/
+
 #endif

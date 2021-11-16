@@ -121,23 +121,16 @@ void growDoubleStack(Stack* s)
 void readStack(Stack* s, ListDin daftarBangunan)
 /* Membaca Stack S dari file config kemudian mengisi nilainya */
 /* I.S. Stack s sembarang */
-/* F.S. Stack s terdefinisi dengan nilai dari file config */
+/* F.S. Stack s terdefinisi dengan nilai kapasitas dari file config */
 {
     /* KAMUS */
-    int i, N;
-    ElTypeStack tempItem;
 
     /* ALGORITMA */
     CreateStack(s);
 
     advWordFile();
-    N = wordToInt(currentWordFile);
+    CAPACITY_STACK(*s) = wordToInt(currentWordFile);
     advCharFile(); /* Membaca baris berikutnya */
-
-    for (i = 0; i < N; i++) {
-        BacaItem(&tempItem, daftarBangunan);
-        pushStack(s, tempItem);
-    }
 }
 void displayStack(Stack s)
 /* Menampilkan isi Stack s pada layar */
@@ -172,9 +165,36 @@ void displayStack(Stack s)
     }
 }
 
+void writeStack(Stack s)
+/* Menulis isi Stack s pada file config */
+/* I.S. Stack s terdefinisi */
+/* F.S. Capacity Stack s ditulis di dalam file config */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    printfFile("%d\n", CAPACITY_STACK(s));
+}
+
+void isiTas(Stack* s, ListLinked l)
+/* Mengisi nilai Item sesuai dengan list linked */
+/* I.S. Stack s sembarang dan list linked l terdefinisi */
+/* F.S. isi Item di dalam Stack sama dengan list linked l */
+{
+    /* KAMUS */
+    Address p;
+
+    /* ALGORITMA */
+    p = l;
+    while (p != NULL) {
+        pushStack(s, INFO_NODE(p));
+        p = NEXT_NODE(p);
+    }
+}
+
 void updateWaktuTimeTas(Stack* tas, int waktu)
 //I.S menerima queue tas bisa empty juga
-//F.S Mengupdatae waktu item tas
+//F.S Mengupdate waktu item tas
 {
     /*KAMUS*/
     int i;

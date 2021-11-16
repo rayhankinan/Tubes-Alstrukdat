@@ -45,6 +45,19 @@ void TulisLokasi(Lokasi L)
   printf("%c ", NAMA_LOKASI(L));
   TulisPOINT(KOORDINAT_LOKASI(L));
 }
+void WriteLokasi(Lokasi L)
+/* Nilai L dituliskan ke file config dengan format "<nama_lokasi> <absis_lokasi> <ordinat_lokasi>"
+   tanpa spasi, enter, atau karakter lain di depan, belakang.
+   atau di antaranya */
+/* I.S. L terdefinisi */
+/* F.S. L tertulis di file config dengan format "<nama_lokasi> <absis_lokasi> <ordinat_lokasi>" */
+{
+  /* KAMUS */
+
+  /* ALGORITMA */
+  printfFile("%c ", NAMA_LOKASI(L));
+  WritePOINT(KOORDINAT_LOKASI(L));
+}
 
 /* OPERASI RELASIONAL */
 boolean EQLokasi(Lokasi L1, Lokasi L2)

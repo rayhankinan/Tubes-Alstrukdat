@@ -44,4 +44,9 @@ void BacaPlayer(Player* p);
 /* I.S. : p sembarang */
 /* F.S. : p terdefinisi dengan data File Config */
 
+void WritePlayer(Player P);
+/* Menulis data karakteristik Player dari File Config */
+/* I.S. : p terdefinisi */
+/* F.S. : p ditulis ke dalam File Config */
+
 #endif

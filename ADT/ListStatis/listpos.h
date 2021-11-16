@@ -79,15 +79,18 @@ void readListPos(ListPos *l);
 /*    Jika n = 0; hanya terbentuk List kosong */
 
 void displayListPos(ListPos l);
-/* Proses : Menuliskan isi List dengan traversal, List ditulis di antara kurung
-   siku; antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan
+/* Proses : Menuliskan isi List dengan traversal pada layar, List ditulis tanpa tambahan
    karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
 /* I.S. l boleh kosong */
-/* F.S. Jika l tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika List kosong : menulis [] */
+/* F.S. Jika l tidak kosong: e1 e2 ... en */
+/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: 1 20 30 */
 
 void writeListPos(ListPos l);
+/* Proses : Menuliskan isi List dengan traversal pada file config, List ditulis tanpa tambahan
+   karakter di depan, di tengah, atau di belakang, termasuk spasi dan enter */
+/* I.S. l boleh kosong */
+/* F.S. Jika l tidak kosong: e1 e2 ... en */
+/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: 1 20 30 */
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */

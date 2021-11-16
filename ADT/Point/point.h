@@ -6,6 +6,7 @@
 
 #include "../Boolean/boolean.h"
 #include "../Mesin/wordmachinefile.h"
+#include "../Mesin/writemachine.h"
 
 /* *** Type POINT *** */
 typedef struct {
@@ -38,6 +39,13 @@ void TulisPOINT(POINT P);
 */
 /* I.S. P terdefinisi */
 /* F.S. P tertulis di layar dengan format "(X,Y)" */
+void WritePOINT(POINT P);
+/* Nilai P ditulis ke file config dengan format "X Y"
+   tanpa spasi, enter, atau karakter lain di depan, belakang,
+   atau di antaranya
+*/
+/* I.S. P terdefinisi */
+/* F.S> P tertulis di file config dengan format " X Y" */
 
 /* *** Kelompok operasi relasional terhadap POINT *** */
 boolean EQPOINT(POINT P1, POINT P2);

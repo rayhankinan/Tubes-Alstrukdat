@@ -279,6 +279,23 @@ void displayListLinked(ListLinked l)
     i++;
   }
 }
+void writeListLinked(ListLinked l)
+/* I.S. List terdefinisi */
+/* F.S. isi List ditulis ke dalam file config */
+{
+  /* KAMUS LOKAL */
+  Address p;
+
+  /* ALGORITMA */
+  printfFile("%d\n", lengthListLinked(l));
+
+  p = FIRST_LIST_LINKED(l);
+  while (p != NULL) {
+    WriteItem(INFO_NODE(p));
+    printfFile("\n");
+    p = NEXT_NODE(p);
+  }
+}
 
 int lengthListLinked(ListLinked l)
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */

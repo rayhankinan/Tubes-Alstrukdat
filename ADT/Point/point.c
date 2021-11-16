@@ -50,6 +50,19 @@ void TulisPOINT (POINT P)
     /* ALGORITMA */
     printf("(%d,%d)", Absis_POINT(P), Ordinat_POINT(P));
 }
+void WritePOINT(POINT P)
+/* Nilai P ditulis ke file config dengan format "X Y"
+   tanpa spasi, enter, atau karakter lain di depan, belakang,
+   atau di antaranya
+*/
+/* I.S. P terdefinisi */
+/* F.S> P tertulis di file config dengan format " X Y" */
+{
+    /* KAMUS */
+
+    /* ALGORITMA */
+    printfFile("%d %d", Absis_POINT(P), Ordinat_POINT(P));
+}
 
 /* *** Kelompok operasi relasional terhadap POINT *** */
 boolean EQPOINT (POINT P1, POINT P2)
