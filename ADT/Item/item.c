@@ -100,7 +100,11 @@ void WriteItem(Item I)
     /* KAMUS */
 
     /* ALGORITMA */
-    printfFile("%d %c %c %c %d %d", WAKTU_PICK_UP_ITEM(I), NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(DROP_OFF_ITEM(I)), JENIS_ITEM(I), WAKTU_HANGUS_ITEM(I), WAKTU_LEWAT_ITEM(I));
+    if (JENIS_ITEM(I) == 'P') {
+        printfFile("%d %c %c %c %d %d", WAKTU_PICK_UP_ITEM(I), NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(DROP_OFF_ITEM(I)), JENIS_ITEM(I), WAKTU_HANGUS_ITEM(I), WAKTU_LEWAT_ITEM(I));
+    } else {
+        printfFile("%d %c %c %c", WAKTU_PICK_UP_ITEM(I), NAMA_LOKASI(PICK_UP_ITEM(I)), NAMA_LOKASI(DROP_OFF_ITEM(I)), JENIS_ITEM(I));
+    }
 }
 
 /* Operasi Relasional */
