@@ -16,6 +16,7 @@ typedef struct
   int jumlahReturn; /* jumlah effect return item yang dimiliki */
   int waktu;  /* waktu berlalu setelah Player terdefinisi */
   int waktuTambah; /* waktu pengurangan perishable*/
+  int jumlahAntar; /* jumlah item yang sudah diantarkan Player */
 } Player;
 
 /* SELEKTOR */
@@ -27,6 +28,7 @@ typedef struct
 #define JUMLAH_RETURN_PLAYER(x) (x).jumlahReturn
 #define WAKTU_PLAYER(x) (x).waktu
 #define WAKTU_TAMBAH_PLAYER(x) (x).waktuTambah
+#define JUMLAH_ANTAR_PLAYER(x) (x).jumlahAntar
 
 /* KONSTRUKTOR */
 void CreatePlayer(Player* p, Lokasi lAwal);

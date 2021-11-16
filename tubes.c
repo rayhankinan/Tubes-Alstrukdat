@@ -403,7 +403,7 @@ void shopMenu()
                 readQuery(&input);
                 shop_index = wordToInt(input);
                 if (shop_index < 0 || shop_index > 4) {
-                    printf("Try Again!");
+                    printf("Try Again!\n");
                 }
             } while (shop_index < 0 || shop_index > 4);
 
@@ -683,12 +683,14 @@ void dropOffMenu()
             switch (JENIS_ITEM(I)) {
             case 'N':
                 UANG_PLAYER(Mobita) += 200;
+                JUMLAH_ANTAR_PLAYER(Mobita)++;
                 printf("Pesanan berupa Normal Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 200);
                 break;
             case 'H':
                 UANG_PLAYER(Mobita) += 400;
                 BERAT_PLAYER(Mobita)--;
+                JUMLAH_ANTAR_PLAYER(Mobita)++;
                 SPEED_BOOST_PLAYER(Mobita) = BERAT_PLAYER(Mobita) == 0;
                 printf("Pesanan berupa Heavy Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 400);
@@ -696,22 +698,22 @@ void dropOffMenu()
             case 'P':
                 UANG_PLAYER(Mobita) += 400;
                 growStack(&tas);
+                JUMLAH_ANTAR_PLAYER(Mobita)++;
                 printf("Pesanan berupa Perishable Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 400);
                 break;
             case 'V':
                 UANG_PLAYER(Mobita) += 600;
                 JUMLAH_RETURN_PLAYER(Mobita)++;
+                JUMLAH_ANTAR_PLAYER(Mobita)++;
                 printf("Pesanan berupa VIP Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 600);
                 break;
             }
-        }
-        else{
+        } else {
             printf("Hanya bisa mengantar item teratas bag ke tujuan lokasi yang benar!\n");
         }
-    }
-    else {
+    } else {
         printf("Tas kosong!\n");
     }
 }
@@ -763,7 +765,7 @@ void returnMenu()
         }
         else {
             if (JENIS_ITEM(TOP_STACK(tas)) == 'H'){
-                BERAT_PLAYER(Mobita)-=1;
+                BERAT_PLAYER(Mobita)--;
             }
             popStack(&tas, &trash);
             if (JENIS_ITEM(TOP_STACK(tas)) == 'N' || JENIS_ITEM(TOP_STACK(tas)) == 'H') {
@@ -777,7 +779,7 @@ void returnMenu()
                 insertLastListLinked(&toDoList, trash);
                 printf("Top Item in bag, succeded returned to sender\n");
             }
-            JUMLAH_RETURN_PLAYER(Mobita) -= 1;
+            JUMLAH_RETURN_PLAYER(Mobita)--;
         }
     }
     else {
@@ -933,7 +935,7 @@ void mainMenu()
 
         if (compareQuery(inputQuery, newGameQuery)) {
             readNewGame();
-            
+
             CreatePlayer(&Mobita, HQ);
 
             CreateListPos(&inventory);
@@ -963,7 +965,7 @@ void mainMenu()
         else {
             printf("Try Again!\n");
         }
-    } while (!compareQuery(inputQuery, newGameQuery) || !compareQuery(inputQuery, quitQuery) || !compareQuery(inputQuery, loadGameQuery));
+    } while (!compareQuery(inputQuery, newGameQuery) && !compareQuery(inputQuery, quitQuery) && !compareQuery(inputQuery, loadGameQuery));
 }
 
 void gameMenu()
@@ -1048,6 +1050,8 @@ void gameMenu()
 
     if (hasWon) {
         printf("Selamat, Mobita berhasil mengantarkan seluruh Item!\n");
+        printf("Jumlah item yang berhasil diantar: %d\n", JUMLAH_ANTAR_PLAYER(Mobita));
+        printf("Waktu yang dilampaui: %d\n", WAKTU_PLAYER(Mobita));
     }
     else {
         printf("Saving game . . .\n");
