@@ -1054,7 +1054,7 @@ void gameMenu()
 {
     /* KAMUS */
     Word inputQuery, moveFromLocQuery, pickUpQuery, dropOffQuery, mapLokasiQuery, toDoListQuery, inProgressQuery, buyGadgetQuery, inventoryGadgetQuery, helpCommandQuery, saveGameQuery, returnItemQuery;
-    char *filename = "ascii_menu.txt";
+    char *filename = "ascii_win.txt";
     FILE *fptr = NULL;
 
     /* ALGORITMA */
