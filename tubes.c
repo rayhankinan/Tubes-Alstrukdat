@@ -198,6 +198,7 @@ void readFileConfigLoadGame(char namaFile[])
     readListLinked(&progressList, daftarBangunan);
 
     isiTas(&tas, progressList);
+    displayStack(tas);
 
     stopWordFile();
 }
@@ -638,7 +639,7 @@ void pickUpMenu()
         else {
             deleteAtListLinked(&toDoList, i, &I);
             pushStack(&tas, I);
-            insertLastListLinked(&progressList, I);
+            insertFirstListLinked(&progressList, I);
 
             switch (JENIS_ITEM(I)) {
             case 'N':
@@ -675,7 +676,7 @@ void dropOffMenu()
     if (!isEmptyStack(tas)) {
         if (NAMA_LOKASI(DROP_OFF_ITEM(TOP_STACK(tas))) == NAMA_LOKASI(LOKASI_PLAYER(Mobita))) {
             popStack(&tas, &I);
-            deleteLastListLinked(&progressList, &I);
+            deleteFirstListLinked(&progressList, &I);
 
             switch (JENIS_ITEM(I)) {
             case 'N':
@@ -764,18 +765,18 @@ void returnMenu()
             if (JENIS_ITEM(TOP_STACK(tas)) == 'H') {
                 BERAT_PLAYER(Mobita)--;
                 popStack(&tas, &trash);
-                deleteLastListLinked(&progressList, &trash);
-                insertLastListLinked(&toDoList, trash);
+                deleteFirstListLinked(&progressList, &trash);
+                insertFirstListLinked(&toDoList, trash);
                 printf("Heavy Item berhasil direturn\n");
             } else if (JENIS_ITEM(TOP_STACK(tas)) == 'N') {
                 popStack(&tas, &trash);
-                deleteLastListLinked(&progressList, &trash);
+                deleteFirstListLinked(&progressList, &trash);
                 insertLastListLinked(&toDoList, trash);
                 printf("Normal Item berhasil direturn\n");
             } else {
                 kembalikanWaktuItem(&progressList);
                 popStack(&tas, &trash);
-                deleteLastListLinked(&progressList, &trash);
+                deleteFirstListLinked(&progressList, &trash);
                 insertLastListLinked(&toDoList, trash);
                 printf("Perishable Item berhasil direturn\n");
             }

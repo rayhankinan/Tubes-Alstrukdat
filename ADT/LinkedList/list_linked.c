@@ -363,19 +363,15 @@ void kembalikanWaktuItem(ListLinked* l)
 //F.S Mengembalikan waktu semula item perishable teratas
 {
   /* KAMUS LOKAL */
-  Address p, pLoc;
+  Address p;
 
   /* ALGORITMA */
   p = FIRST_LIST_LINKED(*l);
-  pLoc = p;
-  while (p != NULL) {
-    if (JENIS_ITEM(INFO_NODE(p)) == 'P') {
-      pLoc = p;
-    }
+  while (JENIS_ITEM(INFO_NODE(p)) != 'P') {
     p = NEXT_NODE(p);
   }
-  WAKTU_HANGUS_ITEM(INFO_NODE(pLoc)) += WAKTU_LEWAT_ITEM(INFO_NODE(pLoc));
-  WAKTU_LEWAT_ITEM(INFO_NODE(pLoc)) = 0;
+  WAKTU_HANGUS_ITEM(INFO_NODE(p)) += WAKTU_LEWAT_ITEM(INFO_NODE(p));
+  WAKTU_LEWAT_ITEM(INFO_NODE(p)) = 0;
 }
 
 void displayprogress(ListLinked l)

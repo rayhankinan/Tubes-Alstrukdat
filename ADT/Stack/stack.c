@@ -70,8 +70,7 @@ void pushStack(Stack* s, ElTypeStack val)
         TOP_STACK(*s) = val;
     }
     else {
-        IDX_TOP_STACK(*s)
-            ++;
+        IDX_TOP_STACK(*s)++;
         TOP_STACK(*s) = val;
     }
 }
@@ -118,8 +117,7 @@ void growStack(Stack* s)
 {
 
     /* ALGORITMA */
-    CAPACITY_STACK(*s)
-        ++;
+    CAPACITY_STACK(*s)++;
     BUFFER_STACK(*s) = (ElTypeStack*)realloc(BUFFER_STACK(*s), CAPACITY_STACK(*s) * sizeof(ElTypeStack));
 }
 
@@ -203,12 +201,21 @@ void isiTas(Stack* s, ListLinked l)
 {
     /* KAMUS */
     Address p;
+    Stack temp;
+    ElTypeStack val;
 
     /* ALGORITMA */
+    CreateStack(&temp);
+
     p = l;
     while (p != NULL) {
-        pushStack(s, INFO_NODE(p));
+        pushStack(&temp, INFO_NODE(p));
         p = NEXT_NODE(p);
+    }
+
+    while (!isEmptyStack(temp)) {
+        popStack(&temp, &val);
+        pushStack(s, val);
     }
 }
 
