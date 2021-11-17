@@ -11,6 +11,7 @@ typedef struct
   Lokasi loc; /* lokasi player */
   int uang;   /* uang player */
   int berat;  /* berat efek heavy item */
+  boolean senterPengecil; /* apakah Player memiliki efek senter pengecil */
   boolean isSpeedBoost; /* apakah Player mendapat ability speed boost */
   int speedMove; /* jumlah pergerakan saat mendapat efek speedMove */
   int jumlahReturn; /* jumlah effect return item yang dimiliki */
@@ -23,6 +24,7 @@ typedef struct
 #define LOKASI_PLAYER(x) (x).loc
 #define UANG_PLAYER(x) (x).uang
 #define BERAT_PLAYER(x) (x).berat
+#define SENTER_PENGECIL_PLAYER(x) (x).senterPengecil
 #define SPEED_BOOST_PLAYER(x) (x).isSpeedBoost
 #define SPEED_MOVE_PLAYER(x) (x).speedMove
 #define JUMLAH_RETURN_PLAYER(x) (x).jumlahReturn

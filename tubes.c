@@ -126,6 +126,10 @@ void printGadgetName(int id)
         break;
     case 4:
         printf("Mesin Waktu");
+        break;
+    case 5:
+        printf("Senter Pengecil");
+        break;
     }
 }
 
@@ -393,16 +397,17 @@ void shopMenu()
             printf("2. Senter Pembesar (1200 Yen)\n");
             printf("3. Pintu Kemana Saja (1500 Yen)\n");
             printf("4. Mesin Waktu (3000 Yen)\n");
+            printf("5. Senter Pengecil (800 Yen)\n");
             printf("Gadget mana yang ingin kau beli? (ketik 0 jika ingin kembali)\n");
 
             do {
                 printf("\nENTER COMMAND: ");
                 readQuery(&input);
                 shop_index = wordToInt(input);
-                if (shop_index < 0 || shop_index > 4) {
+                if (shop_index < 0 || shop_index > 5) {
                     printf("Try Again!\n");
                 }
-            } while (shop_index < 0 || shop_index > 4);
+            } while (shop_index < 0 || shop_index > 5);
 
             if (shop_index != 0) {
                 total = UANG_PLAYER(Mobita) - ELMT_LISTPOS(hargaGadget, shop_index - 1);
@@ -474,20 +479,36 @@ void activateEffect(int id)
         if (JENIS_ITEM(TOP_STACK(tas)) == 'P') {
             kembalikanWaktuItem(&progressList);
             kembalikanWaktuItemTas(&tas);
+            printGadgetName(1);
+            printf(" berhasil diaktifkan!\n");
         }
         break;
     case 2:
         if (CAPACITY_STACK(tas) < 100) {
             growDoubleStack(&tas);
+            printGadgetName(2);
+            printf(" berhasil diaktifkan!\n");
         }
         break;
     case 3:
+        printGadgetName(3);
+        printf(" berhasil diaktifkan!\n");
         pintuKemanaSajaMenu();
         break;
     case 4:
         WAKTU_PLAYER(Mobita) -= 50;
         if (WAKTU_PLAYER(Mobita) < 0) {
             WAKTU_PLAYER(Mobita) = 0;
+        }
+        printGadgetName(4);
+        printf(" berhasil diaktifkan!\n");
+        break;
+    case 5:
+        if (JENIS_ITEM(TOP_STACK(tas)) == 'H') {
+            SENTER_PENGECIL_PLAYER(Mobita) = true;
+            BERAT_PLAYER(Mobita)--;
+            printGadgetName(5);
+            printf(" berhasil diaktifkan!\n");
         }
         break;
     }
@@ -681,14 +702,22 @@ void dropOffMenu()
             case 'N':
                 UANG_PLAYER(Mobita) += 200;
                 JUMLAH_ANTAR_PLAYER(Mobita)++;
+                if (SENTER_PENGECIL_PLAYER(Mobita)) {
+                    BERAT_PLAYER(Mobita)++;
+                    SENTER_PENGECIL_PLAYER(Mobita) = false;
+                }
                 printf("Pesanan berupa Normal Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 200);
                 break;
             case 'H':
                 UANG_PLAYER(Mobita) += 400;
-                BERAT_PLAYER(Mobita)--;
                 JUMLAH_ANTAR_PLAYER(Mobita)++;
                 SPEED_BOOST_PLAYER(Mobita) = BERAT_PLAYER(Mobita) == 0;
+                if (!SENTER_PENGECIL_PLAYER(Mobita)) {
+                    BERAT_PLAYER(Mobita)--;
+                } else {
+                    SENTER_PENGECIL_PLAYER(Mobita) = false;
+                }
                 printf("Pesanan berupa Heavy Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 400);
                 break;
@@ -696,6 +725,10 @@ void dropOffMenu()
                 UANG_PLAYER(Mobita) += 400;
                 growStack(&tas);
                 JUMLAH_ANTAR_PLAYER(Mobita)++;
+                if (SENTER_PENGECIL_PLAYER(Mobita)) {
+                    BERAT_PLAYER(Mobita)++;
+                    SENTER_PENGECIL_PLAYER(Mobita) = false;
+                }
                 printf("Pesanan berupa Perishable Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 400);
                 break;
@@ -703,6 +736,10 @@ void dropOffMenu()
                 UANG_PLAYER(Mobita) += 600;
                 JUMLAH_RETURN_PLAYER(Mobita)++;
                 JUMLAH_ANTAR_PLAYER(Mobita)++;
+                if (SENTER_PENGECIL_PLAYER(Mobita)) {
+                    BERAT_PLAYER(Mobita)++;
+                    SENTER_PENGECIL_PLAYER(Mobita) = false;
+                }
                 printf("Pesanan berupa VIP Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 600);
                 break;
@@ -753,8 +790,8 @@ void inProgressMenu()
 
 void returnMenu()
 /* Mengecek apabila bisa mengembalikan item, dan restore it menjadi keadaan awal item tersebut lagi */
-//  I.S. : Cek ability player kalau punya ability untuk return, dan jenis item stack teratas bukan VIP Item 
-//  F.S. : Jika true, pesanan teratas kembali ke todo list terakhir (N,H), time limit pesanan reset sebelum dikembalikan ke todo list terakhir(P)  
+/*  I.S. : Cek ability player kalau punya ability untuk return, dan jenis item stack teratas bukan VIP Item */
+/*  F.S. : Jika true, pesanan teratas kembali ke todo list terakhir (N,H), time limit pesanan reset sebelum dikembalikan ke todo list terakhir(P)  */ 
 {
     Item trash;
 
@@ -764,19 +801,31 @@ void returnMenu()
         }
         else {
             if (JENIS_ITEM(TOP_STACK(tas)) == 'H') {
-                BERAT_PLAYER(Mobita)--;
+                if (!SENTER_PENGECIL_PLAYER(Mobita)) {
+                    BERAT_PLAYER(Mobita)--;
+                } else {
+                    SENTER_PENGECIL_PLAYER(Mobita) = false;
+                }
                 popStack(&tas, &trash);
                 deleteFirstListLinked(&progressList, &trash);
                 insertFirstListLinked(&toDoList, trash);
                 printf("Heavy Item berhasil direturn\n");
             }
             else if (JENIS_ITEM(TOP_STACK(tas)) == 'N') {
+                if (SENTER_PENGECIL_PLAYER(Mobita)) {
+                    BERAT_PLAYER(Mobita)++;
+                    SENTER_PENGECIL_PLAYER(Mobita) = false;
+                }
                 popStack(&tas, &trash);
                 deleteFirstListLinked(&progressList, &trash);
                 insertLastListLinked(&toDoList, trash);
                 printf("Normal Item berhasil direturn\n");
             }
             else {
+                if (SENTER_PENGECIL_PLAYER(Mobita)) {
+                    BERAT_PLAYER(Mobita)++;
+                    SENTER_PENGECIL_PLAYER(Mobita) = false;
+                }
                 kembalikanWaktuItem(&progressList);
                 popStack(&tas, &trash);
                 deleteFirstListLinked(&progressList, &trash);
@@ -949,6 +998,7 @@ void mainMenu()
             insertLastListPos(&hargaGadget, 1200);
             insertLastListPos(&hargaGadget, 1500);
             insertLastListPos(&hargaGadget, 3000);
+            insertLastListPos(&hargaGadget, 800);
 
             CreateStack(&tas);
 

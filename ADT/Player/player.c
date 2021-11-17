@@ -12,6 +12,7 @@ void CreatePlayer(Player* p, Lokasi lAwal)
   LOKASI_PLAYER(*p) = lAwal;
   UANG_PLAYER(*p) = 0;
   BERAT_PLAYER(*p) = 0;
+  SENTER_PENGECIL_PLAYER(*p) = false;
   SPEED_BOOST_PLAYER(*p) = false;
   SPEED_MOVE_PLAYER(*p) = 0;
   JUMLAH_RETURN_PLAYER(*p) = 0;
@@ -48,6 +49,9 @@ void BacaPlayer(Player* p)
   BERAT_PLAYER(*p) = wordToInt(currentWordFile);
 
   advWordFile();
+  SENTER_PENGECIL_PLAYER(*p) = wordToInt(currentWordFile);
+
+  advWordFile();
   SPEED_BOOST_PLAYER(*p) = wordToInt(currentWordFile);
 
   advWordFile();
@@ -79,6 +83,6 @@ void WritePlayer(Player P)
   WriteLokasi(LOKASI_PLAYER(P));
   printfFile(" ");
 
-  printfFile("%d %d %d %d %d %d %d %d\n", UANG_PLAYER(P), BERAT_PLAYER(P), SPEED_BOOST_PLAYER(P), SPEED_MOVE_PLAYER(P), JUMLAH_RETURN_PLAYER(P), WAKTU_PLAYER(P), WAKTU_TAMBAH_PLAYER(P), JUMLAH_ANTAR_PLAYER(P));
+  printfFile("%d %d %d %d %d %d %d %d %d\n", UANG_PLAYER(P), BERAT_PLAYER(P), SENTER_PENGECIL_PLAYER(P), SPEED_BOOST_PLAYER(P), SPEED_MOVE_PLAYER(P), JUMLAH_RETURN_PLAYER(P), WAKTU_PLAYER(P), WAKTU_TAMBAH_PLAYER(P), JUMLAH_ANTAR_PLAYER(P));
 
 }
