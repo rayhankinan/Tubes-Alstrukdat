@@ -559,8 +559,6 @@ efek gadget tersebut */
             printf("Tidak ada Gadget yang dapat digunakan!\n");
         }
         else {
-            printGadgetName(ELMT_LISTPOS(inventory, index_gadget - 1));
-            printf(" berhasil digunakan!\n");
             activateEffect(ELMT_LISTPOS(inventory, index_gadget - 1));
             ELMT_LISTPOS(inventory, index_gadget - 1) = VAL_UNDEF_LISTPOS;
         }
