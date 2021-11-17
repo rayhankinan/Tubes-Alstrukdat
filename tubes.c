@@ -1016,7 +1016,7 @@ void mainMenu()
     writeQuery(&quitQuery, "QUIT", 4);
     writeQuery(&loadGameQuery, "LOAD_GAME", 9);
 
-    filename = "ascii_menu.txt";
+    filename = "ASCIIArt/ascii_menu.txt";
     fptr = fopen(filename,"r");
     print_image(fptr);
     fclose(fptr);
@@ -1144,7 +1144,7 @@ void gameMenu()
     } while (!hasWon && !compareQuery(inputQuery, saveGameQuery));
 
     if (hasWon) {
-        filename = "ascii_win.txt";
+        filename = "ASCIIArt/ascii_win.txt";
         fptr = fopen(filename,"r");
         print_image(fptr);
         fclose(fptr);
