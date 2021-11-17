@@ -315,6 +315,7 @@ void saveGame()
     else {
         writeFileConfig(namaFile.contents);
     }
+    printf("State Game telah berhasil disimpan!\n");
 }
 
 void print_image(FILE *fptr)
@@ -1000,6 +1001,7 @@ void helpMenu()
     printf("10. SAVE_GAME -> Melakukan save state dari permainan yang sedang dijalankan\n");
     printf("11. RETURN -> Mengembalikan item di tumpukan tas teratas pada tas kembali ke lokasi pick up \n");
     printf("            (Hanya ketika Mobita memiliki ability Return To Sender)\n");
+    printf("12. EXIT_GAME -> Kembali ke Main Menu\n");
 }
 
 void mainMenu()
@@ -1008,12 +1010,12 @@ void mainMenu()
 /* F.S. Output main menu pada layar */
 {
     /* KAMUS */
-    Word inputQuery, quitQuery, newGameQuery, loadGameQuery;
+    Word inputQuery, exitQuery, newGameQuery, loadGameQuery;
     char *filename;
     FILE *fptr;
     /* ALGORITMA */
     writeQuery(&newGameQuery, "NEW_GAME", 8);
-    writeQuery(&quitQuery, "QUIT", 4);
+    writeQuery(&exitQuery, "EXIT", 4);
     writeQuery(&loadGameQuery, "LOAD_GAME", 9);
 
     filename = "ASCIIArt/ascii_menu.txt";
@@ -1047,8 +1049,8 @@ void mainMenu()
 
             gameMenu();
         }
-        else if (compareQuery(inputQuery, quitQuery)) {
-            printf("Quiting the game . . .\n");
+        else if (compareQuery(inputQuery, exitQuery)) {
+            printf("Exiting from program . . .\n");
             stopWord();
         }
         else if (compareQuery(inputQuery, loadGameQuery)) {
@@ -1058,7 +1060,7 @@ void mainMenu()
         else {
             printf("Try Again!\n");
         }
-    } while (!compareQuery(inputQuery, newGameQuery) && !compareQuery(inputQuery, quitQuery) && !compareQuery(inputQuery, loadGameQuery));
+    } while (!compareQuery(inputQuery, newGameQuery) && !compareQuery(inputQuery, exitQuery) && !compareQuery(inputQuery, loadGameQuery));
 }
 
 void gameMenu()
@@ -1067,7 +1069,7 @@ void gameMenu()
 /* F.S. : Output game menu pada layar */
 {
     /* KAMUS */
-    Word inputQuery, moveFromLocQuery, pickUpQuery, dropOffQuery, mapLokasiQuery, toDoListQuery, inProgressQuery, buyGadgetQuery, inventoryGadgetQuery, helpCommandQuery, saveGameQuery, returnItemQuery;
+    Word inputQuery, moveFromLocQuery, pickUpQuery, dropOffQuery, mapLokasiQuery, toDoListQuery, inProgressQuery, buyGadgetQuery, inventoryGadgetQuery, helpCommandQuery, saveGameQuery, returnItemQuery, exitGameQuery, inputChar, yesChar, noChar;
     char *filename;
     FILE *fptr;
 
@@ -1085,6 +1087,10 @@ void gameMenu()
     writeQuery(&helpCommandQuery, "HELP", 4);
     writeQuery(&saveGameQuery, "SAVE_GAME", 9);
     writeQuery(&returnItemQuery, "RETURN", 6);
+    writeQuery(&exitGameQuery, "EXIT_GAME", 9);
+    writeQuery(&yesChar, "Y", 1);
+    writeQuery(&noChar, "N", 1);
+    writeQuery(&inputChar, "", 0);
 
     do {
         printf("\nMobita berada di posisi ");
@@ -1135,13 +1141,19 @@ void gameMenu()
         else if (compareQuery(inputQuery, returnItemQuery)) {
             returnMenu();
         }
+        else if (compareQuery(inputQuery, exitGameQuery)) {
+            do {
+                printf("Apakah anda ingin keluar dari game? [Y/N] ");
+                readQuery(&inputChar);
+            } while (!compareQuery(inputChar, yesChar) && !compareQuery(inputChar, noChar));
+        }
         else {
             printf("Try Again!\n");
         }
 
         hasWon = isEmptyQueue(daftarPesanan) && isEmptyStack(tas) && isEmptyListLinked(toDoList) && (EQLokasi(LOKASI_PLAYER(Mobita), HQ));
 
-    } while (!hasWon && !compareQuery(inputQuery, saveGameQuery));
+    } while (!hasWon && !compareQuery(inputChar, yesChar));
 
     if (hasWon) {
         filename = "ASCIIArt/ascii_win.txt";
@@ -1150,10 +1162,10 @@ void gameMenu()
         fclose(fptr);
         printf("Jumlah item yang berhasil diantar: %d\n", JUMLAH_ANTAR_PLAYER(Mobita));
         printf("Waktu yang dilampaui: %d\n", WAKTU_PLAYER(Mobita));
+        stopWord();
     }
     else {
-        printf("Saving game . . .\n");
+        printf("Exiting from the game . . .\n");
+        mainMenu();
     }
-
-    stopWord();
 }
