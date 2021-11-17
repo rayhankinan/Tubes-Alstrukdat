@@ -11,6 +11,8 @@
 #include "../Lokasi/lokasi.h"
 #include "../Mesin/wordmachinefile.h"
 #include "../Mesin/writemachine.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /*  Kamus Umum */
 #define IDX_UNDEF_LISTDIN -1

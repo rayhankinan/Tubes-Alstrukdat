@@ -7,7 +7,7 @@
 #include "../Mesin/wordmachinefile.h"
 #include "../Lokasi/lokasi.h"
 #include "../ListDinamis/listdin.h"
-#include "../Player/player.h"
+#include <stdio.h>
 
 #define UNDEF_WAKTU -1
 /* dipasangkan ke waktu jika bukan perishable item */

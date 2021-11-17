@@ -1,5 +1,6 @@
+/* Definisi ADT Player */
+
 #include "player.h"
-#include <stdio.h>
 
 /* KONSTRUKTOR */
 void CreatePlayer(Player* p, Lokasi lAwal)

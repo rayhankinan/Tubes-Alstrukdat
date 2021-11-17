@@ -7,6 +7,7 @@
 #include "../Boolean/boolean.h"
 #include "../Mesin/wordmachinefile.h"
 #include "../Mesin/writemachine.h"
+#include <stdio.h>
 
 /* *** Type POINT *** */
 typedef struct {

@@ -1,4 +1,4 @@
-#include <stdio.h>
+
 #include "lokasi.h"
 
 /* KONSTRUKTOR */

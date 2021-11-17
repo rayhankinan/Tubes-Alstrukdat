@@ -5,6 +5,8 @@
 #define WRITE_MACHINE_H
 
 #include "wordmachine.h"
+#include <stdio.h>
+#include <stdarg.h>
 
 #define MARK_WRITEMACHINE '\n'
 #define BLANK_WRITEMACHINE ' '

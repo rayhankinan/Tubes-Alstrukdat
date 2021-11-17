@@ -7,6 +7,7 @@
 #include "../Mesin/wordmachinefile.h"
 #include "../Point/point.h"
 #include "../Mesin/writemachine.h"
+#include <stdio.h>
 
 typedef struct
 {

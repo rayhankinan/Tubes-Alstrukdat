@@ -5,6 +5,7 @@
 #define CHAR_ENGINE_H
 
 #include "../Boolean/boolean.h"
+#include <stdio.h>
 
 #define MARK_CHARMACHINE '\n'
 /* Char Engine State */

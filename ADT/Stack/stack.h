@@ -8,6 +8,8 @@
 #include "../Boolean/boolean.h"
 #include "../Item/item.h"
 #include "../LinkedList/list_linked.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define IDX_UNDEF_STACK -1
 

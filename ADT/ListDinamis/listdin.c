@@ -1,12 +1,6 @@
 /* ADT List Dinamis */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "listdin.h"
-#include "../Mesin/wordmachinefile.h"
-#include "../Mesin/wordmachine.h"
-#include "../Mesin/writemachine.h"
-
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create list kosong  */

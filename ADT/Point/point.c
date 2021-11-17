@@ -1,6 +1,5 @@
 /* ADT POINT */
 
-#include <stdio.h>
 #include "point.h"
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */

@@ -6,6 +6,7 @@
 
 #include "../Boolean/boolean.h"
 #include "charmachine.h"
+#include <stdio.h>
 
 /* Char Engine State*/
 extern char currentCharFile;

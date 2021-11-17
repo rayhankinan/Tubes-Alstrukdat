@@ -1,7 +1,6 @@
 /* ADT Mesin Karakter untuk File */
 
 #include "charmachinefile.h"
-#include <stdio.h>
 
 char currentCharFile;
 boolean eotFile;

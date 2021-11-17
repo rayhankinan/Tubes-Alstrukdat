@@ -6,6 +6,7 @@
 #include "../Boolean/boolean.h"
 #include "../Mesin/wordmachinefile.h"
 #include "../Mesin/writemachine.h"
+#include <stdio.h>
 
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define ROW_CAP_MATRIX 100

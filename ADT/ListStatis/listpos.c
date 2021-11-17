@@ -1,7 +1,6 @@
 /* ADT List Statis */
 
 #include "listpos.h"
-#include <stdio.h>
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */

@@ -1,6 +1,5 @@
 /* ADT Queue*/
 
-#include <stdio.h>
 #include "queue.h"
 
 /* *** Kreator *** */

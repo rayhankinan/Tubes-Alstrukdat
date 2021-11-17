@@ -1,7 +1,5 @@
 /* ADT Linked List */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "list_linked.h"
 
 /* PROTOTYPE */

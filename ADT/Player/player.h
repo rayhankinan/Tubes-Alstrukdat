@@ -5,6 +5,7 @@
 
 #include "../Lokasi/lokasi.h"
 #include "../Boolean/boolean.h"
+#include <stdio.h>
 
 typedef struct
 {

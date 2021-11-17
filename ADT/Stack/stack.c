@@ -1,8 +1,6 @@
 /* ADT Stack*/
 
 #include "stack.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /* *** Konstruktor/Kreator *** */
 void CreateStack(Stack* s)

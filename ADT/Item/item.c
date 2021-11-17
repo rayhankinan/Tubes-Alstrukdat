@@ -1,7 +1,6 @@
 /* ADT Item */
 
 #include "item.h"
-#include <stdio.h>
 
 /* KONSTRUKTOR */
 Item CreateItem(char jenis, Lokasi pick_up, Lokasi drop_off, int waktu)

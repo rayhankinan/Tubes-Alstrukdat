@@ -2,7 +2,6 @@
 /* Implementasi Node */
 
 #include "node.h"
-#include <stdlib.h>
 
 Address newNode(ElTypeNode val) {
   Address p = (Address)malloc(sizeof(Node));

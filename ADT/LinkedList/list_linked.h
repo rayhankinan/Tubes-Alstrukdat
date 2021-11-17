@@ -8,6 +8,8 @@
 
 #include "../Boolean/boolean.h"
 #include "node.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef Address ListLinked;
 

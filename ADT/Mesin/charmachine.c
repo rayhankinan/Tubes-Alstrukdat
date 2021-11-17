@@ -1,7 +1,6 @@
 /* ADT Mesin Karakter*/
 
 #include "charmachine.h"
-#include <stdio.h>
 
 char currentChar;
 boolean eot;

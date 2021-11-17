@@ -1,8 +1,6 @@
 /* ADT Mesin Tulis untuk File */
 
 #include "writemachine.h"
-#include <stdio.h>
-#include <stdarg.h>
 
 static FILE *tapeFile;
 static int retValWrite;
