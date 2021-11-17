@@ -1,0 +1,20 @@
+                      o__                     ,__o
+                      ,>/_        HELP      _-\_<,
+                      (*)`(*)              (*)/'(*)
+===========================================================================
+
+    1.  MOVE        -> Berpindah ke lokasi selanjutnya
+    2.  PICK_UP     -> Mengambil item di lokasi sekarang
+    3.  DROP_OFF    -> Mengantarkan item ke lokasi sekarang
+    4.  MAP         -> Memunculkan peta
+    5.  TO_DO       -> Menampilkan pesanan yang masuk ke To Do List
+    6.  IN_PROGRESS -> Menampilkan pesanan yang sedang dikerjakan
+    7.  BUY         -> Menampilkan gadget yang dapat dibeli 
+                       (Hanya ketika Mobita dalam lokasi HQ)
+    8.  INVENTORY   -> Menampilkan list isi inventory
+    9.  HELP        -> Mengeluarkan list command dan kegunaannya
+    10. SAVE_GAME   -> Melakukan save state dari permainan yang sedang 
+                       dijalankan
+    11. RETURN      -> Mengembalikan item di tumpukan tas teratas pada
+                       tas kembali ke lokasi pick up 
+                       (Hanya ketika Mobita memiliki ability Return To Sender)
