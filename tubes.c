@@ -2,7 +2,7 @@
 /* Implementasi fungsi dan prosedur pada main program */
 
 #include "tubes.h"
-
+#define MAX_LEN 128
 /* State awal pada main program (sudah terdefinisi dari pembacaan file) */
 int N, M;
 Lokasi HQ;
@@ -315,6 +315,16 @@ void saveGame()
     else {
         writeFileConfig(namaFile.contents);
     }
+}
+
+void print_image(FILE *fptr)
+/* Mencetak ASCII art yang disimpan dalam .txt */
+
+{
+    char read_string[MAX_LEN];
+
+    while(fgets(read_string,sizeof(read_string),fptr) != NULL)
+        printf("%s",read_string);
 }
 
 void updatePesanan()
@@ -986,11 +996,16 @@ void mainMenu()
 {
     /* KAMUS */
     Word inputQuery, quitQuery, newGameQuery, loadGameQuery;
-
+    char *filename = "ascii_menu.txt";
+    FILE *fptr = NULL;
     /* ALGORITMA */
     writeQuery(&newGameQuery, "NEW_GAME", 8);
     writeQuery(&quitQuery, "QUIT", 4);
     writeQuery(&loadGameQuery, "LOAD_GAME", 9);
+
+    fptr = fopen(filename,"r");
+    print_image(fptr);
+    fclose(fptr);
 
     do {
         printf("ENTER COMMAND: ");
@@ -1039,6 +1054,8 @@ void gameMenu()
 {
     /* KAMUS */
     Word inputQuery, moveFromLocQuery, pickUpQuery, dropOffQuery, mapLokasiQuery, toDoListQuery, inProgressQuery, buyGadgetQuery, inventoryGadgetQuery, helpCommandQuery, saveGameQuery, returnItemQuery;
+    char *filename = "ascii_menu.txt";
+    FILE *fptr = NULL;
 
     /* ALGORITMA */
     hasWon = false;
@@ -1113,7 +1130,9 @@ void gameMenu()
     } while (!hasWon && !compareQuery(inputQuery, saveGameQuery));
 
     if (hasWon) {
-        printf("Selamat, Mobita berhasil mengantarkan seluruh Item!\n");
+        fptr = fopen(filename,"r");
+        print_image(fptr);
+        fclose(fptr);
         printf("Jumlah item yang berhasil diantar: %d\n", JUMLAH_ANTAR_PLAYER(Mobita));
         printf("Waktu yang dilampaui: %d\n", WAKTU_PLAYER(Mobita));
     }
