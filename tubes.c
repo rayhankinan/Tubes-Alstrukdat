@@ -1009,13 +1009,14 @@ void mainMenu()
 {
     /* KAMUS */
     Word inputQuery, quitQuery, newGameQuery, loadGameQuery;
-    char *filename = "ascii_menu.txt";
-    FILE *fptr = NULL;
+    char *filename;
+    FILE *fptr;
     /* ALGORITMA */
     writeQuery(&newGameQuery, "NEW_GAME", 8);
     writeQuery(&quitQuery, "QUIT", 4);
     writeQuery(&loadGameQuery, "LOAD_GAME", 9);
 
+    filename = "ascii_menu.txt";
     fptr = fopen(filename,"r");
     print_image(fptr);
     fclose(fptr);
@@ -1067,8 +1068,8 @@ void gameMenu()
 {
     /* KAMUS */
     Word inputQuery, moveFromLocQuery, pickUpQuery, dropOffQuery, mapLokasiQuery, toDoListQuery, inProgressQuery, buyGadgetQuery, inventoryGadgetQuery, helpCommandQuery, saveGameQuery, returnItemQuery;
-    char *filename = "ascii_win.txt";
-    FILE *fptr = NULL;
+    char *filename;
+    FILE *fptr;
 
     /* ALGORITMA */
     hasWon = false;
@@ -1143,6 +1144,7 @@ void gameMenu()
     } while (!hasWon && !compareQuery(inputQuery, saveGameQuery));
 
     if (hasWon) {
+        filename = "ascii_win.txt";
         fptr = fopen(filename,"r");
         print_image(fptr);
         fclose(fptr);
