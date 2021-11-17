@@ -666,7 +666,10 @@ void pickUpMenu()
                 printf("Pesanan berupa Normal Item berhasil diambil!\n");
                 break;
             case 'H':
-                SPEED_BOOST_PLAYER(Mobita) = false;
+                if (SPEED_BOOST_PLAYER(Mobita)) {
+                    printf("Ability Speed Boost akan deaktif!\n");
+                    SPEED_BOOST_PLAYER(Mobita) = false;
+                }
                 BERAT_PLAYER(Mobita)++;
                 printf("Pesanan berupa Heavy Item berhasil diambil!\nEfek Heavy Item akan aktif!\n");
                 break;
@@ -719,6 +722,11 @@ void dropOffMenu()
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
                 }
                 printf("Pesanan berupa Heavy Item berhasil diantarkan!\n");
+                if (SPEED_BOOST_PLAYER(Mobita)) {
+                    printf("Ability Speed Boost akan aktif!\n");
+                } else {
+                    printf("Ability Speed Boost tidak akan aktif karena Mobita masih menyimpan Heavy Item\n");
+                }
                 printf("Uang yang didapatkan: %d Yen\n", 400);
                 break;
             case 'P':
@@ -730,6 +738,7 @@ void dropOffMenu()
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
                 }
                 printf("Pesanan berupa Perishable Item berhasil diantarkan!\n");
+                printf("Ability Increase Capacity akan aktif!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 400);
                 break;
             case 'V':
@@ -741,6 +750,7 @@ void dropOffMenu()
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
                 }
                 printf("Pesanan berupa VIP Item berhasil diantarkan!\n");
+                printf("Mobita mendapatkan ability Return To Sender (total: %d)\n", JUMLAH_RETURN_PLAYER(Mobita));
                 printf("Uang yang didapatkan: %d Yen\n", 600);
                 break;
             }
@@ -833,10 +843,10 @@ void returnMenu()
                 printf("Perishable Item berhasil direturn\n");
             }
             JUMLAH_RETURN_PLAYER(Mobita)--;
+            printf("Sisa ability Return To Sender (total: %d)\n", JUMLAH_RETURN_PLAYER(Mobita));
         }
-    }
-    else {
-        printf("Item can't be returned\n");
+    } else {
+        printf("Mobita tidak mempunyai ability Return To Sender\n");
     }
 }
 
