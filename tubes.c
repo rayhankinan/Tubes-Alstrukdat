@@ -481,6 +481,8 @@ void activateEffect(int id)
             kembalikanWaktuItemTas(&tas);
             printGadgetName(1);
             printf(" berhasil diaktifkan!\n");
+        } else {
+            printf("Item teratas tas bukanlah Perishable Item!\n");
         }
         break;
     case 2:
@@ -488,6 +490,8 @@ void activateEffect(int id)
             growDoubleStack(&tas);
             printGadgetName(2);
             printf(" berhasil diaktifkan!\n");
+        } else {
+            printf("Mobita sudah memiliki tas dengan kapasitas maksimum!\n");
         }
         break;
     case 3:
@@ -504,11 +508,15 @@ void activateEffect(int id)
         printf(" berhasil diaktifkan!\n");
         break;
     case 5:
-        if (JENIS_ITEM(TOP_STACK(tas)) == 'H') {
+        if (JENIS_ITEM(TOP_STACK(tas)) == 'H' && !SENTER_PENGECIL_PLAYER(Mobita)) {
             SENTER_PENGECIL_PLAYER(Mobita) = true;
             BERAT_PLAYER(Mobita)--;
             printGadgetName(5);
             printf(" berhasil diaktifkan!\n");
+        } else if (JENIS_ITEM(TOP_STACK(tas)) != 'H') {
+            printf("Item teratas tas bukanlah Heavy Item!\n");
+        } else {
+            printf("Mobita masih memiliki ability Senter Pengecil!\n");
         }
         break;
     }
@@ -708,20 +716,22 @@ void dropOffMenu()
                 if (SENTER_PENGECIL_PLAYER(Mobita)) {
                     BERAT_PLAYER(Mobita)++;
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
+                    printf("Ability Senter Pengecil akan deaktif!\n");
                 }
                 printf("Pesanan berupa Normal Item berhasil diantarkan!\n");
                 printf("Uang yang didapatkan: %d Yen\n", 200);
                 break;
             case 'H':
                 UANG_PLAYER(Mobita) += 400;
-                JUMLAH_ANTAR_PLAYER(Mobita)++;
-                SPEED_BOOST_PLAYER(Mobita) = BERAT_PLAYER(Mobita) == 0;
                 if (!SENTER_PENGECIL_PLAYER(Mobita)) {
                     BERAT_PLAYER(Mobita)--;
                 } else {
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
+                    printf("Ability Senter Pengecil akan deaktif!\n");
                 }
+                JUMLAH_ANTAR_PLAYER(Mobita)++;
                 printf("Pesanan berupa Heavy Item berhasil diantarkan!\n");
+                SPEED_BOOST_PLAYER(Mobita) = BERAT_PLAYER(Mobita) == 0;
                 if (SPEED_BOOST_PLAYER(Mobita)) {
                     printf("Ability Speed Boost akan aktif!\n");
                 } else {
@@ -736,6 +746,7 @@ void dropOffMenu()
                 if (SENTER_PENGECIL_PLAYER(Mobita)) {
                     BERAT_PLAYER(Mobita)++;
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
+                    printf("Ability Senter Pengecil akan deaktif!\n");
                 }
                 printf("Pesanan berupa Perishable Item berhasil diantarkan!\n");
                 printf("Ability Increase Capacity akan aktif!\n");
@@ -748,6 +759,7 @@ void dropOffMenu()
                 if (SENTER_PENGECIL_PLAYER(Mobita)) {
                     BERAT_PLAYER(Mobita)++;
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
+                    printf("Ability Senter Pengecil akan deaktif!\n");
                 }
                 printf("Pesanan berupa VIP Item berhasil diantarkan!\n");
                 printf("Mobita mendapatkan ability Return To Sender (total: %d)\n", JUMLAH_RETURN_PLAYER(Mobita));
@@ -815,6 +827,7 @@ void returnMenu()
                     BERAT_PLAYER(Mobita)--;
                 } else {
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
+                    printf("Ability Senter Pengecil akan deaktif!\n");
                 }
                 popStack(&tas, &trash);
                 deleteFirstListLinked(&progressList, &trash);
@@ -825,6 +838,7 @@ void returnMenu()
                 if (SENTER_PENGECIL_PLAYER(Mobita)) {
                     BERAT_PLAYER(Mobita)++;
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
+                    printf("Ability Senter Pengecil akan deaktif!\n");
                 }
                 popStack(&tas, &trash);
                 deleteFirstListLinked(&progressList, &trash);
@@ -835,6 +849,7 @@ void returnMenu()
                 if (SENTER_PENGECIL_PLAYER(Mobita)) {
                     BERAT_PLAYER(Mobita)++;
                     SENTER_PENGECIL_PLAYER(Mobita) = false;
+                    printf("Ability Senter Pengecil akan deaktif!\n");
                 }
                 kembalikanWaktuItem(&progressList);
                 popStack(&tas, &trash);
