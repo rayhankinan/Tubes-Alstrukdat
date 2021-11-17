@@ -988,18 +988,11 @@ void helpMenu()
 /* I.S. : Game menu sudah ditampilkan */
 /* F.S. : Output Help Menu pada layar */
 {
-    printf("1. MOVE -> Berpindah ke lokasi selanjutnya\n");
-    printf("2. PICK_UP -> Mengambil item di lokasi sekarang\n");
-    printf("3. DROP_OFF -> Mengantarkan item ke lokasi sekarang\n");
-    printf("4. MAP -> Memunculkan peta\n");
-    printf("5. TO_DO -> Menampilkan pesanan yang masuk ke To Do List\n");
-    printf("6. IN_PROGRESS -> Menampilkan pesanan yang sedang dikerjakan\n");
-    printf("7. BUY -> Menampilkan gadget yang dapat dibeli (Hanya ketika Mobita dalam lokasi HQ)\n");
-    printf("8. INVENTORY -> Menampilkan list isi inventory\n");
-    printf("9. HELP -> Mengeluarkan list command dan kegunaannya\n");
-    printf("10. SAVE_GAME -> Melakukan save state dari permainan yang sedang dijalankan\n");
-    printf("11. RETURN -> Mengembalikan item di tumpukan tas teratas pada tas kembali ke lokasi pick up \n");
-    printf("            (Hanya ketika Mobita memiliki ability Return To Sender)\n");
+    char *filename = "ASCIIArt/ascii_helpmenu.txt";
+    FILE *fptr = NULL;
+    fptr = fopen(filename,"r");
+    print_image(fptr);
+    fclose(fptr);
 }
 
 void mainMenu()
