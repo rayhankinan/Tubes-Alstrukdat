@@ -115,10 +115,13 @@ void growStack(Stack* s)
 /* I.S. Stack s terdefinisi, boleh kosong */
 /* F.S. kapasitas Stack s bertambah satu slot */
 {
+    /* KAMUS LOKAL */
 
     /* ALGORITMA */
-    CAPACITY_STACK(*s)++;
-    BUFFER_STACK(*s) = (ElTypeStack*)realloc(BUFFER_STACK(*s), CAPACITY_STACK(*s) * sizeof(ElTypeStack));
+    if (CAPACITY_STACK(*s) < 100) {
+        CAPACITY_STACK(*s)++;
+        BUFFER_STACK(*s) = (ElTypeStack*)realloc(BUFFER_STACK(*s), CAPACITY_STACK(*s) * sizeof(ElTypeStack));
+    }
 }
 
 void growDoubleStack(Stack* s)
@@ -126,7 +129,8 @@ void growDoubleStack(Stack* s)
 /* I.S. Stack s terdefinisi, boleh kosong */
 /* F.S. kapasitas Stack s menjadi dua kali lipat */
 {
-    /* KAMUS */
+    /* KAMUS LOKAL */
+
     /* ALGORITMA */
     CAPACITY_STACK(*s) *= 2;
     if (CAPACITY_STACK(*s) > 100) {
