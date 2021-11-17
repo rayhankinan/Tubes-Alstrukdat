@@ -85,8 +85,7 @@ void popStack(Stack* s, ElTypeStack* val)
 
     /* ALGORITMA */
     *val = TOP_STACK(*s);
-    IDX_TOP_STACK(*s)
-        --;
+    IDX_TOP_STACK(*s)--;
 }
 
 /* ************ Menghapus elemen ke idx dari Stack ************ */
@@ -105,8 +104,7 @@ void deleteAtStack(Stack* s, int idx, ElTypeStack* val)
         s->buffer[i] = s->buffer[i + 1];
         i++;
     }
-    IDX_TOP_STACK(*s)
-        --;
+    IDX_TOP_STACK(*s)--;
 }
 
 /* ************ Menambah kapasitas sebuah Stack ************ */
