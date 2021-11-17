@@ -198,7 +198,6 @@ void readFileConfigLoadGame(char namaFile[])
     readListLinked(&progressList, daftarBangunan);
 
     isiTas(&tas, progressList);
-    displayStack(tas);
 
     stopWordFile();
 }
