@@ -653,7 +653,7 @@ void pickUpMenu()
                 printf("Pesanan berupa Perishable Item berhasil diambil!\nItem ini akan hangus dalam %d unit waktu!\n", WAKTU_HANGUS_ITEM(I));
                 break;
             case 'V':
-                printf("Pesanan berupa VIP Item berhasil diambil! Mobita tidak akan bisa pick up Item lainnya sampai Item ini di drop off!\n");
+                printf("Pesanan berupa VIP Item berhasil diambil!\nMobita tidak akan bisa pick up Item lainnya sampai Item ini di drop off!\n");
                 break;
             }
         }
@@ -707,10 +707,12 @@ void dropOffMenu()
                 printf("Uang yang didapatkan: %d Yen\n", 600);
                 break;
             }
-        } else {
+        }
+        else {
             printf("Hanya bisa mengantar item teratas bag ke tujuan lokasi yang benar!\n");
         }
-    } else {
+    }
+    else {
         printf("Tas kosong!\n");
     }
 }
@@ -767,12 +769,14 @@ void returnMenu()
                 deleteLastListLinked(&progressList, &trash);
                 insertLastListLinked(&toDoList, trash);
                 printf("Heavy Item berhasil direturn\n");
-            } else if (JENIS_ITEM(TOP_STACK(tas)) == 'N') {
+            }
+            else if (JENIS_ITEM(TOP_STACK(tas)) == 'N') {
                 popStack(&tas, &trash);
                 deleteLastListLinked(&progressList, &trash);
                 insertLastListLinked(&toDoList, trash);
                 printf("Normal Item berhasil direturn\n");
-            } else {
+            }
+            else {
                 kembalikanWaktuItem(&progressList);
                 popStack(&tas, &trash);
                 deleteLastListLinked(&progressList, &trash);
