@@ -477,7 +477,7 @@ void activateEffect(int id)
         }
         break;
     case 2:
-        if (CAPACITY_STACK(tas) < 1000) {
+        if (CAPACITY_STACK(tas) < 100) {
             growDoubleStack(&tas);
         }
         break;
