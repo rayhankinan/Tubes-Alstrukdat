@@ -69,7 +69,7 @@ int indexOfListLinked(ListLinked l, ElTypeNode val)
   boolean found;
 
   /* ALGORITMA */
-  p = l;
+  p = FIRST_LIST_LINKED(l);
   found = false;
   idx = 0;
   while (p != NULL && !found) {
@@ -261,16 +261,21 @@ void displayListLinked(ListLinked l)
 /* Jika list kosong : tidak menampilkan isi apa-apa*/
 {
   /* KAMUS LOKAL */
-  Address p;
+  Address p, pPriority;
   int i;
 
   /* ALGORITMA */
   p = FIRST_LIST_LINKED(l);
+  pPriority = nextVIP(FIRST_LIST_LINKED(l));
   i = 0;
   while (p != NULL) {
     printf("%d. ", i + 1);
     TulisItem(INFO_NODE(p));
-    printf("\n");
+    if (p == pPriority) {
+      printf(" (Item ini diprioritaskan)\n");
+    } else {
+      printf("\n");
+    }
     p = NEXT_NODE(p);
     i++;
   }
@@ -324,13 +329,13 @@ ListLinked concatListLinked(ListLinked l1, ListLinked l2)
 
   /* ALGORITMA */
   CreateListLinked(&l3);
-  p = l1;
+  p = FIRST_LIST_LINKED(l1);
   while (p != NULL) {
     insertLastListLinked(&l3, INFO_NODE(p));
     p = NEXT_NODE(p);
   }
 
-  p = l2;
+  p = FIRST_LIST_LINKED(l2);
   while (p != NULL) {
     insertLastListLinked(&l3, INFO_NODE(p));
     p = NEXT_NODE(p);
@@ -377,7 +382,7 @@ void displayprogress(ListLinked l)
 /* I.S. Progress list l terdefinisi */
 /* F.S. isi Item di dalam list progress ditampilkan pada layar */
 {
-    /* KAMUS */
+    /* KAMUS LOKAL */
     Address p;
     int i;
     Item I;
@@ -406,4 +411,28 @@ void displayprogress(ListLinked l)
         p = NEXT_NODE(p);
         i++;
     }
+}
+
+boolean containVIP(ListLinked l)
+/* Menghasilkan true jika terdapat Item VIP pada List Linked L */
+{
+  /* KAMUS LOKAL */
+
+  /* ALGORITMA */
+  return (nextVIP(FIRST_LIST_LINKED(l)) != NULL);
+}
+
+Address nextVIP(Address p)
+/* Menghasilkan Address Item VIP pertama dari Address p */
+/* Menghasilkan NULL jika tidak terdapat Item VIP lagi */
+{
+  /* KAMUS LOKAL */
+  Address pTemp;
+
+  /* ALGORITMA */
+  pTemp = p;
+  while ((pTemp != NULL) && (JENIS_ITEM(INFO_NODE(pTemp)) != 'V')) {
+    pTemp = NEXT_NODE(pTemp);
+  }
+  return pTemp;
 }

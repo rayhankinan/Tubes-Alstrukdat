@@ -207,7 +207,7 @@ void isiTas(Stack* s, ListLinked l)
     /* ALGORITMA */
     CreateStack(&temp);
 
-    p = l;
+    p = FIRST_LIST_LINKED(l);
     while (p != NULL) {
         pushStack(&temp, INFO_NODE(p));
         p = NEXT_NODE(p);

@@ -119,4 +119,11 @@ void displayprogress(ListLinked l);
 /* I.S. Progress list l terdefinisi */
 /* F.S. isi Item di dalam list progress ditampilkan pada layar */
 
+boolean containVIP(ListLinked l);
+/* Menghasilkan true jika terdapat Item VIP pada List Linked L */
+
+Address nextVIP(Address p);
+/* Menghasilkan Address Item VIP pertama dari Address p */
+/* Menghasilkan NULL jika tidak terdapat Item VIP lagi */
+
 #endif

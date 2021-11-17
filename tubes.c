@@ -673,6 +673,18 @@ void pickUpMenu()
         else if (JENIS_ITEM(TOP_STACK(tas)) == 'V') {
             printf("Tidak bisa pick up barang dikarenakan membawa barang VIP!\n");
         }
+        else if (containVIP(toDoList)) {
+            if (p == nextVIP(toDoList)) {
+                deleteAtListLinked(&toDoList, i, &I);
+                pushStack(&tas, I);
+                insertFirstListLinked(&progressList, I);
+                printf("Pesanan berupa VIP Item berhasil diambil!\nMobita tidak akan bisa pick up Item lainnya sampai Item ini di drop off!\n");
+            } else {
+                printf("Mobita hanya bisa mengambil VIP Item yang terdapat pada lokasi ");
+                TulisLokasi(PICK_UP_ITEM(INFO_NODE(nextVIP(toDoList))));
+                printf("\n");
+            }
+        }
         else {
             deleteAtListLinked(&toDoList, i, &I);
             pushStack(&tas, I);
@@ -692,9 +704,6 @@ void pickUpMenu()
                 break;
             case 'P':
                 printf("Pesanan berupa Perishable Item berhasil diambil!\nItem ini akan hangus dalam %d unit waktu!\n", WAKTU_HANGUS_ITEM(I));
-                break;
-            case 'V':
-                printf("Pesanan berupa VIP Item berhasil diambil!\nMobita tidak akan bisa pick up Item lainnya sampai Item ini di drop off!\n");
                 break;
             }
         }
@@ -944,16 +953,22 @@ void map()
                         found = false;
                         adrTemp = FIRST_LIST_LINKED(toDoList);
 
-                        while (adrTemp != NULL && found == false) {
-                            if (locationName == NAMA_LOKASI(PICK_UP_ITEM(INFO_NODE(adrTemp)))) {
-                                found = true;
-                            }
-                            else {
-                                adrTemp = NEXT_NODE(adrTemp);
+                        if (JENIS_ITEM(TOP_STACK(tas)) != 'V') {
+                            if (containVIP(toDoList)) {
+                                found = locationName == NAMA_LOKASI(PICK_UP_ITEM(INFO_NODE(nextVIP(toDoList))));
+                            } else {
+                                while (adrTemp != NULL && !found) {
+                                    if (locationName == NAMA_LOKASI(PICK_UP_ITEM(INFO_NODE(adrTemp)))) {
+                                        found = true;
+                                    }
+                                    else {
+                                        adrTemp = NEXT_NODE(adrTemp);
+                                    }
+                                }
                             }
                         }
 
-                        if (found == true) {
+                        if (found) {
                             // pickup
                             print_red(locationName);
                         }
@@ -1005,6 +1020,7 @@ void mainMenu()
     Word inputQuery, exitQuery, newGameQuery, loadGameQuery;
     char *filename;
     FILE *fptr;
+
     /* ALGORITMA */
     writeQuery(&newGameQuery, "NEW_GAME", 8);
     writeQuery(&exitQuery, "EXIT", 4);
@@ -1014,6 +1030,7 @@ void mainMenu()
     fptr = fopen(filename,"r");
     print_image(fptr);
     fclose(fptr);
+    printf("\n");
 
     do {
         printf("ENTER COMMAND: ");
