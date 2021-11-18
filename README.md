@@ -75,6 +75,7 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 ## Struktur Program
 ```bash
 .
+│   .gitattributes
 │   Makefile
 │   README.md
 │   
