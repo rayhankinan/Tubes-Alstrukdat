@@ -15,7 +15,7 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 
 ## Cara Kompilasi Program
 1. Pastikan gcc compiler versi terbaru sudah terpasang pada mesin eksekusi (Anda dapat mengecek versi gcc compiler dengan menjalankan command `gcc --version` pada command prompt).
-2. Jalankan command `make` pada command prompt untuk melakukan kompilasi pada program.
+2. Jalankan command `make all` pada command prompt untuk melakukan kompilasi pada program.
 3. Jika berhasil dikompilasi, maka akan terdapat `main.exe` pada directory program.
 
 ## Cara Menjalankan Program
