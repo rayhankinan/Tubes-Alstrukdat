@@ -29,4 +29,4 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 
 ## Struktur Program
 
-## Daftar Fitur
+## Pembagian Tugas
