@@ -77,7 +77,7 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 .
 │   Makefile
 │   README.md
-│       
+│   
 ├───ADT
 │   ├───Boolean
 │   │       boolean.h
@@ -146,10 +146,8 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 │       ascii_win.txt
 │       
 ├───ConfigLoadGame
-│       1.txt
-│       
 ├───ConfigNewGame
-│       1.txt
+│       template.txt
 │       
 ├───Driver_ADT
 │       driver_item.c
@@ -158,6 +156,7 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 │       driver_list_linked.c
 │       driver_lokasi.c
 │       driver_matrix.c
+│       driver_pcolor.c
 │       driver_player.c
 │       driver_point.c
 │       driver_queue.c
@@ -167,10 +166,16 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 │       driver_wordwrite.c
 │       input_wordfile.txt
 │       
-└───Main
-        tubes.c
-        tubes.h
-        tubes_driver.c
+├───Main
+│       tubes.c
+│       tubes.h
+│       tubes_driver.c
+│       
+└───Screenshot
+        1.jpg
+        2.jpg
+        3.jpg
+
 ```
 
 ## Pembagian Tugas
