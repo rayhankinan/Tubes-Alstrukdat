@@ -32,33 +32,33 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 ![End Game](./Screenshot/3.jpg)
 
 ## Daftar Fitur
-1. Main Menu
+1. Main Menu (Selesai)
 * NEW_GAME (Selesai)
 * LOAD_GAME (Selesai)
 * EXIT (Selesai)
-2. Mekanisme Waktu
-3. Daftar Pesanan
-4. To Do List
-5. In Progress List
-6. Tas
-7. Jenis Item
+2. Mekanisme Waktu (Selesai)
+3. Daftar Pesanan (Selesai)
+4. To Do List (Selesai)
+5. In Progress List (Selesai)
+6. Tas (Selesai)
+7. Jenis Item (Selesai)
 * Normal Item (Selesai)
 * Heavy Item (Selesai)
 * Perishable Item (Selesai)
 * VIP Item (Selesai)
-8. Ability
+8. Ability (Selesai)
 * Speed Boost (Selesai)
 * Increase Capacity (Selesai)
 * Return to Sender (Selesai)
-9. Gadget
+9. Gadget (Selesai)
 * Kain Pembungkus Waktu (Selesai)
 * Senter Pembesar (Selesai)
 * Pintu Kemana Saja (Selesai)
 * Mesin Waktu (Selesai)
 * Senter Pengecil (Selesai)
-10. Inventory Gadget
-11. Peta
-12. Lokasi dan Command
+10. Inventory Gadget (Selesai)
+11. Peta (Selesai)
+12. Lokasi dan Command (Selesai)
 * MOVE (Selesai)
 * PICK_UP (Selesai)
 * DROP_OFF (Selesai)
