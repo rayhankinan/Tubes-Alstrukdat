@@ -840,43 +840,48 @@ void returnMenu()
             printf("Maaf, VIP item tidak bisa dikembalikan\n");
         }
         else {
-            if (JENIS_ITEM(TOP_STACK(tas)) == 'H') {
-                if (!SENTER_PENGECIL_PLAYER(Mobita)) {
-                    BERAT_PLAYER(Mobita)--;
-                } else {
-                    SENTER_PENGECIL_PLAYER(Mobita) = false;
-                    printf("Ability Senter Pengecil akan deaktif!\n");
+            if (NAMA_LOKASI(PICK_UP_ITEM(TOP_STACK(tas))) == NAMA_LOKASI(LOKASI_PLAYER(Mobita))) {
+                if (JENIS_ITEM(TOP_STACK(tas)) == 'H') {
+                    if (!SENTER_PENGECIL_PLAYER(Mobita)) {
+                        BERAT_PLAYER(Mobita)--;
+                    } else {
+                        SENTER_PENGECIL_PLAYER(Mobita) = false;
+                        printf("Ability Senter Pengecil akan deaktif!\n");
+                    }
+                    popStack(&tas, &trash);
+                    deleteFirstListLinked(&progressList, &trash);
+                    insertFirstListLinked(&toDoList, trash);
+                    printf("Heavy Item berhasil direturn\n");
                 }
-                popStack(&tas, &trash);
-                deleteFirstListLinked(&progressList, &trash);
-                insertFirstListLinked(&toDoList, trash);
-                printf("Heavy Item berhasil direturn\n");
-            }
-            else if (JENIS_ITEM(TOP_STACK(tas)) == 'N') {
-                if (SENTER_PENGECIL_PLAYER(Mobita)) {
-                    BERAT_PLAYER(Mobita)++;
-                    SENTER_PENGECIL_PLAYER(Mobita) = false;
-                    printf("Ability Senter Pengecil akan deaktif!\n");
+                else if (JENIS_ITEM(TOP_STACK(tas)) == 'N') {
+                    if (SENTER_PENGECIL_PLAYER(Mobita)) {
+                        BERAT_PLAYER(Mobita)++;
+                        SENTER_PENGECIL_PLAYER(Mobita) = false;
+                        printf("Ability Senter Pengecil akan deaktif!\n");
+                    }
+                    popStack(&tas, &trash);
+                    deleteFirstListLinked(&progressList, &trash);
+                    insertLastListLinked(&toDoList, trash);
+                    printf("Normal Item berhasil direturn\n");
                 }
-                popStack(&tas, &trash);
-                deleteFirstListLinked(&progressList, &trash);
-                insertLastListLinked(&toDoList, trash);
-                printf("Normal Item berhasil direturn\n");
-            }
-            else {
-                if (SENTER_PENGECIL_PLAYER(Mobita)) {
-                    BERAT_PLAYER(Mobita)++;
-                    SENTER_PENGECIL_PLAYER(Mobita) = false;
-                    printf("Ability Senter Pengecil akan deaktif!\n");
+                else {
+                    if (SENTER_PENGECIL_PLAYER(Mobita)) {
+                        BERAT_PLAYER(Mobita)++;
+                        SENTER_PENGECIL_PLAYER(Mobita) = false;
+                        printf("Ability Senter Pengecil akan deaktif!\n");
+                    }
+                    kembalikanWaktuItem(&progressList);
+                    popStack(&tas, &trash);
+                    deleteFirstListLinked(&progressList, &trash);
+                    insertLastListLinked(&toDoList, trash);
+                    printf("Perishable Item berhasil direturn\n");
                 }
-                kembalikanWaktuItem(&progressList);
-                popStack(&tas, &trash);
-                deleteFirstListLinked(&progressList, &trash);
-                insertLastListLinked(&toDoList, trash);
-                printf("Perishable Item berhasil direturn\n");
+                JUMLAH_RETURN_PLAYER(Mobita)--;
+                printf("Sisa ability Return To Sender (total: %d)\n", JUMLAH_RETURN_PLAYER(Mobita));
             }
-            JUMLAH_RETURN_PLAYER(Mobita)--;
-            printf("Sisa ability Return To Sender (total: %d)\n", JUMLAH_RETURN_PLAYER(Mobita));
+            else{
+                printf("Location return top item bag to sender salah!\n");
+            }
         }
     } else {
         printf("Mobita tidak mempunyai ability Return To Sender\n");
