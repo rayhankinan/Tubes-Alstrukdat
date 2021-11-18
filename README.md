@@ -174,3 +174,22 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 ```
 
 ## Pembagian Tugas
+1. Gibran Darmawan (13520061)
+* Membuat ADT
+* Display Interface
+2. Rayhan Kinan Muhannad (13520065)
+* Membuat ADT
+* Fitur Move, To Do List, Tas, Pick Up, Load Game, dan Save Game
+* Laporan
+3. Jeremy Rionaldo Pasaribu (13520082)
+* Membuat ADT
+* Fitur Efek Gadget, Buy, dan Inventory
+* Laporan
+4. Monica Adelia (13520096)
+* Membuat Driver ADT
+* Fitur Map
+* Laporan
+5. Angelica Winasta Sinisuka (13520097)
+* Membuat Driver ADT
+* Fitur Return dan Perishable Item
+* Laporan
