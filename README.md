@@ -77,9 +77,6 @@ Mobilita adalah sebuah permainan yang mensimulasikan tentang pengantaran barang.
 .
 │   Makefile
 │   README.md
-│   
-├───.vscode
-│       settings.json
 │       
 ├───ADT
 │   ├───Boolean
