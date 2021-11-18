@@ -1,7 +1,7 @@
 // driver ADT stack
 
 #include<stdio.h>
-#include"../ADT/Stack/stack.h"
+#include "../ADT/Stack/stack.h"
 
 int main(){
     /* KAMUS */
@@ -9,9 +9,8 @@ int main(){
     ElTypeStack items, trash;
     int idx, i;
     char initpickup, dropoff, tampung;
-    int waktuawal,waktuhangus,xp,yp,xd,yd,tempnum;
-    POINT tempp,tempd;
-    Player icakicak;
+    int waktuawal, waktuhangus, xp, yp, xd, yd, tempnum;
+    POINT tempp, tempd;
     Lokasi templokawal, templokakhir;
     /* ALGORITMA */
 

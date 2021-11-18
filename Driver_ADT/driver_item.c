@@ -2,14 +2,12 @@
 #include "../ADT/Item/item.h"
 #include "../ADT/Point/point.h"
 
-
 int main(){
     
     // KAMUS
-    Lokasi currentlok,dropoff,latterlok;
-    POINT currentpoint,droppoint, latterdroppoint;
-    Player thistubes;
-    Item current,latter;
+    Lokasi currentlok, dropoff, latterlok;
+    POINT currentpoint, droppoint, latterdroppoint;
+    Item current, latter;
 
     // ALGORITMA
     // Membuat point untuk lokasi 
@@ -21,9 +19,6 @@ int main(){
     currentlok  = CreateLokasi('A', currentpoint);
     dropoff = CreateLokasi('D', droppoint);
     latterlok = CreateLokasi('B', latterdroppoint);
-
-    // Membuat player
-    CreatePlayer(&thistubes, currentlok);
 
     // Membuat Item
     current = CreateItem('P', currentlok,  dropoff,3);
