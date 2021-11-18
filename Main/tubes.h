@@ -1,21 +1,21 @@
 /* File: tubes.h */
 /* Definisi fungsi dan prosedur pada main program */
 
-#include "ADT/Boolean/boolean.h"
-#include "ADT/Item/item.h"
-#include "ADT/LinkedList/list_linked.h"
-#include "ADT/ListDinamis/listdin.h"
-#include "ADT/ListStatis/listpos.h"
-#include "ADT/Lokasi/lokasi.h"
-#include "ADT/Matrix/matrix.h"
-#include "ADT/Mesin/wordmachine.h"
-#include "ADT/Mesin/wordmachinefile.h"
-#include "ADT/Mesin/writemachine.h"
-#include "ADT/Player/player.h"
-#include "ADT/Point/point.h"
-#include "ADT/Queue/queue.h"
-#include "ADT/Stack/stack.h"
-#include "ADT/PColor/pcolor.h"
+#include "../ADT/Boolean/boolean.h"
+#include "../ADT/Item/item.h"
+#include "../ADT/LinkedList/list_linked.h"
+#include "../ADT/ListDinamis/listdin.h"
+#include "../ADT/ListStatis/listpos.h"
+#include "../ADT/Lokasi/lokasi.h"
+#include "../ADT/Matrix/matrix.h"
+#include "../ADT/Mesin/wordmachine.h"
+#include "../ADT/Mesin/wordmachinefile.h"
+#include "../ADT/Mesin/writemachine.h"
+#include "../ADT/Player/player.h"
+#include "../ADT/Point/point.h"
+#include "../ADT/Queue/queue.h"
+#include "../ADT/Stack/stack.h"
+#include "../ADT/PColor/pcolor.h"
 #include <stdio.h>
 #include <stdlib.h>
 
