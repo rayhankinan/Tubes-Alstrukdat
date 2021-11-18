@@ -13,7 +13,7 @@ void startFile(char namaFile[])
     /* KAMUS */
 
     /* ALGORITMA */
-    tapeFile = fopen(namaFile, "w");
+    tapeFile = fopen(namaFile, "wb");
 }
 
 void printfFile(char format[], ...)
