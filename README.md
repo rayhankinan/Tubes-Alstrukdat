@@ -2,7 +2,7 @@
 Disusun untuk Tugas Besar IF2110 Algoritma dan Struktur Data
 
 ## Daftar Isi
-* [Penjelasan Ringkas Program](#penjelasan-ringkas)
+* [Penjelasan Ringkas Program](#penjelasan-ringkas-program)
 * [Cara Kompilasi Program](#cara-kompilasi-program)
 * [Cara Menjalankan Program](#cara-menjalankan-program)
 * [Screenshot program](#screenshot-program)
